@@ -42,7 +42,8 @@ In the PyGame 2.0 October 2020 release (and likely beginning in
 1.9.2), when compiled with SDL2,
 the 
 [`FINGERDOWN`, `FINGERUP`, `FINGERMOTION`, and `MULTIGESTURE`](https://www.pygame.org/docs/ref/event.html) 
-events introduced PyGame support for multitouch interaction.
+events introduced 
+[PyGame support for multitouch interaction](https://www.pygame.org/tags/multitouch).
 Among other things, this code extends PyGame Zero to integrate 
 these events.
 
