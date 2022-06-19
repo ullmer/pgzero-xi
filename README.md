@@ -31,8 +31,8 @@ Because multitouch (probably the support of greatest
   as an appended descriptor, and pgzx as a common prefix.
 
 [PyGame Zero](https://github.com/lordmauve/pgzero)
-dates to at least July 2015.  
-It also has been installed by default on 
+dates to at least July 2015. It also has been installed 
+by default on 
 [Raspberry Pi since September 2015](https://pygame-zero.readthedocs.io/en/stable/installation.html).
 It is built upon 
 [PyGame](https://en.wikipedia.org/wiki/Pygame), among 
