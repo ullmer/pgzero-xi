@@ -10,8 +10,10 @@ positioned especially for learning to write games (including
 from 
 [Scratch](https://scratch.mit.edu/)), but also of more general use.
 
-This code extends PyGame Zero to support multitouch and (hopefully)
-a growing variety of sensors, embedded displays (e.g., LEDs and epaper), and 
+This code extends PyGame Zero to support 
+[multitouch](https://en.wikipedia.org/wiki/Multi-touch) 
+and (hopefully) a growing variety of sensors, embedded displays 
+(e.g., LEDs and epaper), and 
 actuators (e.g., 
 [stepper](https://en.wikipedia.org/wiki/Stepper_motor) and 
 [servo](https://en.wikipedia.org/wiki/Servomotor) motors)
@@ -21,6 +23,10 @@ used in a variety of
 [tangible](https://en.wikipedia.org/wiki/Tangible_user_interface), 
 embedded, and embodied interaction 
 ([TEI](https://tei.acm.org/2022/about/about/)) -- interactions.
-
+Because multitouch (probably the support of greatest 
+  popular interest) is not typically considered as XR,
+  but XR-related interactions are of greatest interest to 
+  the developers, we initially select 
+  [Xi](https://en.wikipedia.org/wiki/Xi_(letter)) as a descriptor.
 
 
