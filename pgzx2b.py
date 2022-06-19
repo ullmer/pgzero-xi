@@ -11,22 +11,18 @@ touch_coords = {}
   
 def normalizePos(x,y): return (int(x*WIDTH), int(y*HEIGHT))
 
-################# on_finger_down ###################
+############ finger -- potentially multitouch -- events ##########
 
 def on_finger_down(finger_id, x, y):
   touch_coords[finger_id] = normalizePos(x,y)
 
-################### on_finger_move ###################
-
 def on_finger_move(finger_id, x, y):
   touch_coords[finger_id] = normalizePos(x,y)
-
-################### on_finger_up ###################
 
 def on_finger_up(finger_id, x, y):
   print("finger UP")
 
-################### on_finger_up ###################
+################### "mouse" events ###################
 
 def on_mouse_up(pos):
   print("mouse UP")
