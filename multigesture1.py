@@ -14,7 +14,7 @@ def normalizePos(x,y): return (int(x*WIDTH), int(y*HEIGHT))
 ############ finger -- potentially multitouch -- events ##########
 
 def on_multigesture(x, y, pinched, rotated):
-  print("mg:", x, y, pinched, rotated)
+  print("mg: %.2f %.2f %.4f %.4f" % (x, y, pinched, rotated))
 
 ################### "mouse" events ###################
 
