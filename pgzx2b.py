@@ -35,8 +35,6 @@ def on_mouse_up(pos):
 ################### draw ###################
 
 def draw():
-  global touch_coords
-
   screen.clear()
   screen.draw.circle((400, 300), 30, 'white')
 
