@@ -27,6 +27,13 @@ Because multitouch (probably the support of greatest
   popular interest) is not typically considered as XR,
   but XR-related interactions are of greatest interest to 
   the developers, we initially select 
-  [Xi](https://en.wikipedia.org/wiki/Xi_(letter)) as a descriptor.
+  [Xi](https://en.wikipedia.org/wiki/Xi_(letter)) 
+  as an appended descriptor, and pgzx as a common prefix.
+
+[PyGame Zero](https://github.com/lordmauve/pgzero)
+  dates to at least July 2015.  
+It also has been installed by default on 
+ [Raspberry Pi since September 2015](https://pygame-zero.readthedocs.io/en/stable/installation.html).
+
 
 
