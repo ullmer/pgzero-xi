@@ -19,7 +19,6 @@ from   pgzero.game       import PGZeroGame
 #https://pygame-zero.readthedocs.io/en/stable/ide-mode.html
 #https://stackoverflow.com/questions/3692159/how-do-i-redefine-functions-in-python
 
-
 ################# PyGame Zero -- Extended Interaction ############
 ################################################################## 
 
@@ -30,7 +29,8 @@ class pgzXi:
   EVENT_HANDLERS_MT = {
     pygame.FINGERDOWN:   "on_finger_down",
     pygame.FINGERUP:     "on_finger_up",
-    pygame.FINGERMOTION: "on_finger_move"}
+    pygame.FINGERMOTION: "on_finger_move",
+    pygame.MULTIGESTURE: "on_multigesture"}
 
   EVENT_HANDLERS_NFC   = {} #NFC handlers
   EVENT_HANDLERS_CAP   = {} #Capacitive sensing handlers
@@ -77,6 +77,7 @@ class pgzXi:
     self.pgzg.EVENT_HANDLERS[pygame.FINGERDOWN]   = 'on_finger_down'
     self.pgzg.EVENT_HANDLERS[pygame.FINGERUP]     = 'on_finger_UP'
     self.pgzg.EVENT_HANDLERS[pygame.FINGERMOTION] = 'on_finger_move'
+    self.pgzg.EVENT_HANDLERS[pygame.MULTIGESTURE] = 'on_multigesture'
 
     if self.verbose: 
       print("augmenting PyGame Zero event handlers:")
