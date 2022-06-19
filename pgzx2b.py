@@ -7,22 +7,19 @@ from pgzXi import *
 WIDTH  = 800
 HEIGHT = 600
 
-touch_count  = 0
 touch_coords = {}
+  
+def normalizePos(x,y): return (int(x*WIDTH), int(y*HEIGHT))
 
 ################# on_finger_down ###################
 
 def on_finger_down(finger_id, x, y):
-  global touch_coords
-  pos = (int(x*WIDTH), int(y*HEIGHT))
-  touch_coords[finger_id] = pos
+  touch_coords[finger_id] = normalizePos(x,y)
 
 ################### on_finger_move ###################
 
 def on_finger_move(finger_id, x, y):
-  global touch_coords
-  pos = (int(x*WIDTH), int(y*HEIGHT))
-  touch_coords[finger_id] = pos
+  touch_coords[finger_id] = normalizePos(x,y)
 
 ################### on_finger_up ###################
 
@@ -32,7 +29,6 @@ def on_finger_up(finger_id, x, y):
 ################### on_finger_up ###################
 
 def on_mouse_up(pos):
-  global touch_coords
   print("mouse UP")
   touch_coords.clear()
 
