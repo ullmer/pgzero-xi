@@ -31,9 +31,18 @@ Because multitouch (probably the support of greatest
   as an appended descriptor, and pgzx as a common prefix.
 
 [PyGame Zero](https://github.com/lordmauve/pgzero)
-  dates to at least July 2015.  
+dates to at least July 2015.  
 It also has been installed by default on 
- [Raspberry Pi since September 2015](https://pygame-zero.readthedocs.io/en/stable/installation.html).
-
+[Raspberry Pi since September 2015](https://pygame-zero.readthedocs.io/en/stable/installation.html).
+It is built upon 
+[PyGame](https://en.wikipedia.org/wiki/Pygame), among 
+other libraries.
+In the PyGame 2.0 October 2020 release (and likely beginning in 
+1.9.2), when compiled with SDL2,
+the 
+[`FINGERDOWN`, `FINGERUP`, `FINGERMOTION`, and `MULTIGESTURE`](https://www.pygame.org/docs/ref/event.html) 
+events introduced PyGame support for multitouch interaction.
+Among other things, this code extends PyGame Zero to integrate 
+these events.
 
 
