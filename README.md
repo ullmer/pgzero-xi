@@ -13,8 +13,8 @@ from
 This code extends PyGame Zero to support multitouch and (hopefully)
 a growing variety of sensors, embedded displays (e.g., LEDs and epaper), and 
 actuators (e.g., 
-(stepper)[https://en.wikipedia.org/wiki/Stepper_motor] and 
-(servo)[https://en.wikipedia.org/wiki/Servomotor] motors)
+[stepper](https://en.wikipedia.org/wiki/Stepper_motor) and 
+[servo](https://en.wikipedia.org/wiki/Servomotor) motors)
 used in a variety of 
 [XR](https://en.wikipedia.org/wiki/Extended_reality) 
 ("extended reality") -- e.g., VR, AR, and 
