@@ -3,8 +3,9 @@ About this code
 
 [PyGame Zero](https://pygame-zero.readthedocs.io/en/stable/)
 is a widely-used, widely-deployed interactive graphics library.
-It supports interactive 2D graphics with minimum "boilerplate" 
-(necessary, typically redundant, and sometimes voluminous) code,
+It supports interactive, animated 2D graphics with minimum 
+"boilerplate" (necessary, typically redundant, and sometimes 
+voluminous) code,
 positioned especially for learning to write games (including
 [migration tutorials](https://pygame-zero.readthedocs.io/en/stable/from-scratch.html)
 from 
@@ -44,5 +45,14 @@ the
 events introduced PyGame support for multitouch interaction.
 Among other things, this code extends PyGame Zero to integrate 
 these events.
+
+PyGame Zero's sister 
+[Wasabi 2D](https://github.com/lordmauve/wasabi2d) game engine
+also 
+[integrates multitouch support](https://github.com/lordmauve/wasabi2d/blob/master/examples/coroutines/touches.py), 
+along with 
+[coroutines](https://wasabi2d.readthedocs.io/en/latest/coros.html),
+[particle](https://wasabi2d.readthedocs.io/en/latest/particles.html) and 
+[post-processing](https://wasabi2d.readthedocs.io/en/latest/effects.html), and other features.
 
 
