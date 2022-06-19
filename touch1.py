@@ -1,4 +1,4 @@
-# PyGame Zero extensions toward supporting multitouch, additional sensors and actuators, ++
+# PyGame Zero-Xi example of simple multitouch
 # Brygg Ullmer, Clemson University
 # Begun 2022-06-16
 
@@ -7,7 +7,7 @@ from pgzXi import *
 WIDTH  = 800
 HEIGHT = 600
 
-touch_coords = {}
+touch_coords = {} # dictionary with coordinates of active touches
   
 def normalizePos(x,y): return (int(x*WIDTH), int(y*HEIGHT))
 
