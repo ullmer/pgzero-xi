@@ -56,4 +56,5 @@ along with
 [particle](https://wasabi2d.readthedocs.io/en/latest/particles.html) and 
 [post-processing](https://wasabi2d.readthedocs.io/en/latest/effects.html), and other features.
 
+Some elements within supported by NSF CNS-MRI 1828611.
 
