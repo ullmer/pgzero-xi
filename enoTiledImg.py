@@ -4,6 +4,7 @@
 
 # SPDX-FileCopyrightText: © 2023 Brygg Ullmer, Clemson University
 # SPDX-License-Identifier: LGPL3
+# This work supported in part by NSF "Enodia" MRI CNS-1828611
 
 #https://pillow.readthedocs.io/en/stable/reference/Image.html
 
@@ -52,6 +53,9 @@ class enoTiledImg:
   animImgPlaceholder = 'placeholder'
   animationActive = None
   verbose         = True
+
+  defaultMultiresLevel = 1
+  multiresolution        = False
 
   ############################## constructor ##############################
 
@@ -192,6 +196,10 @@ class enoTiledImg:
     self.tileSize  = y['tileSize']
     self.numTiles  = y['numTiles']
     self.generated = y['generated']
+
+    if 'multiresolution' in y:      self.multiresolution =      y['multiresolution']
+    if 'defaultMultiresLevel' in y: self.defaultMultiresLevel = y['defaultMultiresLevel']
+
     yf.close()
 
   ############################## load tile ##############################

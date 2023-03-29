@@ -4,6 +4,7 @@
 
 # SPDX-FileCopyrightText: © 2023 Brygg Ullmer, Clemson University
 # SPDX-License-Identifier: LGPL3
+# This work supported in part by NSF "Enodia" MRI CNS-1828611
 
 from pgzero.builtins import Actor, animate, keyboard, keys
 from enoTiledImg import *
