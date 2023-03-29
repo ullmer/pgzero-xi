@@ -1,0 +1,16 @@
+origImgFn:       resources/loc-sc1970.tif
+sourcePageUrl:   https://www.loc.gov/resource/g3910.ct009820/?r=0.104,0.148,0.132,0.072,0
+sourceImgUrl:    https://tile.loc.gov/image-services/iiif/service:gmd:gmd391:g3910:g3910:ct009820/full/pct:25/0/default.jpg
+multiresolution:      True
+defaultMultiresLevel: 3
+imgSize:    
+  1:      [12064,9828]
+  2:      [ 6695,5454]
+  3:      [ 2652,2160]
+tileSize: [  512, 512]
+numTiles:   
+  1: [24, 20]
+  2: [12, 10]
+  3: [ 5,  3]
+generated:  2023-03-27
+
