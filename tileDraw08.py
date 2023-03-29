@@ -17,7 +17,8 @@ tmdn = 'resources/loc-sc1970'
 eti    = enoTiledImg()
 etinav = enoTiledImgNav(eti)
 #eti.imgPos = (-10000, 0)
-multiresLevel = 3
+multiresLevel = 2
+#multiresLevel = 1 
 
 eti.adjustWindowPlacement(WIDTH, HEIGHT)
 eti.loadTmap(tmdn, multiresLevel)

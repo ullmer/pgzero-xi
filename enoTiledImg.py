@@ -214,7 +214,9 @@ class enoTiledImg:
     if 'multiresolution' in y:      self.multiresolution =      y['multiresolution']
     if 'defaultMultiresLevel' in y: 
        self.defaultMultiresLevel = y['defaultMultiresLevel']
-       self.multiresLevel = self.defaultMultiresLevel
+       #self.multiresLevel = self.defaultMultiresLevel
+
+    self.multiresLevel = multiresLevel
 
     yf.close()
 
@@ -234,6 +236,7 @@ class enoTiledImg:
     if xt not in self.imgTileCache:     self.imgTileCache[xt] = {}
     if yt not in self.imgTileCache[xt]: 
       fn         = self.genTileFn(xt, yt, multiresLevel)
+      if self.verbose: print("loadTile", xt, yt, fn)
       if os.path.exists(fn): imgSurface = pygame.image.load(fn)
       else: imgSurface = None
 
