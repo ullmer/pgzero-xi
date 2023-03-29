@@ -6,7 +6,7 @@
 # SPDX-License-Identifier: LGPL3
 # This work supported in part by NSF "Enodia" MRI CNS-1828611
 
-from pgzero.builtins import Actor, animate, keyboard, keys
+from pgzero.builtins import Actor, animate, keyboard, keys, Rect
 from enoTiledImg import *
 import sys
 
@@ -30,7 +30,8 @@ class enoTiledImgNav:
   annotationList    = None
   annotationCoords  = None
   labelTL           = None
-  labelBgBox        = (0, 0, 300, 75)
+  labelBgBox        = Rect((0, 0), (300, 75))
+  labelBgBoxColor   = 70, 70, 70, 50
 
   ############### constructor ###############
   
@@ -51,9 +52,10 @@ class enoTiledImgNav:
   def draw(self, screen): 
     self.legendRight.draw()
     self.legendRightCursor.draw()
+    screen.draw.filled_rect(self.labelBgBox, self.labelBgBoxColor) #https://pygame-zero.readthedocs.io/en/stable/builtins.html
 
     #if self.labelTL is not None:
-    #  self.box.
+    #  draw.filled_rect(
 
   ############### is cursor pressed ###############
   
@@ -127,6 +129,6 @@ class enoTiledImgNav:
   
   ############### annotList ###############
   
-  def annotList(self, list):
+  #def annotList(self, list):
 
 ### end ###
