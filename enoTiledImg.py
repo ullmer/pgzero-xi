@@ -233,7 +233,7 @@ class enoTiledImg:
     if self.imgTileCache == None:       return -1
     if xt not in self.imgTileCache:     self.imgTileCache[xt] = {}
     if yt not in self.imgTileCache[xt]: 
-      fn         = self.genTileFn(xt, yt)
+      fn         = self.genTileFn(xt, yt, multiresLevel)
       if os.path.exists(fn): imgSurface = pygame.image.load(fn)
       else: imgSurface = None
 
@@ -244,7 +244,8 @@ class enoTiledImg:
   ########################### unref tile (to allow for garbage collection) #######################
 
   def dequeueOldestImage(self):
-    print("dequeue called; ignoring"); return
+    #print("dequeue called; ignoring"); return
+    print("dequeing an image")
     if self.imgTileQueue == None:
        print("enoTiledImg unrefImgQueue error: unref called for empty queue!")
        sys.exit(-1)
@@ -279,10 +280,11 @@ class enoTiledImg:
 
     #sx, sy = ix - tx*tdx, iy - ty*tdy; sx0=sx
     #sx, sy = ix, iy; sx0=sx
+    mrlevel = self.multiresLevel
 
     for yt in range(ytilesToDisplay):
       for xt in range(xtilesToDisplay):
-        self.drawTile(screen, sx, sy, xt+tx, yt+ty); sx += tdx
+        self.drawTile(screen, sx, sy, xt+tx, yt+ty, mrlevel); sx += tdx
       sy += tdy; sx = sx0
 
   ############################## draw tile ##############################

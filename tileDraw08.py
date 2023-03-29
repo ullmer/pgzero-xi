@@ -27,7 +27,7 @@ eti.loadTmap(tmdn, multiresLevel)
 def draw():
   global eti, c1
   screen.clear()
-  eti.draw(screen)
+  eti.draw(screen) 
   etinav.draw(screen)
 
 ############### other interaction callbacks ###############
