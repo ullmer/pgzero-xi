@@ -30,8 +30,14 @@ class enoTiledImgNav:
   annotationList    = None
   annotationCoords  = None
   labelTL           = None
+  labelBg           = None
   labelBgBox        = Rect((0, 0), (300, 75))
   labelBgBoxColor   = 70, 70, 70, 50
+
+  cursor1Fn           = "cursor01a"
+  legendRightFn       = "legendright02"
+  legendRightCursorFn = "legendcursor02"
+  textboxFn           = "graybox01b"
 
   ############### constructor ###############
   
@@ -43,16 +49,19 @@ class enoTiledImgNav:
     for k in self.cursorKeys:
       self.cursorsPressed[k] = False
 
-    self.c1                = Actor("cursor01a", pos=(200, 200))
-    self.legendRight       = Actor("legendright02",  pos=(1680, 500))
-    self.legendRightCursor = Actor("legendcursor02", pos=(1680, 905))
+    self.c1                = Actor(self.cursor1Fn,           pos=(200, 200))
+    self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
+    self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
+    self.labelBg           = Actor(self.textboxFn,           topleft=(0,0))
 
   ############### draw callback ###############
   
   def draw(self, screen): 
     self.legendRight.draw()
     self.legendRightCursor.draw()
-    screen.draw.filled_rect(self.labelBgBox, self.labelBgBoxColor) #https://pygame-zero.readthedocs.io/en/stable/builtins.html
+    self.labelBg.draw()
+
+    #screen.draw.filled_rect(self.labelBgBox, self.labelBgBoxColor) #https://pygame-zero.readthedocs.io/en/stable/builtins.html
 
     #if self.labelTL is not None:
     #  draw.filled_rect(
