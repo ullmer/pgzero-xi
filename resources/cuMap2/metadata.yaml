@@ -1,0 +1,7 @@
+origImgFn:  .\campus-map2.png
+sourcePageUrl:   https://www.clemson.edu/campus-map/
+sourceImgUrl:    https://www.clemson.edu/campus-map/pdfs/campus-map.pdf
+imgSize:    [20915, 10236]
+tileSize:   [512, 512]
+numTiles:   [41, 20]
+generated:  2023-03-25
