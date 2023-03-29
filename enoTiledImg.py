@@ -53,7 +53,7 @@ class enoTiledImg:
   animationActive = None
   verbose         = True
 
-  currentMultiresLevel = 1
+  multiresLevel        = 1
   defaultMultiresLevel = 1
   multiresolution      = False
 
@@ -173,27 +173,27 @@ class enoTiledImg:
 
   ############################## generate tile filename ##############################
 
-  def genTileFn(self, xt, yt, decomposLevel=1):
-    fn     = '%s/%i/tile%02ix%02i.%s' % (self.tmapDir, decomposLevel, xt, yt, self.imgType) 
+  def genTileFn(self, xt, yt, multiresLevel=1):
+    fn     = '%s/%i/tile%02ix%02i.%s' % (self.tmapDir, multiresLevel, xt, yt, self.imgType) 
     return fn 
 
   ############################## generate tile directory name ##############################
 
-  def genTileDn(self, xt, yt, decomposLevel=1):  # create directory if it doesn't already exist
-    dn = '%s/%i' % (self.tmapDir, decomposLevel)
+  def genTileDn(self, xt, yt, multiresLevel=1):  # create directory if it doesn't already exist
+    dn = '%s/%i' % (self.tmapDir, multiresLevel)
     if not os.path.isdir(dn): os.mkdir(dn)
     return dn
 
   ############################## load tile ##############################
 
-  def tileLoaded(self, xt, yt, decomposLevel=1):  
+  def tileLoaded(self, xt, yt, multiresLevel=1):  
     if xt not in self.imgTileCache:     return False
     if yt not in self.imgTileCache[xt]: return False
     return True
 
   ############################## load tile ##############################
 
-  def loadTmap(self, tmapDir):
+  def loadTmap(self, tmapDir, multiresLevel=1):
     self.tmapDir = tmapDir
     yfn = '%s/%s' % (tmapDir, self.metadataFn)
     yf  = open(yfn)
@@ -211,16 +211,16 @@ class enoTiledImg:
 
   ############################## load tile ##############################
 
-  def getTile(self, xt, yt, decomposLevel=1):  
+  def getTile(self, xt, yt, multiresLevel=1):  
     if self.imgTileCache == None:       return -1
     if xt not in self.imgTileCache or yt not in self.imgTileCache[xt]: 
-      self.loadTile(xt, yt, decomposLevel)
+      self.loadTile(xt, yt, multiresLevel)
     result = self.imgTileCache[xt][yt]
     return result
 
   ############################## load tile ##############################
 
-  def loadTile(self, xt, yt, decomposLevel=1):  
+  def loadTile(self, xt, yt, multiresLevel=1):  
     if self.imgTileCache == None:       return -1
     if xt not in self.imgTileCache:     self.imgTileCache[xt] = {}
     if yt not in self.imgTileCache[xt]: 
@@ -278,40 +278,40 @@ class enoTiledImg:
 
   ############################## draw tile ##############################
 
-  def drawTile(self, screen, x, y, xt, yt, decomposLevel=1):  
+  def drawTile(self, screen, x, y, xt, yt, multiresLevel=1):  
     #if self.textOnly: print("drawTile:", x, y, xt, yt); return
     if self.verbose: print("drawTile:", x, y, xt, yt)
     if not self.tileLoaded(xt, yt):
       if  self.numTilesQueued() >= self.maxImgTilesQueued:  
         self.dequeueOldestImage()
-        self.loadTile(xt, yt, decomposLevel)
-    imgSurf = self.getTile(xt, yt, decomposLevel)
+        self.loadTile(xt, yt, multiresLevel)
+    imgSurf = self.getTile(xt, yt, multiresLevel)
     if imgSurf is not None: screen.blit(imgSurf, (x,y))  #FOO
 
   ############################## draw tiles ##############################
 
-  def drawTiles(self, x, y, xt1, yt1, xt2, yt2, decomposLevel=1): 
+  def drawTiles(self, x, y, xt1, yt1, xt2, yt2, multiresLevel=1): 
     for xt in range(xt1, xt2):
       for yt in range(yt1, yt2):
         dx, dy = (xt-xt1) * self.tileDim[0], (yt-yt1) * self.tileDim[1]
         x1, y1 = x+dx, y+dy
-        self.drawTile(x1, y1, xt, yt, decomposLevel)
+        self.drawTile(x1, y1, xt, yt, multiresLevel)
 
   ############################## generate tile coordinates ##############################
 
-  def genTileCoords(self, xt, yt, decomposLevel=1): #decomposition level not yet accounted
+  def genTileCoords(self, xt, yt, multiresLevel=1): #decomposition level not yet accounted
     x1, y1 = xt * self.tileDim[0], yt * self.tileDim[1]
     x2, y2 = x1 + self.tileDim[0], y1 + self.tileDim[1]
     return (x1, y1, x2, y2)
 
   ############################## generate tile coordinates ##############################
 
-  def extractTile(self, xt, yt, decomposLevel=1):
-    tileCoords = self.genTileCoords(xt, yt, decomposLevel)
+  def extractTile(self, xt, yt, multiresLevel=1):
+    tileCoords = self.genTileCoords(xt, yt, multiresLevel)
     im_crop = self.imgSrc.crop(tileCoords)
 
-    dn     = self.genTileDn(xt, yt, decomposLevel) #create directory if it doesn't already exist
-    tileFn = self.genTileFn(xt, yt, decomposLevel)
+    dn     = self.genTileDn(xt, yt, multiresLevel) #create directory if it doesn't already exist
+    tileFn = self.genTileFn(xt, yt, multiresLevel)
     print("saving", tileFn)
     im_crop.save(tileFn)
     im_crop.close()

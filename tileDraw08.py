@@ -9,15 +9,18 @@ import sys
 WIDTH, HEIGHT=1920, 1080
 
 #tmdn = 'rmUS1882a'
-tmdn = 'cuMap2'
+#tmdn = 'resources/cuMap2'
+tmdn = 'resources/loc-sc1970'
+#tmdn = 'resources/loc-sc1876'
 #tmdn = 'rmUS1882b'
 
 eti    = enoTiledImg()
 etinav = enoTiledImgNav(eti)
 #eti.imgPos = (-10000, 0)
+multiresLevel = 3
 
 eti.adjustWindowPlacement(WIDTH, HEIGHT)
-eti.loadTmap(tmdn)
+eti.loadTmap(tmdn, multiresLevel)
 
 ############### draw callback ###############
 
@@ -32,8 +35,6 @@ def draw():
 def on_key_down(key):   etinav.on_key_down(key)
 def on_key_up(key):     etinav.on_key_up(key)
 def on_mouse_down(pos): etinav.on_mouse_down(pos)
-def on_mouse_up():      etinav.on_mouse_up()
-def on_mouse_move(rel): etinav.on_mouse_move(rel)
 def update():           etinav.update()
 
 ### end ###
