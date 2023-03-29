@@ -47,7 +47,7 @@ class enoTiledImgNav:
 
   textpos             = (5,5)
   textcolor           = "white"
-  textsize            = 24
+  textsize            = 36
 
   ############### constructor ###############
   
