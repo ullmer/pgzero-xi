@@ -43,7 +43,6 @@ class enoTiledImg:
   imgSize    = None
   imgPos     = None #top-left
   imgZoom    = None
-  imgSize    = None
   imgActor   = None
   screenDim  = (1920,1080)
   generated  = None
@@ -54,8 +53,9 @@ class enoTiledImg:
   animationActive = None
   verbose         = True
 
+  currentMultiresLevel = 1
   defaultMultiresLevel = 1
-  multiresolution        = False
+  multiresolution      = False
 
   ############################## constructor ##############################
 
@@ -122,7 +122,8 @@ class enoTiledImg:
 
   def animRight(self):
     self.animPrefatory()
-    x, y = self.imgPos; x = self.screenDim[0] - self.imgSize[0] 
+    isx = self.getImageSize()[0]
+    x, y = self.imgPos; x = self.screenDim[0] - isx
     self.imgPos = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
@@ -130,11 +131,17 @@ class enoTiledImg:
 
   def animBottom(self):
     self.animPrefatory()
-    x, y = self.imgPos; y = self.screenDim[1] - self.imgSize[1]
+    isy = self.getImageSize()[1]
+    x, y = self.imgPos; y = self.screenDim[1] - isy
     self.imgPos = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
     self.animationActive = True
+
+  ############################## imageSize ##############################
+
+  def getImageSize(self):
+    if multiresolution == False: return self.imgSize
 
   ############################## shift image ##############################
 
