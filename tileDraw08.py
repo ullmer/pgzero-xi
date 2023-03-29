@@ -36,6 +36,8 @@ def draw():
 def on_key_down(key):   etinav.on_key_down(key)
 def on_key_up(key):     etinav.on_key_up(key)
 def on_mouse_down(pos): etinav.on_mouse_down(pos)
+def on_mouse_move(rel): etinav.on_mouse_move(rel)
+def on_mouse_up():      etinav.on_mouse_up()
 def update():           etinav.update()
 
 ### end ###
