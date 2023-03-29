@@ -141,7 +141,14 @@ class enoTiledImg:
   ############################## imageSize ##############################
 
   def getImageSize(self):
-    if multiresolution == False: return self.imgSize
+    if self.multiresolution == False: return self.imgSize
+    mrlevel = self.multiresLevel
+    if mrlevel in self.imgSize:
+      imgsize    = self.imgSize[mrlevel]  #error handling needed
+      return imgsize
+
+    print("enoTiledImg getImageSize error: multiresolution=True, and error with self.imgSize:", self.imgSize)
+    return None
 
   ############################## shift image ##############################
 
@@ -205,7 +212,9 @@ class enoTiledImg:
     self.generated = y['generated']
 
     if 'multiresolution' in y:      self.multiresolution =      y['multiresolution']
-    if 'defaultMultiresLevel' in y: self.defaultMultiresLevel = y['defaultMultiresLevel']
+    if 'defaultMultiresLevel' in y: 
+       self.defaultMultiresLevel = y['defaultMultiresLevel']
+       self.multiresLevel = self.defaultMultiresLevel
 
     yf.close()
 
