@@ -39,6 +39,16 @@ class enoTiledImgNav:
   legendRightCursorFn = "legendcursor02"
   textboxFn           = "graybox01b"
 
+  #textlist            = None
+  #textlistIdx         = None
+
+  textlist            = ['Clemson']
+  textlistIdx         = 0
+
+  textpos             = (5,5)
+  textcolor           = "white"
+  textsize            = 24
+
   ############### constructor ###############
   
   def __init__(self, eti):
@@ -65,6 +75,9 @@ class enoTiledImgNav:
 
     #if self.labelTL is not None:
     #  draw.filled_rect(
+    if self.textlistIdx != None and self.textlist != None:
+      txt = self.textlist[self.textlistIdx]
+      screen.draw.text(txt, topleft=self.textpos, color=self.textcolor, fontsize=self.textsize)
 
   ############### is cursor pressed ###############
   
@@ -138,6 +151,8 @@ class enoTiledImgNav:
   
   ############### annotList ###############
   
-  #def annotList(self, list):
+  def annotList(self, list):
+    self.textlist    = list
+    self.textlistIdx = 0 
 
 ### end ###
