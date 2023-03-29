@@ -27,6 +27,11 @@ class enoTiledImgNav:
   legendRightCursor = None
   c1                = None
 
+  annotationList    = None
+  annotationCoords  = None
+  labelTL           = None
+  labelBgBox        = (0, 0, 300, 75)
+
   ############### constructor ###############
   
   def __init__(self, eti):
@@ -46,6 +51,9 @@ class enoTiledImgNav:
   def draw(self, screen): 
     self.legendRight.draw()
     self.legendRightCursor.draw()
+
+    #if self.labelTL is not None:
+    #  self.box.
 
   ############### is cursor pressed ###############
   
@@ -117,4 +125,8 @@ class enoTiledImgNav:
       if self.cursorsPressed['U']: self.eti.shiftImg(0, -nudge)
       if self.cursorsPressed['D']: self.eti.shiftImg(0,  nudge)
   
+  ############### annotList ###############
+  
+  def annotList(self, list):
+
 ### end ###
