@@ -177,6 +177,9 @@ class enoTiledImgNav:
 
   def recordCoord(self, pos): 
      txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
-     print("recordCoord:", txt, self.eti.imgPos, pos)
+     ipx, ipy = self.eti.imgPos
+     px, py   = pos
+     x,  y    = px - ipx, py - ipy
+     print("recordCoord:", txt, self.eti.imgPos, pos, ":", x, y)
 
 ### end ###
