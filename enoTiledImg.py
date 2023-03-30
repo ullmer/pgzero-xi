@@ -30,7 +30,7 @@ class enoTiledImg:
   imgType            = 'png'
   metadataFn         = 'metadata.yaml'
   imgTileQueue       = None
-  maxImgTilesQueued  = 100 # picking 100 out of thin air.  I've seen assertions that garbage collection will 
+  maxImgTilesQueued  = 200 # picking 100 out of thin air.  I've seen assertions that garbage collection will 
                            # auto-reclaim unreferenced pygame-loaded images.  This is an effort to cache but help
   imgTileCache       = None
   img2tileCoords     = None
