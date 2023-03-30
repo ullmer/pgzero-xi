@@ -15,10 +15,11 @@ import sys
 ############################################################# 
 
 class enoTiledImgNav:
+  verbose        = False
+
   shiftPressed   = None
   cursorsPressed = None
   mouseDown      = None
-  verbose        = True
   cursorKeys     = ['L', 'R', 'U', 'D']
   bignudge       = 768
   smallnudge     = 50

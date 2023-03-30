@@ -51,7 +51,7 @@ class enoTiledImg:
   textOnly     = False # print textual output only; no graphics
   animImgPlaceholder = 'placeholder'
   animationActive = None
-  verbose         = True
+  verbose         = False
 
   multiresLevel        = 1
   defaultMultiresLevel = 1
@@ -281,7 +281,7 @@ class enoTiledImg:
 
     sx, sy = ix + tx*tdx, iy + ty*tdy; sx0=sx
 
-    print("draw", ix, iy, mx, my, "T", tx, ty, sx, sy, xtilesToDisplay, ytilesToDisplay)
+    if self.verbose: print("draw", ix, iy, mx, my, "T", tx, ty, sx, sy, xtilesToDisplay, ytilesToDisplay)
 
     #sx, sy = ix - tx*tdx, iy - ty*tdy; sx0=sx
     #sx, sy = ix, iy; sx0=sx
