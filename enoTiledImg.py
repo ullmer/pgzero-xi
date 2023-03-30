@@ -8,7 +8,7 @@
 
 #https://pillow.readthedocs.io/en/stable/reference/Image.html
 
-import os, sys, math
+import os, sys, math, traceback
 import yaml, PIL, pygame
 from pgzero.builtins import Actor, animate, keyboard
 
@@ -59,10 +59,11 @@ class enoTiledImg:
   defaultMultiresLevel = 1
   multiresolution      = False
 
-  features         = None
-  featuresResLevel = None
-  featuresTags     = None
-  tagActors        = None
+  features          = None
+  featuresResLevel  = None
+  featuresTags      = None
+
+  tags, tagActors, tagSize = [None]*3
   tagActorGlobalPos = None
   tagActorScreenPos = None
 
@@ -128,7 +129,7 @@ class enoTiledImg:
 
   ############################## get mapped screen coords ##############################
 
-  def calcWithinBounds(self, testpos, pixelbounds, pad=0): #pad helps with sample region
+  def posWithinBounds(self, testpos, pixelbounds, pad=0): #pad helps with sample region
     x, y = testpos
     x1, y1, x2, y2 = pixelbounds 
 
@@ -198,7 +199,6 @@ class enoTiledImg:
   ############################## adjust window placement ##############################
 
   def adjustWindowPlacement(self, width, height):
-
     #magic for placing at 0,0
     import platform, pygame
     if platform.system() == "Windows":
@@ -273,17 +273,22 @@ class enoTiledImg:
       self.logError("buildTagActors error: featuresTags is empty")
       return None
 
+    self.tags              = []
     self.tagActors         = {}
+    self.tagSize           = {}
     self.tagActorGlobalPos = {}
     self.tagActorScreenPos = {}
     try:
       for tag in self.featuresTags:
+        self.tags.append(tag)
         coords = self.featuresTags[tag]
         self.tagActorGlobalPos[tag] = coords
 
         cfn = getDefaultCursorImgFn()
-        self.tagActors[tag] = Actor(cfn)
-    except: pass #FIX!
+        a = self.tagActors[tag] = Actor(cfn)
+        self.tagSize[tag] = a.get_size()
+
+    except: traceback.print_exc()
 
   ############################## load tile ##############################
 
@@ -337,6 +342,7 @@ class enoTiledImg:
   def draw(self, screen=None):
     tdx, tdy = self.tileDim
     sdx, sdy = self.screenDim
+
     ix, iy = int(self.imgPos[0]), int(self.imgPos[1])
     mx, my = ix % tdx, iy % tdy
     tx, ty = -int(math.ceil(ix/tdx)), -int(math.ceil(iy/tdy))
@@ -359,10 +365,17 @@ class enoTiledImg:
 
   ############################## drawTags ##############################
 
-  def drawTags(self, screen): pass
+  def drawTags(self, screen): 
+    tagHash = getTags()
 
-  def getTags(self):
-    return self.featuresTags 
+    msc = self.getMappedScreenCoords()
+    for tag in tagHash:
+      globalCoords = self.tagActorGlobalPos[tag]
+      size         = self.tagSize[tag]
+      pad          = size[0]/2 #initially assume square size; should eventually be refined
+      
+      if self.posWithinBounds(globalTagCoords, msc, pad):
+        print(".")
 
   ############################## draw tile ##############################
 
@@ -407,11 +420,6 @@ class enoTiledImg:
   ############################## animation running ##############################
 
   def animationRunning(self): return self.animationActive
-
-  ############################## load image ##############################
-
-  def getTags(self):
-    return self.featuresTags 
 
   ############################## load image ##############################
 
