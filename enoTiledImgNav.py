@@ -60,7 +60,7 @@ class enoTiledImgNav:
     for k in self.cursorKeys:
       self.cursorsPressed[k] = False
 
-    self.c1                = Actor(self.cursor1Fn,           pos=(200, 200))
+    self.c1                = Actor(self.cursorFns[1],        pos=(200, 200))
     self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
     self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
     self.labelBg           = Actor(self.textboxFn,           topleft=(0,0))
