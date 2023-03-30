@@ -129,7 +129,7 @@ class enoTiledImgNav:
   def on_mouse_down(self, pos): 
     if self.shiftPressed: self.mouseDown = True #pan
     else:
-      self.recordCoord()
+      self.recordCoord(pos)
       self.annotNext()
 
   def on_mouse_up(self):        self.mouseDown = False
@@ -174,6 +174,9 @@ class enoTiledImgNav:
   ############### annotComplete ###############
   
   def annotComplete(self): return None
-  def recordCoord(self):   return None
+
+  def recordCoord(self, pos): 
+     txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
+     print("recordCoord:", txt, self.eti.imgPos, pos)
 
 ### end ###
