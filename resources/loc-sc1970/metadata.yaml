@@ -14,7 +14,7 @@ numTiles:
   3: [ 5,  3]
 features:
   multiresLevel: 2
-  cities:
+  tags:
     Clemson:     [1055, 1198]
     Anderson:    [1279, 1437]
     Greenville:  [1628, 964]
