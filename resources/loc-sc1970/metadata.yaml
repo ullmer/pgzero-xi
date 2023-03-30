@@ -15,11 +15,14 @@ numTiles:
 features:
   multiresLevel: 2
   cities:
-    Clemson:    [1055, 1198]
-    Anderson:   [1279, 1437]
-    Greenville: [1628, 964]
-    Columbia:   [3241, 2207]
-    Charleston: [4588, 3974]
+    Clemson:     [1055, 1198]
+    Anderson:    [1279, 1437]
+    Greenville:  [1628, 964]
+    Columbia:    [3241, 2207]
+    Charleston:  [4588, 3974]
+    Hartsville:  [4345, 1669]
+    Summerville: [4235, 3626]
+    Greenwood:   [1894, 1917]
 
 generated:  2023-03-27
 
