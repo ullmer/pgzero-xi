@@ -258,10 +258,12 @@ class enoTiledImg:
       print("enoTiledImg unrefImgQueue error: unref queue yields unreferenced image")
       sys.exit(-1)
 
-    if (xt not in imgTileCache) or (yt not in imgTileCache[xt]): return -1
+    #if (xt not in imgTileCache) or (yt not in imgTileCache[xt]): return -1
     xt, yt = self.img2tileCoords[imgSurf]
-    self.img2tileCoords[imgSurf].pop()
-    imgTileCache[xt][yt].pop()
+    #self.img2tileCoords[imgSurf].pop()
+    self.img2tileCoords.pop(imgSurf)
+    #self.imgTileCache[xt][yt].pop()
+    self.imgTileCache[xt].pop(yt)
     del imgSurf
     return True
 
