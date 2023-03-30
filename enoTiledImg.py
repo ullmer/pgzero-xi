@@ -75,6 +75,11 @@ class enoTiledImg:
     self.imgPos  = (0,0)
     self.imgZoom = 1.
 
+  ############################## getDefaultCursorImgFn ##############################
+
+  def getDefaultCursorImgFn():
+    return 
+
   ############################## shift image ##############################
 
   def shiftImg(self, dx, dy):
@@ -271,7 +276,9 @@ class enoTiledImg:
       for tag in self.featuresTags:
         coords = self.featuresTags[tag]
         self.tagActorGlobalPos[tag] = coords
-         self.tagActors[tag] = Actor(
+
+        cfn = getDefaultCursorImgFn()
+        self.tagActors[tag] = Actor(cfn)
 
   ############################## load tile ##############################
 
