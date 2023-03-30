@@ -143,6 +143,7 @@ class enoTiledImgNav:
       if self.verbose: print(rel, self.eti.imgPos)
     else:
       self.c1.pos=pos 
+
   ############### update callback ###############
   
   def update(self):
@@ -172,5 +173,6 @@ class enoTiledImgNav:
   ############### annotComplete ###############
   
   def annotComplete(self): return None
+  def recordCoord(self):   return None
 
 ### end ###
