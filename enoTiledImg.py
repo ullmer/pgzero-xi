@@ -61,6 +61,8 @@ class enoTiledImg:
   featuresResLevel = None
   featuresTags     = None
   tagActors        = None
+  tagActorGlobalPos = None
+  tagActorScreenPos = None
 
   ############################## constructor ##############################
 
@@ -251,8 +253,10 @@ class enoTiledImg:
       f = self.features = y['features']
       if 'multiresLevel' in f: self.featuresResLevel = f['multiresLevel']
       if 'tags' in f:          
-        self.featuresTags     = f['tags']
-        self.tagActors = []
+        self.featuresTags      = f['tags']
+        self.tagActors         = {}
+        self.tagActorGlobalPos = {}
+        self.tagActorScreenPos = {}
         try:
           for tag in self.featuresTags:
             coords = self.featuresTags[tag]
