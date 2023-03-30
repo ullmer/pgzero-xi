@@ -283,6 +283,7 @@ class enoTiledImg:
 
         cfn = getDefaultCursorImgFn()
         self.tagActors[tag] = Actor(cfn)
+    except: pass #FIX!
 
   ############################## load tile ##############################
 
@@ -358,10 +359,10 @@ class enoTiledImg:
 
   ############################## drawTags ##############################
 
-  def drawTags(self, screen):
+  def drawTags(self, screen): pass
+
   def getTags(self):
     return self.featuresTags 
-
 
   ############################## draw tile ##############################
 
