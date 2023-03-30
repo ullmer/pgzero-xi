@@ -180,6 +180,7 @@ class enoTiledImgNav:
      ipx, ipy = self.eti.imgPos
      px, py   = pos
      x,  y    = px - ipx, py - ipy
-     print("recordCoord:", txt, self.eti.imgPos, pos, ":", x, y)
+     #print("recordCoord:", txt, self.eti.imgPos, pos, ":", x, y)
+     print("  %s: [%i, %i]" % (txt, x, y))
 
 ### end ###
