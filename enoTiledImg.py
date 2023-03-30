@@ -102,6 +102,28 @@ class enoTiledImg:
             on_finished=self.animationFinishedCB)
     self.animationActive = True
 
+  ############################## get mapped screen coords ##############################
+
+  def getMappedScreenCoords(self): # return top-left and bottom-right "global" coordinates in pixel-space
+    ix, iy   = self.imgPos
+    sdx, sdy = self.screenDim
+    result   = [ix, iy, ix+sdx, iy+sdy]
+    return result
+
+  ############################## get mapped screen coords ##############################
+
+  def calcWithinBounds(self, testpos, pixelbounds): 
+    x, y = testpos
+    x1, y1, x2, y2 = pixelbounds 
+
+    if x < x1 or x > x2: return False
+    if y < y1 or y > y2: return False
+    return True
+
+  ############################## get mapped screen coords ##############################
+
+  #def mapWithinBounds(self, testpos, pixelbounds): 
+
   ############################## anim top, bottom, left, right ##############################
 
   def animTop(self):
