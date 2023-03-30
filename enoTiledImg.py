@@ -248,20 +248,30 @@ class enoTiledImg:
 
     self.multiresLevel = multiresLevel
 
-
     if 'features' in y: 
       f = self.features = y['features']
       if 'multiresLevel' in f: self.featuresResLevel = f['multiresLevel']
       if 'tags' in f:          
         self.featuresTags      = f['tags']
-        self.tagActors         = {}
-        self.tagActorGlobalPos = {}
-        self.tagActorScreenPos = {}
-        try:
-          for tag in self.featuresTags:
-            coords = self.featuresTags[tag]
+        self.buildTagActors()
 
     yf.close()
+
+  ############################## load tile ##############################
+
+  def buildTagActors(self):
+    if self.featuresTags == None:
+      self.logError("buildTagActors error: featuresTags is empty")
+      return None
+
+    self.tagActors         = {}
+    self.tagActorGlobalPos = {}
+    self.tagActorScreenPos = {}
+    try:
+      for tag in self.featuresTags:
+        coords = self.featuresTags[tag]
+        self.tagActorGlobalPos[tag] = coords
+         self.tagActors[tag] = Actor(
 
   ############################## load tile ##############################
 
