@@ -29,6 +29,8 @@ class enoTiledImg:
   filePrefix         = 'tile'
   imgType            = 'png'
   metadataFn         = 'metadata.yaml'
+  cursorFns           = ["cursor01a", "cursor01b"]
+
   imgTileQueue       = None
   maxImgTilesQueued  = 200 # picking 100 out of thin air.  I've seen assertions that garbage collection will 
                            # auto-reclaim unreferenced pygame-loaded images.  This is an effort to cache but help
@@ -78,7 +80,9 @@ class enoTiledImg:
   ############################## getDefaultCursorImgFn ##############################
 
   def getDefaultCursorImgFn():
-    return 
+    #self.c1  = Actor(self.cursorFns[1],        pos=(200, 200))
+
+    return self.cursorsFns[1]
 
   ############################## shift image ##############################
 

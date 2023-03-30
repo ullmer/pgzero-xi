@@ -35,7 +35,7 @@ class enoTiledImgNav:
   labelBgBox        = Rect((0, 0), (300, 75))
   labelBgBoxColor   = 70, 70, 70, 50
 
-  cursorFns           = ["cursor01a", "cursor01b"]
+  #cursorFns           = ["cursor01a", "cursor01b"]
   legendRightFn       = "legendright02"
   legendRightCursorFn = "legendcursor02"
   textboxFn           = "graybox01b"
@@ -60,7 +60,7 @@ class enoTiledImgNav:
     for k in self.cursorKeys:
       self.cursorsPressed[k] = False
 
-    self.c1                = Actor(self.cursorFns[1],        pos=(200, 200))
+    #self.c1                = Actor(self.cursorFns[1],        pos=(200, 200))
     self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
     self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
     self.labelBg           = Actor(self.textboxFn,           topleft=(0,0))
