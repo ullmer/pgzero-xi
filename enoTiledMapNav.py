@@ -6,22 +6,17 @@
 # SPDX-License-Identifier: LGPL3
 # This work supported in part by NSF "Enodia" MRI CNS-1828611
 
-#https://pillow.readthedocs.io/en/stable/reference/Image.html
+from enoTiledImgNav import *
 
+from pgzero.builtins import Actor, animate, keyboard, keys, Rect
 from enoTiledImg import *
+import sys
 
-import os, sys, math
-import yaml, PIL, pygame
-from pgzero.builtins import Actor, animate, keyboard
+########################################################## 
+############## Enodia Tiled Map Navigation ###############
+########################################################## 
 
-from PIL import Image
-from queue import *
-from datetime import *
-
-#########################################################################
-############################## Enodia tiled image #######################
-
-class enoTiledMap(enoTiledImg):
+class enoTiledMapNav:
 
   ############################## constructor ##############################
 
@@ -31,6 +26,11 @@ class enoTiledMap(enoTiledImg):
   ############################## draw ##############################
 
   def draw(self, screen=None):
+    super().draw(screen)
+
+  ############### draw callback ###############
+  
+  def draw(self, screen): 
     super().draw(screen)
 
 ### end ###
