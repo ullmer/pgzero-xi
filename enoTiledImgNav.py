@@ -39,11 +39,11 @@ class enoTiledImgNav:
   legendRightCursorFn = "legendcursor02"
   textboxFn           = "graybox01b"
 
-  #textlist            = None
-  #textlistIdx         = None
+  textlist            = None
+  textlistIdx         = None
 
-  textlist            = ['Clemson']
-  textlistIdx         = 0
+  #textlist            = ['Clemson']
+  #textlistIdx         = 0
 
   textpos             = (5,5)
   textcolor           = "white"
@@ -76,7 +76,7 @@ class enoTiledImgNav:
     #if self.labelTL is not None:
     #  draw.filled_rect(
     if self.textlistIdx != None and self.textlist != None:
-      txt = self.textlist[self.textlistIdx]
+      txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
       screen.draw.text(txt, topleft=self.textpos, color=self.textcolor, fontsize=self.textsize)
 
   ############### is cursor pressed ###############
