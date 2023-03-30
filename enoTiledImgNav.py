@@ -124,7 +124,12 @@ class enoTiledImgNav:
   
   ############### mouse down callback ###############
   
-  def on_mouse_down(self, pos): self.mouseDown = True
+  def on_mouse_down(self, pos): 
+    if self.shiftPressed: self.mouseDown = True #pan
+    else:
+      self.recordCoord()
+      self.annotNext()
+
   def on_mouse_up(self):        self.mouseDown = False
   
   ############### mouse move callback ###############
@@ -154,5 +159,16 @@ class enoTiledImgNav:
   def annotList(self, list):
     self.textlist    = list
     self.textlistIdx = 0 
+
+  ############### annotNext ###############
+  
+  def annotNext(self):
+    numAnnots = len(self.textlist)
+    self.textlistIdx += 1
+    if self.textlistIdx > numAnnots: self.annotComplete()
+    
+  ############### annotComplete ###############
+  
+  def annotComplete(self): return None
 
 ### end ###
