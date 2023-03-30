@@ -112,12 +112,12 @@ class enoTiledImg:
 
   ############################## get mapped screen coords ##############################
 
-  def calcWithinBounds(self, testpos, pixelbounds): 
+  def calcWithinBounds(self, testpos, pixelbounds, pad=0): #pad helps with sample region
     x, y = testpos
     x1, y1, x2, y2 = pixelbounds 
 
-    if x < x1 or x > x2: return False
-    if y < y1 or y > y2: return False
+    if (x + pad) < x1 or (x - pad) > x2: return False
+    if (y + pad) < y1 or (y - pad) > y2: return False
     return True
 
   ############################## get mapped screen coords ##############################
