@@ -57,6 +57,11 @@ class enoTiledImg:
   defaultMultiresLevel = 1
   multiresolution      = False
 
+  features         = None
+  featuresResLevel = None
+  featuresTags     = None
+  tagActors        = None
+
   ############################## constructor ##############################
 
   def __init__(self):
@@ -232,6 +237,7 @@ class enoTiledImg:
     self.tileSize  = y['tileSize']
     self.numTiles  = y['numTiles']
     self.generated = y['generated']
+    self.generated = y['generated']
 
     if 'multiresolution' in y:      self.multiresolution =      y['multiresolution']
     if 'defaultMultiresLevel' in y: 
@@ -239,6 +245,17 @@ class enoTiledImg:
        #self.multiresLevel = self.defaultMultiresLevel
 
     self.multiresLevel = multiresLevel
+
+
+    if 'features' in y: 
+      f = self.features = y['features']
+      if 'multiresLevel' in f: self.featuresResLevel = f['multiresLevel']
+      if 'tags' in f:          
+        self.featuresTags     = f['tags']
+        self.tagActors = []
+        try:
+          for tag in self.featuresTags:
+            coords = self.featuresTags[tag]
 
     yf.close()
 
@@ -314,6 +331,13 @@ class enoTiledImg:
         self.drawTile(screen, sx, sy, xt+tx, yt+ty, mrlevel); sx += tdx
       sy += tdy; sx = sx0
 
+  ############################## drawTags ##############################
+
+  def drawTags(self, screen):
+  def getTags(self):
+    return self.featuresTags 
+
+
   ############################## draw tile ##############################
 
   def drawTile(self, screen, x, y, xt, yt, multiresLevel=1):  
@@ -357,6 +381,11 @@ class enoTiledImg:
   ############################## animation running ##############################
 
   def animationRunning(self): return self.animationActive
+
+  ############################## load image ##############################
+
+  def getTags(self):
+    return self.featuresTags 
 
   ############################## load image ##############################
 
