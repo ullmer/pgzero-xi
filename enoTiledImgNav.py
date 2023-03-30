@@ -70,6 +70,7 @@ class enoTiledImgNav:
     self.legendRight.draw()
     self.legendRightCursor.draw()
     self.labelBg.draw()
+    self.c1.draw()
 
     #screen.draw.filled_rect(self.labelBgBox, self.labelBgBoxColor) #https://pygame-zero.readthedocs.io/en/stable/builtins.html
 
@@ -134,13 +135,14 @@ class enoTiledImgNav:
   
   ############### mouse move callback ###############
   
-  def on_mouse_move(self, rel):
+  def on_mouse_move(self, rel, pos):
     if self.mouseDown: 
       dx, dy = rel
       x,  y  = self.eti.imgPos[0] + dx, self.eti.imgPos[1] + dy
       self.eti.imgPos = (x,y)
       if self.verbose: print(rel, self.eti.imgPos)
-  
+    else:
+      self.c1.pos=pos 
   ############### update callback ###############
   
   def update(self):
