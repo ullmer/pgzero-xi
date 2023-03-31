@@ -79,11 +79,11 @@ class enoTiledImg:
     self.imgZoom = 1.
 
   ############################## getDefaultCursorImgFn ##############################
-
-  def getDefaultCursorImgFn():
+  @classmethod
+  def getDefaultCursorImgFn(cls):
     #self.c1  = Actor(self.cursorFns[1],        pos=(200, 200))
 
-    return self.cursorsFns[1]
+    return cls.cursorFns[1]
 
   ############################## shift image ##############################
 
@@ -284,7 +284,7 @@ class enoTiledImg:
         coords = self.featuresTags[tag]
         self.tagActorGlobalPos[tag] = coords
 
-        cfn = getDefaultCursorImgFn()
+        cfn = self.getDefaultCursorImgFn()
         a = self.tagActors[tag] = Actor(cfn)
         self.tagSize[tag] = a.get_size()
 
