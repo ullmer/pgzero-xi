@@ -286,7 +286,7 @@ class enoTiledImg:
 
         cfn = self.getDefaultCursorImgFn()
         a = self.tagActors[tag] = Actor(cfn)
-        self.tagSize[tag] = a.get_size()
+        self.tagSize[tag] = a.size
 
     except: traceback.print_exc()
 
@@ -366,11 +366,12 @@ class enoTiledImg:
   ############################## drawTags ##############################
 
   def drawTags(self, screen): 
-    tagHash = getTags()
+    # tagHash = getTags()
+    tagHash = self.tags.keys()
 
     msc = self.getMappedScreenCoords()
     for tag in tagHash:
-      globalCoords = self.tagActorGlobalPos[tag]
+      globalTagCoords = self.tagActorGlobalPos[tag]
       size         = self.tagSize[tag]
       pad          = size[0]/2 #initially assume square size; should eventually be refined
       
