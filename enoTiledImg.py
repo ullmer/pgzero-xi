@@ -363,11 +363,13 @@ class enoTiledImg:
         self.drawTile(screen, sx, sy, xt+tx, yt+ty, mrlevel); sx += tdx
       sy += tdy; sx = sx0
 
+    #self.drawTags(screen)
+
   ############################## drawTags ##############################
 
   def drawTags(self, screen): 
     # tagHash = getTags()
-    tagHash = self.tags.keys()
+    tagHash = self.tags
 
     msc = self.getMappedScreenCoords()
     for tag in tagHash:
@@ -376,7 +378,17 @@ class enoTiledImg:
       pad          = size[0]/2 #initially assume square size; should eventually be refined
       
       if self.posWithinBounds(globalTagCoords, msc, pad):
-        print(".")
+        if self.verbose: print("draw", tag)
+        a = self.tagActors(tag)
+        if self.lastImgPos == self.imgPos:
+          screenPos = self.tagActorScreenPos[tag]
+        else:
+          globalPos = self.tagActorGlobalPos[tag]
+          screenPos = self.mapGlobal2ScreenPos(globalPos)
+          self.tagActorScreenPos[tag] = screenPos
+
+        a.pos=screenPos
+        a.draw()
 
   ############################## draw tile ##############################
 
