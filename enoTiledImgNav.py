@@ -160,6 +160,7 @@ class enoTiledImgNav:
   
   ############### annotList ###############
   
+  
   def annotList(self, list):
     self.textlist    = list
     self.textlistIdx = 0 
@@ -167,20 +168,22 @@ class enoTiledImgNav:
   ############### annotNext ###############
   
   def annotNext(self):
-    numAnnots = len(self.textlist)
-    self.textlistIdx += 1
-    if self.textlistIdx > numAnnots: self.annotComplete()
+    if self.textlist is not None and self.textlistIdx is not None:
+      numAnnots = len(self.textlist)
+      self.textlistIdx += 1
+      if self.textlistIdx > numAnnots: self.annotComplete()
     
   ############### annotComplete ###############
   
   def annotComplete(self): return None
 
-  def recordCoord(self, pos): 
-     txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
+  def recordCoord(self, pos):
      ipx, ipy = self.eti.imgPos
      px, py   = pos
      x,  y    = px - ipx, py - ipy
-     #print("recordCoord:", txt, self.eti.imgPos, pos, ":", x, y)
-     print("  %s: [%i, %i]" % (txt, x, y))
+     if self.textlist is not None and self.textlistIdx is not None:
+       txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
+       #print("recordCoord:", txt, self.eti.imgPos, pos, ":", x, y)
+       print("  %s: [%i, %i]" % (txt, x, y))
 
 ### end ###
