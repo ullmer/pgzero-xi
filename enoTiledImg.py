@@ -43,7 +43,8 @@ class enoTiledImg:
 
   imgSrc     = None
   imgSize    = None
-  imgPos     = None #top-left
+  imgPos     = None #in pixel coordinates relative to top-left
+  lastImgPos = None 
   imgZoom    = None
   imgActor   = None
   screenDim  = (1920,1080)
@@ -89,11 +90,14 @@ class enoTiledImg:
 
   def shiftImg(self, dx, dy):
     if self.imgPos == None: return -1
+
+    self.lastImgPos = self.imgPos
     x = self.imgPos[0] + dx
     y = self.imgPos[1] + dy
     self.imgPos = (x,y)
 
   def moveImg(self, x, y):
+    self.lastImgPos = self.imgPos
     self.imgPos = (x,y)
 
   ############################## shift image ##############################
@@ -114,6 +118,7 @@ class enoTiledImg:
 
     if self.verbose: print("animImg:", x,y,dx,dy)
 
+    self.lastImgPos = self.imgPos
     self.imgPos = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween, 
             on_finished=self.animationFinishedCB)
@@ -145,34 +150,38 @@ class enoTiledImg:
 
   def animTop(self):
     self.animPrefatory()
-    x, y = self.imgPos; y = 0
-    self.imgPos = (x,y)
+    x, y            = self.imgPos; y = 0
+    self.lastImgPos = self.imgPos
+    self.imgPos     = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
     self.animationActive = True
 
   def animLeft(self):
     self.animPrefatory()
-    x, y = self.imgPos; x = 0
-    self.imgPos = (x,y)
+    x, y            = self.imgPos; x = 0
+    self.lastImgPos = self.imgPos
+    self.imgPos     = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
     self.animationActive = True
 
   def animRight(self):
     self.animPrefatory()
-    isx = self.getImageSize()[0]
-    x, y = self.imgPos; x = self.screenDim[0] - isx
-    self.imgPos = (x,y)
+    isx             = self.getImageSize()[0]
+    x, y            = self.imgPos; x = self.screenDim[0] - isx
+    self.lastImgPos = self.imgPos
+    self.imgPos     = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
     self.animationActive = True
 
   def animBottom(self):
     self.animPrefatory()
-    isy = self.getImageSize()[1]
-    x, y = self.imgPos; y = self.screenDim[1] - isy
-    self.imgPos = (x,y)
+    isy             = self.getImageSize()[1]
+    x, y            = self.imgPos; y = self.screenDim[1] - isy
+    self.lastImgPos = self.imgPos
+    self.imgPos     = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
     self.animationActive = True
@@ -330,9 +339,7 @@ class enoTiledImg:
 
     #if (xt not in imgTileCache) or (yt not in imgTileCache[xt]): return -1
     xt, yt = self.img2tileCoords[imgSurf]
-    #self.img2tileCoords[imgSurf].pop()
     self.img2tileCoords.pop(imgSurf)
-    #self.imgTileCache[xt][yt].pop()
     self.imgTileCache[xt].pop(yt)
     del imgSurf
     return True
@@ -363,7 +370,15 @@ class enoTiledImg:
         self.drawTile(screen, sx, sy, xt+tx, yt+ty, mrlevel); sx += tdx
       sy += tdy; sx = sx0
 
-    #self.drawTags(screen)
+    self.drawTags(screen)
+
+  ############################## drawTags ##############################
+
+  def mapGlobal2ScreenPos(self, globalPos):
+    ix, iy = self.imgPos
+    gx, gy = globalPos
+    x, y = gx-ix, gy-iy
+    return (x,y)
 
   ############################## drawTags ##############################
 
