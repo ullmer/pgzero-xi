@@ -475,7 +475,7 @@ class enoTiledImg:
     for mrlevel in range(1, multiresLevels+1):
       if mrlevel > 1: 
         rx, ry = int(rx/2), int(ry/2)
-        self.imgSrc.resize((rx, ry))
+        self.imgSrc = self.imgSrc.resize((rx, ry)) # this may be worth rethinking
 
       nxt = int(rx/self.tileDim[0])
       if xdim % nxt != 0: nxt += 1
