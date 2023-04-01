@@ -10,7 +10,6 @@ if len(sys.argv) < 4:
 
 imgSrcFn, downsample, dirTargFn = sys.argv[1:3]
 eti = enoTiledImg()
-eti.downsample(int(downsample))
-eti.decomposImage(imgSrcFn, dirTargFn)
+eti.decomposImage(imgSrcFn, dirTargFn, int(downsample))
 
 ### end ###
