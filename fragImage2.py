@@ -8,7 +8,7 @@ import sys
 if len(sys.argv) < 4:
   print("Please provide image source filename, downsample factor, and target directory as arguments"); sys.exit(-1)
 
-imgSrcFn, downsample, dirTargFn = sys.argv[1:3]
+imgSrcFn, downsample, dirTargFn = sys.argv[1:4]
 eti = enoTiledImg()
 eti.decomposImage(imgSrcFn, dirTargFn, int(downsample))
 
