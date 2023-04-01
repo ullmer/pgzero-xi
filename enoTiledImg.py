@@ -477,10 +477,10 @@ class enoTiledImg:
         rx, ry = int(rx/2), int(ry/2)
         self.imgSrc = self.imgSrc.resize((rx, ry)) # this may be worth rethinking
 
-      nxt = int(rx/self.tileDim[0])
+      nxt = int(math.ceil(rx/self.tileDim[0]))
       if xdim % nxt != 0: nxt += 1
    
-      nyt = int(ry/self.tileDim[1])
+      nyt = int(math.ceil(ry/self.tileDim[1]))
       if ydim % nyt != 0: nyt += 1
 
       resolutions.append([rx, ry])
