@@ -394,7 +394,7 @@ class enoTiledImg:
       
       if self.posWithinBounds(globalTagCoords, msc, pad):
         if self.verbose: print("draw", tag)
-        a = self.tagActors(tag)
+        a = self.tagActors[tag]
         if self.lastImgPos == self.imgPos:
           screenPos = self.tagActorScreenPos[tag]
         else:
