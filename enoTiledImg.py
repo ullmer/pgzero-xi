@@ -377,7 +377,7 @@ class enoTiledImg:
   def mapGlobal2ScreenPos(self, globalPos):
     ix, iy = self.imgPos
     gx, gy = globalPos
-    x, y = gx-ix, gy-iy
+    x, y = gx+ix, gy+iy
     return (x,y)
 
   ############################## drawTags ##############################
@@ -392,7 +392,8 @@ class enoTiledImg:
       size         = self.tagSize[tag]
       pad          = size[0]/2 #initially assume square size; should eventually be refined
       
-      if self.posWithinBounds(globalTagCoords, msc, pad):
+      #if self.posWithinBounds(globalTagCoords, msc, pad):
+      if True:
         if self.verbose: print("draw", tag)
         a = self.tagActors[tag]
         if self.lastImgPos == self.imgPos:
