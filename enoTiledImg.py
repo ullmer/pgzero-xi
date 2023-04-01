@@ -450,9 +450,16 @@ class enoTiledImg:
 
   def animationRunning(self): return self.animationActive
 
+  ############################## downsample ##############################
+
+  def downsample(self, downsampleFactor):
+    self.multiresLevel = downsampleFactor
+    # https://www.geeksforgeeks.org/python-pil-image-resize-method/
+    return 
+
   ############################## load image ##############################
 
-  def decomposImage(self, imgSrcFn, tmapDir):
+  def decomposImage(self, imgSrcFn, tmapDir, multiresLevel=1):
     self.imgSrcFn  = imgSrcFn
     self.tmapDir = tmapDir
     self.imgSrc    = Image.open(self.imgSrcFn)
@@ -484,7 +491,7 @@ class enoTiledImg:
 
     for xt in range(nxt):
       for yt in range(nyt):
-        self.extractTile(xt, yt, 1)
+        self.extractTile(xt, yt, multiresLevel)
 
     self.imgSrc.close()
 
