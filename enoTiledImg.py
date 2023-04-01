@@ -461,32 +461,40 @@ class enoTiledImg:
 
   ############################## load image ##############################
 
-  def decomposImage(self, imgSrcFn, tmapDir, multiresLevel=1):
+  def decomposImage(self, imgSrcFn, tmapDir, multiresLevels=3):
     self.imgSrcFn  = imgSrcFn
-    self.tmapDir = tmapDir
+    self.tmapDir   = tmapDir
     self.imgSrc    = Image.open(self.imgSrcFn)
     self.imgSize   = self.imgSrc.size
     xdim, ydim     = self.imgSize
+    resolutions = []
+    tiledims    = []
 
-    rx, ry = int(xdim/multiresLevel), int(ydim/multiresLevel) #r: resize 
-    self.imgSize = (rx, ry)
-    xdim, ydim   = rx, ry
-    self.imgSrc.resize(self.imgSize)
+    rx, ry = xdim, ydim
 
-    print("decompos image, size", self.imgSize)
-
-    nxt = int(xdim/self.tileDim[0])
-    if xdim % nxt != 0: nxt += 1
+    for mrlevel in range(1, multiresLevels+1):
+      if mrlevel > 1: 
+        rx, ry = int(rx/2), int(ry/2)
+        self.imgSrc.resize((rx, ry))
+  
+      nxt = int(rx/self.tileDim[0])
+      if xdim % nxt != 0: nxt += 1
    
-    nyt = int(ydim/self.tileDim[1])
-    if ydim % nyt != 0: nyt += 1
+      nyt = int(ry/self.tileDim[1])
+      if ydim % nyt != 0: nyt += 1
 
-    self.numTiles = (nxt, nyt)
+      self.numTiles = (nxt, nyt)
 
-    if not os.path.isdir(self.tmapDir): os.mkdir(self.tmapDir)
+      if not os.path.isdir(self.tmapDir): os.mkdir(self.tmapDir)
+
+      for xt in range(nxt):
+        for yt in range(nyt):
+          self.extractTile(xt, yt, mrlevel)
+
+    self.imgSrc.close()
+
     mdfn = '%s/%s' % (self.tmapDir, self.metadataFn)
     mdf  = open(mdfn, 'wt')
-
     ix, iy   = self.imgSize
     tdx, tdy = self.tileDim
     outstr = 'origImgFn:  ' + self.imgSrcFn + '\n';      mdf.write(outstr)
@@ -496,10 +504,14 @@ class enoTiledImg:
     outstr = 'generated:  %s\n' % date.today();          mdf.write(outstr)
     mdf.close()
 
-    for xt in range(nxt):
-      for yt in range(nyt):
-        self.extractTile(xt, yt, multiresLevel)
-
-    self.imgSrc.close()
+#imgSize:
+#  1:      [12064,9828]
+#  2:      [ 6695,5454]
+#  3:      [ 2652,2160]
+#tileSize: [  512, 512]
+#numTiles:
+#  1: [24, 20]
+#  2: [12, 10]
+#  3: [ 5,  3]
 
 ### end ###
