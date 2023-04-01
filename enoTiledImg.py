@@ -468,8 +468,9 @@ class enoTiledImg:
     self.imgSize   = self.imgSrc.size
     xdim, ydim     = self.imgSize
 
-    rx, ry = int(xdim/downsampleFactor), int(ydim/downsampleFactor) #r: resize 
+    rx, ry = int(xdim/multiresLevel), int(ydim/multiresLevel) #r: resize 
     self.imgSize = (rx, ry)
+    xdim, ydim   = rx, ry
     self.imgSrc.resize(self.imgSize)
 
     print("decompos image, size", self.imgSize)
