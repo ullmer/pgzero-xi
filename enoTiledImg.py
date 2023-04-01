@@ -476,12 +476,15 @@ class enoTiledImg:
       if mrlevel > 1: 
         rx, ry = int(rx/2), int(ry/2)
         self.imgSrc.resize((rx, ry))
-  
+
       nxt = int(rx/self.tileDim[0])
       if xdim % nxt != 0: nxt += 1
    
       nyt = int(ry/self.tileDim[1])
       if ydim % nyt != 0: nyt += 1
+
+      resolutions.append([rx, ry])
+      tiledims.append([nxt, nyt])
 
       self.numTiles = (nxt, nyt)
 
@@ -498,9 +501,20 @@ class enoTiledImg:
     ix, iy   = self.imgSize
     tdx, tdy = self.tileDim
     outstr = 'origImgFn:  ' + self.imgSrcFn + '\n';      mdf.write(outstr)
-    outstr = 'imgSize:    [%i,%i]\n' % (ix,iy);          mdf.write(outstr)
     outstr = 'tileSize:   [%i,%i]\n' % (tdx,tdy);        mdf.write(outstr)
-    outstr = 'numTiles:   ' + str(self.numTiles) + '\n'; mdf.write(outstr)
+
+    numSizes = len(resolutions)
+
+    outstr = 'imgSize:\n'; mdf.write(outstr)
+    for ns in range(numSizes):
+      x, y = resolutions[ns][0], resolutions[ns][1]
+      outstr = "  %i: [%i, %i]\n" % (ns+1, x, y); mdf.write(outstr)
+
+    outstr = 'numTiles:\n'; mdf.write(outstr)
+    for ns in range(numSizes):
+      x, y = tiledims[ns][0], tiledims[ns][1]
+      outstr = "  %i: [%i, %i]\n" % (ns+1, x, y); mdf.write(outstr)
+
     outstr = 'generated:  %s\n' % date.today();          mdf.write(outstr)
     mdf.close()
 
