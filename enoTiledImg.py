@@ -12,7 +12,7 @@ import os, sys, math, traceback
 import yaml, PIL, pygame
 from pgzero.builtins import Actor, animate, keyboard
 
-from PIL import Image
+from PIL import Image, ImageFont
 from queue import *
 from datetime import *
 
