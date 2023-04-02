@@ -484,7 +484,13 @@ class enoTiledImg:
 
   ############################## extractImgTopOverview ##############################
 
-  def extractImgTopOverview(self): 
+  def extractImgTopOverview(self, imgSrcFn=None, tmapDir=None): 
+    if imgSrcFn is not None:
+       self.imgSrcFn = imgSrcFn
+
+    if tmapDir is not None:
+       self.tmapDir = tmapDir
+
     if self.imgSrcFn == None: 
       self.logError("extractImgTopOverview: imgSrcFn unset"); return
    

@@ -70,7 +70,6 @@ class enoTiledImgNav:
   def draw(self, screen): 
     self.legendRight.draw()
     self.legendRightCursor.draw()
-    self.labelBg.draw()
     self.c1.draw()
 
     #screen.draw.filled_rect(self.labelBgBox, self.labelBgBoxColor) #https://pygame-zero.readthedocs.io/en/stable/builtins.html
@@ -78,6 +77,7 @@ class enoTiledImgNav:
     #if self.labelTL is not None:
     #  draw.filled_rect(
     if self.textlistIdx != None and self.textlist != None:
+      self.labelBg.draw()
       txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
       screen.draw.text(txt, topleft=self.textpos, color=self.textcolor, fontsize=self.textsize)
 
