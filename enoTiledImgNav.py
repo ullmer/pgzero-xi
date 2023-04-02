@@ -53,7 +53,7 @@ class enoTiledImgNav:
 
   imgsPath      = "resources"
   indexFn       = "index.yaml"
-  indexGlyphFn  = "fileGlyph.png"
+  indexGlyphFn  = "fileglyph.png"
   indexY        = None
   indexImgs     = None
   indexFnActors = None
@@ -106,7 +106,8 @@ class enoTiledImgNav:
         fn = '%s/%s/%s' % (self.imgsPath, indexImgDirname, self.indexGlyphFn)
         if os.path.exists(fn) is False:
           self.logErrorMsg("constructIndexGui: 'index.yaml' not in", fn); return
-        a = Actor(fn, topleft=(x,y))
+        fn2 = "../" + fn   #.. is a hack re PGZero ResourceLoader/ImageLoader "images"
+        a = Actor(fn2, topleft=(x,y))
         y += a.size[1] + self.indexFnPad
         self.indexFnActors[indexImgDirname] = a
 
