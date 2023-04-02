@@ -8,7 +8,8 @@
 
 from pgzero.builtins import Actor, animate, keyboard, keys, Rect
 from enoTiledImg import *
-import sys
+
+import sys, traceback, yaml
 
 ############################################################# 
 ############### Enodia Tiled Image Navigation ###############
@@ -50,6 +51,10 @@ class enoTiledImgNav:
   textcolor           = "white"
   textsize            = 36
 
+  indexFn   = "resources/index.yaml"
+  indexY    = None
+  indexImgs = None
+
   ############### constructor ###############
   
   def __init__(self, eti):
@@ -64,6 +69,21 @@ class enoTiledImgNav:
     self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
     self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
     self.labelBg           = Actor(self.textboxFn,           topleft=(0,0))
+
+  ############### load indedx ###############
+  
+  def loadIndex(self, indexFn = None):
+    if indexFn is not None: self.indexFn = indexFn
+
+    try:
+      f = open(self.indexFn, 'rt')
+      y = self.indexY = yaml.safe_load(f)
+      if 'images' in y:
+        self.indexImgs = y['images']
+      else:
+        self.logErrorMsg("loadIndex: 'images:' not in", self.indexFn);
+
+    except: traceback.print_exc()
 
   ############### draw callback ###############
   
