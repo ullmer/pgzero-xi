@@ -78,8 +78,8 @@ class enoTiledImg:
   imgTopBgColor      = (255, 255, 255, 0)
   imgTopTxtBgBarCol  = (0, 0, 0, 180)
   imgTopTxtBgBar     = (0, 7, 150, 18)
-  imgTopTxtOffset    = (3, 3)
-  imgTopTxtSize      = 18
+  imgTopTxtOffset    = (3, 4)
+  imgTopTxtSize      = 17
   imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
   imgTopTxtFontFn    = "FreeMono.ttf"   
   imgTopTxtFont      = None
