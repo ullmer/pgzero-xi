@@ -68,6 +68,15 @@ class enoTiledImg:
   tagActorGlobalPos = None
   tagActorScreenPos = None
 
+  imgTopOverviewDim = (100, 25)
+  imgTopTxtFirst    = 5
+  imgTopTxtLast     = 5
+  imgTopTxtColor    = (255, 255, 255, 128)
+  imgTopTxtBg       = (0, 0, 0, 128)
+  imgTopTxtSize     = 16
+  imgTopTxtFontN    = "Pillow/Tests/fonts/FreeMono.ttf"
+  imgTopTxtFont     = None
+
   ############################## constructor ##############################
 
   def __init__(self):
@@ -445,6 +454,18 @@ class enoTiledImg:
     print("saving", tileFn)
     im_crop.save(tileFn)
     im_crop.close()
+
+  ############################## extractImgTopOverview ##############################
+
+  def extractImgTopOverview(self): 
+    imgTopOverviewDim = (100, 25)
+    imgTopTxtFirst    = 5
+    imgTopTxtLast     = 5
+    imgTopTxtColor    = (255, 255, 255, 128)
+    imgTopTxtBg       = (0, 0, 0, 128)
+    imgTopTxtSize     = 16
+    imgTopTxtFontN    = "Pillow/Tests/fonts/FreeMono.ttf"
+    imgTopTxtFont     = None
 
   ############################## animation running ##############################
 
