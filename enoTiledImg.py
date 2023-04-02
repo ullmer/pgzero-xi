@@ -68,14 +68,16 @@ class enoTiledImg:
   tagActorGlobalPos = None
   tagActorScreenPos = None
 
-  imgTopOverviewDim = (100, 25)
-  imgTopTxtFirst    = 5
-  imgTopTxtLast     = 5
-  imgTopTxtColor    = (255, 255, 255, 128)
-  imgTopTxtBg       = (0, 0, 0, 128)
-  imgTopTxtSize     = 16
-  imgTopTxtFontN    = "Pillow/Tests/fonts/FreeMono.ttf"
-  imgTopTxtFont     = None
+  imgTopOverviewDim  = (100, 25)
+  imgTopTxtFirst     = 5
+  imgTopTxtLast      = 5
+  imgTopTxtStitchStr = ".."
+  imgTopTxtColor     = (255, 255, 255, 128)
+  imgTopTxtBg        = (0, 0, 0, 128)
+  imgTopTxtOffset    = (10, 10)
+  imgTopTxtSize      = 16
+  imgTopTxtFontN     = "Pillow/Tests/fonts/FreeMono.ttf"
+  imgTopTxtFont      = None
 
   ############################## constructor ##############################
 
@@ -469,25 +471,28 @@ class enoTiledImg:
       if iy2 > iy: iy2 = iy
       cropbox = (0, 0, tx, iy2)
 
+      if self.imgTopTxtFont == None:
+        self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
+
+      d = ImageDraw.Draw(txt)
+
+      txtMaxLen = self.imgTopTxtFirst + self.imgTopTxtLast
+      txtLen    = len(self.imgSrcFn)
+
+      if txtLen <= txtMaxLen: txtLabel = self.imgSrcFn
+      else:
+        txtFirst = self.imgSrcFn[0:self.imgTopTxtFirst]
+        txtLast  = self.imgSrcFn[-self.imgTopTxtLast:]
+        txtLabel = "%s%s%s" % (txtFirst, self.imgTopTxtStitchStr, txtLast)
+ 
+      d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
+  
       self.imgSrc = Image.open(self.imgSrcFn)
       im_crop     = self.imgSrc.crop(cropbox)
       im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
-
       self.imgSrc.close()
-     
 
     except: traceback.print_exc()
-
-    self.imgSize   = self.imgSrc.size
-
-    imgTopOverviewDim = (100, 25)
-    imgTopTxtFirst    = 5
-    imgTopTxtLast     = 5
-    imgTopTxtColor    = (255, 255, 255, 128)
-    imgTopTxtBg       = (0, 0, 0, 128)
-    imgTopTxtSize     = 16
-    imgTopTxtFontN    = "Pillow/Tests/fonts/FreeMono.ttf"
-    imgTopTxtFont     = None
 
   ############################## animation running ##############################
 
