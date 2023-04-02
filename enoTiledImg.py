@@ -472,13 +472,15 @@ class enoTiledImg:
   ############################## openFont ##############################
 
   def openFont(self): 
-    #if self.imgTopTxtFont == None:
-    #  self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
+    try:
+      if os.path.exist(self.imgTopTxtFontFn) is False:
+        urllib.request.urlretrieve(self.imgTopTxtFontWn, self.imgTopTxtFontFn)
 
-    #urllib.request.urlretrieve("http://www.example.com/songs/mp3.mp3", "mp3.mp3")
-
-    #imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
-    #imgTopTxtFontFn    = "FreeMono.ttf"   
+      if self.imgTopTxtFont == None:
+        self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
+        return self.imgTopTxtFont
+      
+    except: traceback.print_exc()
 
   ############################## extractImgTopOverview ##############################
 
@@ -512,9 +514,9 @@ class enoTiledImg:
       txtbar = Image.new("RGBA", self.imgTopOverviewDim, self.imgTopBgColor)
       d      = ImageDraw.Draw(txtbar)
       d.rectangle(self.imgTopTxtBgBar, fill=self.imgTopTxtBgBarCol)
-      d.text(self.imgTopTxtOffset, txtLabel, fill=self.imgTopTxtColor)
+      d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
 
-      #d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
+      #d.text(self.imgTopTxtOffset, txtLabel, fill=self.imgTopTxtColor) #default font exists, but aesthetically limited and unscaleable
   
       im         = Image.open(self.imgSrcFn).convert('RGBA') #latter may need revisiting
       im_crop    = im.crop(cropbox)
