@@ -68,7 +68,7 @@ class enoTiledImg:
   tagActorGlobalPos = None
   tagActorScreenPos = None
 
-  imgTopOverviewDim  = (100, 25)
+  imgTopOverviewDim  = (150, 25)
   imgTopTxtFirst     = 5
   imgTopTxtLast      = 5
   imgTopTxtStitchStr = ".."
@@ -78,7 +78,8 @@ class enoTiledImg:
   imgTopTxtBgBar     = (0, 7, 100, 18)
   imgTopTxtOffset    = (3, 3)
   imgTopTxtSize      = 16
-  imgTopTxtFontN     = "Pillow/Tests/fonts/FreeMono.ttf" # ignoring this for the moment
+  imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
+  imgTopTxtFontFn    = "FreeMono.ttf"   # ignoring this for the moment
   imgTopTxtFont      = None
 
   ############################## constructor ##############################
