@@ -51,9 +51,11 @@ class enoTiledImgNav:
   textcolor           = "white"
   textsize            = 36
 
-  indexFn   = "resources/index.yaml"
-  indexY    = None
-  indexImgs = None
+  indexFn       = "resources/index.yaml"
+  indexY        = None
+  indexImgs     = None
+  indexFnActors = None
+  indexFnPad    = 5
 
   ############### constructor ###############
   
