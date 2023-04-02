@@ -10,11 +10,13 @@
 
 import os, sys, math, traceback
 import yaml, PIL, pygame
+import urllib.request
 from pgzero.builtins import Actor, animate, keyboard
 
 from PIL import Image, ImageFont, ImageDraw
 from queue import *
 from datetime import *
+
 
 #########################################################################
 ############################## Enodia tiled image #######################
@@ -79,7 +81,7 @@ class enoTiledImg:
   imgTopTxtOffset    = (3, 3)
   imgTopTxtSize      = 16
   imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
-  imgTopTxtFontFn    = "FreeMono.ttf"   # ignoring this for the moment
+  imgTopTxtFontFn    = "FreeMono.ttf"   
   imgTopTxtFont      = None
 
   ############################## constructor ##############################
@@ -467,6 +469,17 @@ class enoTiledImg:
     im_crop.save(tileFn)
     im_crop.close()
 
+  ############################## openFont ##############################
+
+  def openFont(self): 
+    #if self.imgTopTxtFont == None:
+    #  self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
+
+    #urllib.request.urlretrieve("http://www.example.com/songs/mp3.mp3", "mp3.mp3")
+
+    #imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
+    #imgTopTxtFontFn    = "FreeMono.ttf"   
+
   ############################## extractImgTopOverview ##############################
 
   def extractImgTopOverview(self): 
@@ -481,8 +494,7 @@ class enoTiledImg:
       if iy2 > iy: iy2 = iy
       cropbox = (0, 0, tx, iy2)
 
-      #if self.imgTopTxtFont == None:
-      #  self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
+      self.openFont()
 
       txt1 = self.imgSrcFn
       path, fn  = os.path.split(txt1)
