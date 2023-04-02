@@ -11,5 +11,6 @@ if len(sys.argv) < 4:
 imgSrcFn, downsample, dirTargFn = sys.argv[1:4]
 eti = enoTiledImg()
 eti.decomposImage(imgSrcFn, dirTargFn, int(downsample))
+eti.extractImgTopOverview()
 
 ### end ###
