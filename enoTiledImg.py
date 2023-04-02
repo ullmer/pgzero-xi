@@ -499,10 +499,10 @@ class enoTiledImg:
 
       #d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
   
-      self.imgSrc = Image.open(self.imgSrcFn)
-      im_crop     = self.imgSrc.crop(cropbox)
-      im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
-      self.imgSrc.close()
+      im         = Image.open(self.imgSrcFn).convert('RGBA') #latter may need revisiting
+      im_crop    = im.crop(cropbox)
+      im_thumb1  = im_crop.resize(self.imgTopOverviewDim)
+      im.close()
 
       topFn = self.genTopFn()
 
