@@ -58,6 +58,7 @@ class enoTiledImgNav:
   indexFnActors = None
   indexFnPad    = 5
   indexFnBasePos = [700, 5]
+  drawIndexGui   = False
 
   ############### constructor ###############
   
@@ -97,11 +98,28 @@ class enoTiledImgNav:
 
     try:
       ii = self.indexImgs
+      x, y = self.indexFnBasePos
+      self.indexFnActors = {}
+
       for indexImgDirname in ii:
-        fn = '%s/%s/' % (self.imgsPath, indexImgDirname)
-      
+        fn = '%s/%s/%s' % (self.imgsPath, indexImgDirname, self.indexFn)
+        if os.path.exists(fn) is False:
+          self.logErrorMsg("constructIndexGui: 'index.yaml' not in", fn); return
+        a = Actor(fn, topleft=(x,y))
+        y += a.size[1] + self.indexFnPad
+        self.indexFnActors[indexImgDirname] = a
+
+      self.drawIndexGui   = True
 
     except: traceback.print_exc()
+
+  ############### draw index gui ###############
+  
+  def drawIndexGui(self):
+    try:
+      if self.indexFnActors is None:
+        self.logErrorMsg("drawIndexGui: indexFnActors is empty!"); return
+      for a in self.indexFnActors: a.draw()
 
   ############### draw callback ###############
   
@@ -118,6 +136,8 @@ class enoTiledImgNav:
       self.labelBg.draw()
       txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
       screen.draw.text(txt, topleft=self.textpos, color=self.textcolor, fontsize=self.textsize)
+
+    if self.drawIndexGui: self.drawIndexGui()
 
   ############### is cursor pressed ###############
   
@@ -188,7 +208,7 @@ class enoTiledImgNav:
   def update(self):
     nudge = self.smallnudge
 
-    if self.eti.animationRunning(): self.eti.animUpdateImg() #if animation underway
+    if self.eti.animationRunning: self.eti.animUpdateImg() #if animation underway
 
     if self.isCursorPressed() and self.shiftPressed: 
       if self.cursorsPressed['L']: self.eti.shiftImg(-nudge, 0)
