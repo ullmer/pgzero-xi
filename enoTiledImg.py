@@ -467,6 +467,14 @@ class enoTiledImg:
       thumbnailRatio = tx/ty
       iy2    = ix / thumbnailRatio
       if iy2 > iy: iy2 = iy
+      cropbox = (0, 0, tx, iy2)
+
+      self.imgSrc = Image.open(self.imgSrcFn)
+      im_crop     = self.imgSrc.crop(cropbox)
+      im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
+
+      self.imgSrc.close()
+     
 
     except: traceback.print_exc()
 
