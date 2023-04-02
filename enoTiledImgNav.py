@@ -51,7 +51,9 @@ class enoTiledImgNav:
   textcolor           = "white"
   textsize            = 36
 
-  imgsPath      = "resources"
+  imgsPath1          = "resources"
+  imgsPath2          = "images"
+  imgsPathIndexCache = "indexCache"
   indexFn       = "index.yaml"
   indexGlyphFn  = "fileglyph.png"
   indexY        = None
@@ -82,7 +84,7 @@ class enoTiledImgNav:
     if indexFn is not None: self.indexFn = indexFn
 
     try:
-      fn = '%s/%s' % (self.imgsPath, self.indexFn)
+      fn = '%s/%s' % (self.imgsPath1, self.indexFn)
       f = open(fn, 'rt')
       y = self.indexY = yaml.safe_load(f)
       if 'images' in y:
@@ -103,11 +105,21 @@ class enoTiledImgNav:
       self.indexFnActors = {}
 
       for indexImgDirname in ii:
-        fn = '%s/%s/%s' % (self.imgsPath, indexImgDirname, self.indexGlyphFn)
-        if os.path.exists(fn) is False:
-          self.logErrorMsg("constructIndexGui: 'index.yaml' not in", fn); return
-        fn2 = "../" + fn   #.. is a hack re PGZero ResourceLoader/ImageLoader "images"
-        a = Actor(fn2, topleft=(x,y))
+        fn1 = '%s/%s/%s' % (self.imgsPath1, indexImgDirname, self.indexGlyphFn)
+        if os.path.exists(fn1) is False:
+          self.logErrorMsg("constructIndexGui: 'index.yaml' not in", fn1); return
+
+        if os.path.exists(self.imgsPath2) is False:
+           os.path.mkdir(self.imgsPath2)
+
+        path2 = "%s/%s" % (self.imgsPath2, imgsPathIndexCache) 
+        if os.path.exists(path2) is False:
+           os.path.mkdir(path2)
+
+        imgIndexCache = "%s/%s.png" % (path2, indexImgDirname.lower())
+        os.link(fn1, imgIndexCache) #https://www.tutorialspoint.com/python/os_link.htm
+
+        a = Actor(imgIndexCache, topleft=(x,y))
         y += a.size[1] + self.indexFnPad
         self.indexFnActors[indexImgDirname] = a
 
