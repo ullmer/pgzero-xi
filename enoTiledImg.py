@@ -73,6 +73,7 @@ class enoTiledImg:
   imgTopTxtLast      = 5
   imgTopTxtStitchStr = ".."
   imgTopTxtColor     = (255, 255, 255, 128)
+  imgTopBgColor      = (255, 255, 255, 0)
   imgTopTxtBg        = (0, 0, 0, 128)
   imgTopTxtOffset    = (10, 10)
   imgTopTxtSize      = 16
@@ -485,12 +486,15 @@ class enoTiledImg:
         txtLast  = self.imgSrcFn[-self.imgTopTxtLast:]
         txtLabel = "%s%s%s" % (txtFirst, self.imgTopTxtStitchStr, txtLast)
  
+      txt = Image.new("RGBA", self.imgTopOverviewDim, self.imgTopBgColor)
+
       d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
   
       self.imgSrc = Image.open(self.imgSrcFn)
       im_crop     = self.imgSrc.crop(cropbox)
       im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
       self.imgSrc.close()
+      im_thumb2   = Image.alpha_composite(im_thumb1, txt)
 
     except: traceback.print_exc()
 
