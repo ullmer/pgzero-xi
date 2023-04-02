@@ -30,7 +30,7 @@ class enoTiledImg:
   decomposThresh     = 64
   filePrefix         = 'tile'
   imgType            = 'png'
-  metadataFn         = 'metadata.yaml'
+  metadataFn         = 'index.yaml'                # originally 'metadata.yaml'
   cursorFns           = ["cursor01a", "cursor01b"]
 
   imgTileQueue       = None
@@ -319,7 +319,7 @@ class enoTiledImg:
 
         cfn = self.getDefaultCursorImgFn()
         a = self.tagActors[tag] = Actor(cfn)
-        self.tagSize[tag] = a.size
+        self.tagSize[tag] = a.size          # extract size of Actor
 
     except: traceback.print_exc()
 

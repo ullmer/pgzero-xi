@@ -51,11 +51,13 @@ class enoTiledImgNav:
   textcolor           = "white"
   textsize            = 36
 
-  indexFn       = "resources/index.yaml"
+  imgsPath      = "resources"
+  indexFn       = "index.yaml"
   indexY        = None
   indexImgs     = None
   indexFnActors = None
   indexFnPad    = 5
+  indexFnBasePos = [700, 5]
 
   ############### constructor ###############
   
@@ -72,18 +74,32 @@ class enoTiledImgNav:
     self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
     self.labelBg           = Actor(self.textboxFn,           topleft=(0,0))
 
-  ############### load indedx ###############
+  ############### load index ###############
   
   def loadIndex(self, indexFn = None):
     if indexFn is not None: self.indexFn = indexFn
 
     try:
-      f = open(self.indexFn, 'rt')
+      fn = '%s/%s' % (self.imgsPath, self.indexFn)
+      f = open(fn, 'rt')
       y = self.indexY = yaml.safe_load(f)
       if 'images' in y:
         self.indexImgs = y['images']
       else:
         self.logErrorMsg("loadIndex: 'images:' not in", self.indexFn);
+
+    except: traceback.print_exc()
+
+  ############### construct index gui ###############
+  
+  def constructIndexGui(self, indexFn = None):
+    if self.indexY is None: self.loadIndex()
+
+    try:
+      ii = self.indexImgs
+      for indexImgDirname in ii:
+        fn = '%s/%s/' % (self.imgsPath, indexImgDirname)
+      
 
     except: traceback.print_exc()
 
