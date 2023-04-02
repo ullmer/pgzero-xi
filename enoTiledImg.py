@@ -74,7 +74,7 @@ class enoTiledImg:
   imgTopTxtStitchStr = ".."
   imgTopTxtColor     = (255, 255, 255, 128)
   imgTopBgColor      = (255, 255, 255, 0)
-  imgTopTxtBgBarCol  = (0, 0, 0, 128)
+  imgTopTxtBgBarCol  = (0, 0, 0, 180)
   imgTopTxtBgBar     = (0, 7, 100, 18)
   imgTopTxtOffset    = (3, 3)
   imgTopTxtSize      = 16
@@ -483,13 +483,17 @@ class enoTiledImg:
       #if self.imgTopTxtFont == None:
       #  self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
 
+      txt1 = self.imgSrcFn
+      path, fn  = os.path.split(txt1)
+      txt2, ext = os.path.splitext(fn)
+
       txtMaxLen = self.imgTopTxtFirst + self.imgTopTxtLast
-      txtLen    = len(self.imgSrcFn)
+      txtLen    = len(txt2)
 
       if txtLen <= txtMaxLen: txtLabel = self.imgSrcFn
       else:
-        txtFirst = self.imgSrcFn[0:self.imgTopTxtFirst]
-        txtLast  = self.imgSrcFn[-self.imgTopTxtLast:]
+        txtFirst = txt2[0:self.imgTopTxtFirst]
+        txtLast  = txt2[-self.imgTopTxtLast:]
         txtLabel = "%s%s%s" % (txtFirst, self.imgTopTxtStitchStr, txtLast)
  
       txtbar = Image.new("RGBA", self.imgTopOverviewDim, self.imgTopBgColor)
