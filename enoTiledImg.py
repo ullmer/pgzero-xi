@@ -508,13 +508,13 @@ class enoTiledImg:
       self.openFont()
 
       txt1 = self.imgSrcFn
-      path, fn  = os.path.split(txt1)
+      fn        = os.path.basename(txt1)
       txt2, ext = os.path.splitext(fn)
 
       txtMaxLen = self.imgTopTxtFirst + self.imgTopTxtLast
       txtLen    = len(txt2)
 
-      if txtLen <= txtMaxLen: txtLabel = self.imgSrcFn
+      if txtLen <= txtMaxLen: txtLabel = txt2
       else:
         txtFirst = txt2[0:self.imgTopTxtFirst]
         txtLast  = txt2[-self.imgTopTxtLast:]
