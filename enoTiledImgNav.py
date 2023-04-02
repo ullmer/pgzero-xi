@@ -53,6 +53,7 @@ class enoTiledImgNav:
 
   imgsPath      = "resources"
   indexFn       = "index.yaml"
+  indexGlyphFn  = "fileGlyph.png"
   indexY        = None
   indexImgs     = None
   indexFnActors = None
@@ -102,7 +103,7 @@ class enoTiledImgNav:
       self.indexFnActors = {}
 
       for indexImgDirname in ii:
-        fn = '%s/%s/%s' % (self.imgsPath, indexImgDirname, self.indexFn)
+        fn = '%s/%s/%s' % (self.imgsPath, indexImgDirname, self.indexGlyphFn)
         if os.path.exists(fn) is False:
           self.logErrorMsg("constructIndexGui: 'index.yaml' not in", fn); return
         a = Actor(fn, topleft=(x,y))
@@ -120,6 +121,7 @@ class enoTiledImgNav:
       if self.indexFnActors is None:
         self.logErrorMsg("drawIndexGui: indexFnActors is empty!"); return
       for a in self.indexFnActors: a.draw()
+    except: traceback.print_exc()
 
   ############### draw callback ###############
   
