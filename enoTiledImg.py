@@ -71,15 +71,15 @@ class enoTiledImg:
   tagActorScreenPos = None
 
   imgTopOverviewDim  = (150, 25)
-  imgTopTxtFirst     = 5
+  imgTopTxtFirst     = 7 
   imgTopTxtLast      = 5
   imgTopTxtStitchStr = ".."
   imgTopTxtColor     = (255, 255, 255, 128)
   imgTopBgColor      = (255, 255, 255, 0)
   imgTopTxtBgBarCol  = (0, 0, 0, 180)
-  imgTopTxtBgBar     = (0, 7, 100, 18)
+  imgTopTxtBgBar     = (0, 7, 150, 18)
   imgTopTxtOffset    = (3, 3)
-  imgTopTxtSize      = 16
+  imgTopTxtSize      = 18
   imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
   imgTopTxtFontFn    = "FreeMono.ttf"   
   imgTopTxtFont      = None
@@ -473,11 +473,11 @@ class enoTiledImg:
 
   def openFont(self): 
     try:
-      if os.path.exist(self.imgTopTxtFontFn) is False:
+      if os.path.exists(self.imgTopTxtFontFn) is False:
         urllib.request.urlretrieve(self.imgTopTxtFontWn, self.imgTopTxtFontFn)
 
       if self.imgTopTxtFont == None:
-        self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
+        self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontFn, self.imgTopTxtSize)
         return self.imgTopTxtFont
       
     except: traceback.print_exc()
