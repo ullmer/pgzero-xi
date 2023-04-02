@@ -489,12 +489,15 @@ class enoTiledImg:
       self.logError("extractImgTopOverview: imgSrcFn unset"); return
    
     try:
-      ix, iy = self.imgSize
+      im     = Image.open(self.imgSrcFn).convert('RGBA') #latter may need revisiting
+
+      ix, iy = im.size
       tx, ty = self.imgTopOverviewDim
       thumbnailRatio = tx/ty
       iy2    = ix / thumbnailRatio
       if iy2 > iy: iy2 = iy
-      cropbox = (0, 0, tx, iy2)
+      cropbox = (0, 0, ix, iy2)
+      print(self.imgSize, "crop:", cropbox)
 
       self.openFont()
 
@@ -518,7 +521,6 @@ class enoTiledImg:
 
       #d.text(self.imgTopTxtOffset, txtLabel, fill=self.imgTopTxtColor) #default font exists, but aesthetically limited and unscaleable
   
-      im         = Image.open(self.imgSrcFn).convert('RGBA') #latter may need revisiting
       im_crop    = im.crop(cropbox)
       im_thumb1  = im_crop.resize(self.imgTopOverviewDim)
       im.close()
