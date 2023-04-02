@@ -12,7 +12,7 @@ import os, sys, math, traceback
 import yaml, PIL, pygame
 from pgzero.builtins import Actor, animate, keyboard
 
-from PIL import Image, ImageFont
+from PIL import Image, ImageFont, ImageDraw
 from queue import *
 from datetime import *
 
@@ -78,7 +78,7 @@ class enoTiledImg:
   imgTopTxtBgBar     = (0, 7, 100, 18)
   imgTopTxtOffset    = (3, 3)
   imgTopTxtSize      = 16
-  imgTopTxtFontN     = "Pillow/Tests/fonts/FreeMono.ttf"
+  imgTopTxtFontN     = "Pillow/Tests/fonts/FreeMono.ttf" # ignoring this for the moment
   imgTopTxtFont      = None
 
   ############################## constructor ##############################
@@ -480,9 +480,8 @@ class enoTiledImg:
       if iy2 > iy: iy2 = iy
       cropbox = (0, 0, tx, iy2)
 
-      if self.imgTopTxtFont == None:
-        self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
-
+      #if self.imgTopTxtFont == None:
+      #  self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
 
       txtMaxLen = self.imgTopTxtFirst + self.imgTopTxtLast
       txtLen    = len(self.imgSrcFn)
@@ -496,7 +495,9 @@ class enoTiledImg:
       txtbar = Image.new("RGBA", self.imgTopOverviewDim, self.imgTopBgColor)
       d      = ImageDraw.Draw(txtbar)
       d.rectangle(self.imgTopTxtBgBar, fill=self.imgTopTxtBgBarCol)
-      d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
+      d.text(self.imgTopTxtOffset, txtLabel, fill=self.imgTopTxtColor)
+
+      #d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
   
       self.imgSrc = Image.open(self.imgSrcFn)
       im_crop     = self.imgSrc.crop(cropbox)
