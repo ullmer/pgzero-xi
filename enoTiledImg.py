@@ -458,6 +458,20 @@ class enoTiledImg:
   ############################## extractImgTopOverview ##############################
 
   def extractImgTopOverview(self): 
+    if self.imgSrcFn == none: 
+      self.logError("extractImgTopOverview: imgSrcFn unset"); return
+   
+    try:
+      ix, iy = self.imgSize
+      tx, ty = self.imgTopOverviewDim
+      thumbnailRatio = tx/ty
+      iy2    = ix / thumbnailRatio
+      if iy2 > iy: iy2 = iy
+
+    except: traceback.print_exc()
+
+    self.imgSize   = self.imgSrc.size
+
     imgTopOverviewDim = (100, 25)
     imgTopTxtFirst    = 5
     imgTopTxtLast     = 5
