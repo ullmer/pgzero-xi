@@ -563,14 +563,4 @@ class enoTiledImg:
     outstr = 'generated:  %s\n' % date.today();          mdf.write(outstr)
     mdf.close()
 
-#imgSize:
-#  1:      [12064,9828]
-#  2:      [ 6695,5454]
-#  3:      [ 2652,2160]
-#tileSize: [  512, 512]
-#numTiles:
-#  1: [24, 20]
-#  2: [12, 10]
-#  3: [ 5,  3]
-
 ### end ###
