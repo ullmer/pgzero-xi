@@ -70,16 +70,16 @@ class enoTiledImg:
   tagActorGlobalPos = None
   tagActorScreenPos = None
 
-  imgTopOverviewDim  = (175, 35)
+  imgTopOverviewDim  = (200, 40)
   imgTopTxtFirst     = 7 
   imgTopTxtLast      = 5
   imgTopTxtStitchStr = ".."
-  imgTopTxtColor     = (255, 255, 255, 128)
+  imgTopTxtColor     = (255, 255, 255, 100)
   imgTopBgColor      = (255, 255, 255, 0)
   imgTopTxtBgBarCol  = (0, 0, 0, 140)
-  imgTopTxtBgBar     = (0, 0, 175, 16)
+  imgTopTxtBgBar     = (0, 0, 200, 22)
   imgTopTxtOffset    = (2, -2)
-  imgTopTxtSize      = 20
+  imgTopTxtSize      = 22
   imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
   imgTopTxtFontFn    = "FreeMono.ttf"   
   imgTopTxtFont      = None
