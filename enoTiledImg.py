@@ -74,8 +74,9 @@ class enoTiledImg:
   imgTopTxtStitchStr = ".."
   imgTopTxtColor     = (255, 255, 255, 128)
   imgTopBgColor      = (255, 255, 255, 0)
-  imgTopTxtBg        = (0, 0, 0, 128)
-  imgTopTxtOffset    = (10, 10)
+  imgTopTxtBgBarCol  = (0, 0, 0, 128)
+  imgTopTxtBgBar     = (0, 7, 100, 18)
+  imgTopTxtOffset    = (3, 3)
   imgTopTxtSize      = 16
   imgTopTxtFontN     = "Pillow/Tests/fonts/FreeMono.ttf"
   imgTopTxtFont      = None
@@ -478,7 +479,6 @@ class enoTiledImg:
       if self.imgTopTxtFont == None:
         self.imgTopTxtFont = ImageFont.truetype(self.imgTopTxtFontN, self.imgTopTxtSize)
 
-      d = ImageDraw.Draw(txt)
 
       txtMaxLen = self.imgTopTxtFirst + self.imgTopTxtLast
       txtLen    = len(self.imgSrcFn)
@@ -489,15 +489,17 @@ class enoTiledImg:
         txtLast  = self.imgSrcFn[-self.imgTopTxtLast:]
         txtLabel = "%s%s%s" % (txtFirst, self.imgTopTxtStitchStr, txtLast)
  
-      txt = Image.new("RGBA", self.imgTopOverviewDim, self.imgTopBgColor)
-
+      txtbar = Image.new("RGBA", self.imgTopOverviewDim, self.imgTopBgColor)
+      d      = ImageDraw.Draw(txtbar)
+      d.rectangle(self.imgTopTxtBgBar, fill=self.imgTopTxtBgBarCol)
       d.text(self.imgTopTxtOffset, txtLabel, font=self.imgTopTxtFont, fill=self.imgTopTxtColor)
   
       self.imgSrc = Image.open(self.imgSrcFn)
       im_crop     = self.imgSrc.crop(cropbox)
       im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
       self.imgSrc.close()
-      im_thumb2   = Image.alpha_composite(im_thumb1, txt)
+
+      im_thumb2   = Image.alpha_composite(im_thumb1, txtbar)
       return im_thumb2
 
     except: traceback.print_exc()
