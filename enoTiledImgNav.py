@@ -112,7 +112,7 @@ class enoTiledImgNav:
         if os.path.exists(self.imgsPath2) is False:
            os.path.mkdir(self.imgsPath2)
 
-        path2 = "%s/%s" % (self.imgsPath2, imgsPathIndexCache) 
+        path2 = "%s/%s" % (self.imgsPath2, self.imgsPathIndexCache) 
         if os.path.exists(path2) is False:
            os.path.mkdir(path2)
 
