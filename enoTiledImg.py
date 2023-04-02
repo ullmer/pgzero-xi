@@ -252,7 +252,7 @@ class enoTiledImg:
     return fn 
 
   def genTopFn(self):
-    fn     = '%s/topThumb.%s' % (self.tmapDir, self.imgType) 
+    fn     = '%s/fileGlyph.%s' % (self.tmapDir, self.imgType) 
     return fn
 
   ############################## generate tile directory name ##############################
