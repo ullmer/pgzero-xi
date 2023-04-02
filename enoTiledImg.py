@@ -70,16 +70,17 @@ class enoTiledImg:
   tagActorGlobalPos = None
   tagActorScreenPos = None
 
-  imgTopOverviewDim  = (200, 40)
-  imgTopTxtFirst     = 7 
+  imgTopOverviewDim  = (300, 100)
+  imgTopTxtFirst     = 9
   imgTopTxtLast      = 5
-  imgTopTxtStitchStr = ".."
+  #imgTopTxtStitchStr = ".."
+  imgTopTxtStitchStr = u"\u2026" #ellipses
   imgTopTxtColor     = (255, 255, 255, 100)
   imgTopBgColor      = (255, 255, 255, 0)
   imgTopTxtBgBarCol  = (0, 0, 0, 140)
-  imgTopTxtBgBar     = (0, 0, 200, 22)
-  imgTopTxtOffset    = (2, -2)
-  imgTopTxtSize      = 22
+  imgTopTxtBgBar     = (0, 0, 300, 33)
+  imgTopTxtOffset    = (0, -2)
+  imgTopTxtSize      = 33
   imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
   imgTopTxtFontFn    = "FreeMono.ttf"   
   imgTopTxtFont      = None
@@ -503,7 +504,6 @@ class enoTiledImg:
       iy2    = ix / thumbnailRatio
       if iy2 > iy: iy2 = iy
       cropbox = (0, 0, ix, iy2)
-      print(self.imgSize, "crop:", cropbox)
 
       self.openFont()
 
