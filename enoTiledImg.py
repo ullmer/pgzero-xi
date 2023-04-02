@@ -247,6 +247,10 @@ class enoTiledImg:
     fn     = '%s/%i/tile%02ix%02i.%s' % (self.tmapDir, multiresLevel, xt, yt, self.imgType) 
     return fn 
 
+  def genTopFn(self):
+    fn     = '%s/topThumb.%s' % (self.tmapDir, self.imgType) 
+    return fn
+
   ############################## generate tile directory name ##############################
 
   def genTileDn(self, xt, yt, multiresLevel=1):  # create directory if it doesn't already exist
@@ -499,7 +503,11 @@ class enoTiledImg:
       im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
       self.imgSrc.close()
 
+      topFn = self.genTopFn()
+
       im_thumb2   = Image.alpha_composite(im_thumb1, txtbar)
+      im_thumb2.save(topFn)
+
       return im_thumb2
 
     except: traceback.print_exc()
