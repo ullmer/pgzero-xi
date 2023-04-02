@@ -469,7 +469,7 @@ class enoTiledImg:
   ############################## extractImgTopOverview ##############################
 
   def extractImgTopOverview(self): 
-    if self.imgSrcFn == none: 
+    if self.imgSrcFn == None: 
       self.logError("extractImgTopOverview: imgSrcFn unset"); return
    
     try:
