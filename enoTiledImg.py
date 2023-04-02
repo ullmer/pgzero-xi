@@ -498,6 +498,7 @@ class enoTiledImg:
       im_thumb1   = im_crop.resize(self.imgTopOverviewDim)
       self.imgSrc.close()
       im_thumb2   = Image.alpha_composite(im_thumb1, txt)
+      return im_thumb2
 
     except: traceback.print_exc()
 
