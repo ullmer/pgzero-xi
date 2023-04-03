@@ -64,11 +64,12 @@ class enoTiledImgNav:
   indexFnBasePos = [1360, 5]
   drawIndices    = False
 
-  indexSidebarFn    = "app_support/indices_sidebars01a"
+  indexSidebarFn    = "app_support/idx-sidebar-01'
+  indexSidebarEls   = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
   indexSidebarTLpos = [1300, 2]
 
   indexSidebarHighlightFn    = "app_support/indices_sidebars_select01a"
-  indexSidebarHighlightTLpos = [1295, -4]
+  indexSidebarHighlightTLpos = [1295, -3]
   indexSidebarActor = None
 
   ############### constructor ###############
@@ -139,7 +140,15 @@ class enoTiledImgNav:
         y += a.size[1] + self.indexFnPad
         self.indexFnActors[indexImgDirname] = a
 
-      self.indexSidebarActor          = Actor(self.indexSidebarFn,          topleft=self.indexSidebarTLpos)
+      self.sidebarLabelActors = {}
+      x, y = self.indexSidebarTLpos
+
+      for sidebarEl in self.indexSidebarEls:
+        imgFn = self.indexSidebarFn + sidebarEl
+        a = Actor(imgFn, topleft=(x,y))
+        self.sidebarLabelActors[sidebarEl] = a
+        y += a.size + self.indexFnPad 
+
       self.indexSidebarHighlightActor = Actor(self.indexSidebarHighlightFn, topleft=self.indexSidebarHighlightTLpos)
 
       self.drawIndices = True
@@ -153,8 +162,12 @@ class enoTiledImgNav:
       if self.indexFnActors is None:
         self.logErrorMsg("drawIndexGui: indexFnActors is empty!"); return
 
-      self.indexSidebarActor.draw()
+      for sidebarEl in self.indexSidebarEls:
+        a = self.sidebarLabelActors[sidebarEl]
+        a.draw()
+      
       for aname in self.indexFnActors: a = self.indexFnActors[aname]; a.draw()
+      
       self.indexSidebarHighlightActor.draw()
     except: traceback.print_exc()
 
