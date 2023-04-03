@@ -117,7 +117,10 @@ class enoTiledImgNav:
            os.path.mkdir(path2)
 
         imgIndexCache = "%s/%s.png" % (path2, indexImgDirname.lower())
-        os.link(fn1, imgIndexCache) #https://www.tutorialspoint.com/python/os_link.htm
+
+        if (os.path.exists(imgIndexCache) is False) or \
+           (os.path.getsize(imgIndexCache) != os.path.getsize(fn1)):
+          os.link(fn1, imgIndexCache) #https://www.tutorialspoint.com/python/os_link.htm
 
         a = Actor(imgIndexCache, topleft=(x,y))
         y += a.size[1] + self.indexFnPad
