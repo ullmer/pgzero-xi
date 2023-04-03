@@ -208,10 +208,17 @@ class enoTiledImgNav:
   ############### mouse down callback ###############
   
   def on_mouse_down(self, pos): 
-    if self.shiftPressed: self.mouseDown = True #pan
-    else:
-      self.recordCoord(pos)
-      self.annotNext()
+    self.mouseDown = True #pan
+
+    for actorName in self.indexFnActors:
+      a = self.indexFnActors[actorName]
+      if a.collidepoint(pos):
+        print("touch detected:", actorName)
+
+    #if self.shiftPressed: self.mouseDown = True #pan
+    #else:
+    #  self.recordCoord(pos)
+    #  self.annotNext()
 
   def on_mouse_up(self):        self.mouseDown = False
   
@@ -240,7 +247,6 @@ class enoTiledImgNav:
       if self.cursorsPressed['D']: self.eti.shiftImg(0,  nudge)
   
   ############### annotList ###############
-  
   
   def annotList(self, list):
     self.textlist    = list
