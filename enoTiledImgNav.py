@@ -64,6 +64,13 @@ class enoTiledImgNav:
   indexFnBasePos = [1360, 5]
   drawIndices    = False
 
+  indexSidebarFn    = "app_support/indices_sidebars01a"
+  indexSidebarTLpos = [1300, 2]
+
+  indexSidebarHighlightFn    = "app_support/indices_sidebars_select01a"
+  indexSidebarHighlightTLpos = [1295, -4]
+  indexSidebarActor = None
+
   ############### constructor ###############
   
   def __init__(self, eti):
@@ -132,6 +139,9 @@ class enoTiledImgNav:
         y += a.size[1] + self.indexFnPad
         self.indexFnActors[indexImgDirname] = a
 
+      self.indexSidebarActor          = Actor(self.indexSidebarFn,          topleft=self.indexSidebarTLpos)
+      self.indexSidebarHighlightActor = Actor(self.indexSidebarHighlightFn, topleft=self.indexSidebarHighlightTLpos)
+
       self.drawIndices = True
 
     except: traceback.print_exc()
@@ -142,7 +152,10 @@ class enoTiledImgNav:
     try:
       if self.indexFnActors is None:
         self.logErrorMsg("drawIndexGui: indexFnActors is empty!"); return
+
+      self.indexSidebarActor.draw()
       for aname in self.indexFnActors: a = self.indexFnActors[aname]; a.draw()
+      self.indexSidebarHighlightActor.draw()
     except: traceback.print_exc()
 
   ############### draw callback ###############

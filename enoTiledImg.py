@@ -54,7 +54,7 @@ class enoTiledImg:
   animDuration = .4
   animTween    = 'accel_decel'
   textOnly     = False # print textual output only; no graphics
-  animImgPlaceholder = 'placeholder'
+  animImgPlaceholder = 'app_support/placeholder'
   animationActive = None
   verbose         = False
 
