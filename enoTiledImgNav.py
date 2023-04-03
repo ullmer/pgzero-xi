@@ -61,15 +61,18 @@ class enoTiledImgNav:
   indexImgs     = None
   indexFnActors = None
   indexFnPad    = 5
-  indexFnBasePos = [1360, 5]
+  #indexFnBasePos = [1360, 5]
+  indexFnBasePos = [1600, 5]
   drawIndices    = False
 
-  indexSidebarFn    = "app_support/idx-sidebar-01'
+  indexSidebarFn    = "app_support/idx-sidebar-01"
   indexSidebarEls   = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-  indexSidebarTLpos = [1300, 2]
+  #indexSidebarTLpos = [1300, 5]
+  indexSidebarTLpos = [1570, 5]
 
   indexSidebarHighlightFn    = "app_support/indices_sidebars_select01a"
-  indexSidebarHighlightTLpos = [1295, -3]
+  #indexSidebarHighlightTLpos = [1295, -3]
+  indexSidebarHighlightTLpos = [1560, -3]
   indexSidebarActor = None
 
   ############### constructor ###############
@@ -83,7 +86,8 @@ class enoTiledImgNav:
       self.cursorsPressed[k] = False
 
     self.c1                = Actor(self.cursorFns[1],        pos=(200, 200))
-    self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
+    #self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
+    self.legendRight       = Actor(self.legendRightFn,       pos=(1900, 500))
     self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
     self.labelBg           = Actor(self.textboxFn,           topleft=(0,0))
 
@@ -147,7 +151,8 @@ class enoTiledImgNav:
         imgFn = self.indexSidebarFn + sidebarEl
         a = Actor(imgFn, topleft=(x,y))
         self.sidebarLabelActors[sidebarEl] = a
-        y += a.size + self.indexFnPad 
+        ax, ay = a.size
+        y += ay + self.indexFnPad 
 
       self.indexSidebarHighlightActor = Actor(self.indexSidebarHighlightFn, topleft=self.indexSidebarHighlightTLpos)
 
