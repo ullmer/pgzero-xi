@@ -53,7 +53,7 @@ class enoTiledImgNav:
 
   imgsPath1          = "resources"
   imgsPath2          = "images"
-  imgsPathIndexCache = "indexCache"
+  imgsPathIndexCache = "indexcache"
   indexFn       = "index.yaml"
   indexGlyphFn  = "fileglyph.png"
   indexY        = None
@@ -114,15 +114,17 @@ class enoTiledImgNav:
 
         path2 = "%s/%s" % (self.imgsPath2, self.imgsPathIndexCache) 
         if os.path.exists(path2) is False:
-           os.path.mkdir(path2)
+           os.mkdir(path2)
+           #os.makedirs(path2)
 
-        imgIndexCache = "%s/%s.png" % (path2, indexImgDirname.lower())
+        imgIndexCache1 = "%s/%s" % (path2, indexImgDirname.lower())
+        imgIndexCache2 = imgIndexCache1 + ".png"
 
-        if (os.path.exists(imgIndexCache) is False) or \
-           (os.path.getsize(imgIndexCache) != os.path.getsize(fn1)):
-          os.link(fn1, imgIndexCache) #https://www.tutorialspoint.com/python/os_link.htm
+        if (os.path.exists(imgIndexCache2) is False) or \
+           (os.path.getsize(imgIndexCache2) != os.path.getsize(fn1)):
+          os.link(fn1, imgIndexCache2) #https://www.tutorialspoint.com/python/os_link.htm
 
-        a = Actor(imgIndexCache, topleft=(x,y))
+        a = Actor(imgIndexCache1, topleft=(x,y))
         y += a.size[1] + self.indexFnPad
         self.indexFnActors[indexImgDirname] = a
 
