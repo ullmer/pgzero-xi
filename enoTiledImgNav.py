@@ -60,7 +60,7 @@ class enoTiledImgNav:
   indexImgs     = None
   indexFnActors = None
   indexFnPad    = 5
-  indexFnBasePos = [700, 5]
+  indexFnBasePos = [1360, 5]
   drawIndices    = False
 
   ############### constructor ###############
@@ -141,7 +141,7 @@ class enoTiledImgNav:
     try:
       if self.indexFnActors is None:
         self.logErrorMsg("drawIndexGui: indexFnActors is empty!"); return
-      for a in self.indexFnActors: a.draw()
+      for aname in self.indexFnActors: a = self.indexFnActors[aname]; a.draw()
     except: traceback.print_exc()
 
   ############### draw callback ###############
