@@ -84,6 +84,7 @@ class enoTiledImg:
   imgTopTxtFontWn    = "https://github.com/opensourcedesign/fonts/raw/master/gnu-freefont_freemono/FreeMono.ttf"
   imgTopTxtFontFn    = "FreeMono.ttf"   
   imgTopTxtFont      = None
+  imgTopAlpha        = 130
 
   ############################## constructor ##############################
 
@@ -497,6 +498,7 @@ class enoTiledImg:
    
     try:
       im     = Image.open(self.imgSrcFn).convert('RGBA') #latter may need revisiting
+      im.putalpha(self.imgTopAlpha)
 
       ix, iy = im.size
       tx, ty = self.imgTopOverviewDim
