@@ -36,10 +36,11 @@ class enoTiledImgNav:
   labelBgBox        = Rect((0, 0), (300, 75))
   labelBgBoxColor   = 70, 70, 70, 50
 
-  cursorFns           = ["cursor01a", "cursor01b"]
-  legendRightFn       = "legendright02"
-  legendRightCursorFn = "legendcursor02"
-  textboxFn           = "graybox01b"
+  fnPrefixes          = "app_support/"
+  cursorFns           = ["app_support/cursor01a", "app_support/cursor01b"]
+  legendRightFn       = "app_support/legendright02"
+  legendRightCursorFn = "app_support/legendcursor02"
+  textboxFn           = "app_support/graybox01b"
 
   textlist            = None
   textlistIdx         = None

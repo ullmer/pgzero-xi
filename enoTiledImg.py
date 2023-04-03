@@ -31,7 +31,7 @@ class enoTiledImg:
   filePrefix         = 'tile'
   imgType            = 'png'
   metadataFn         = 'index.yaml'                # originally 'metadata.yaml'
-  cursorFns           = ["cursor01a", "cursor01b"]
+  cursorFns           = ["app_support/cursor01a", "app_support/cursor01b"]
 
   imgTileQueue       = None
   maxImgTilesQueued  = 200 # picking 100 out of thin air.  I've seen assertions that garbage collection will 
@@ -306,6 +306,8 @@ class enoTiledImg:
     if self.featuresTags == None:
       self.logError("buildTagActors error: featuresTags is empty")
       return None
+
+    print("cfn:", self.getDefaultCursorImgFn())
 
     self.tags              = []
     self.tagActors         = {}
