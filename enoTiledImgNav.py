@@ -70,9 +70,9 @@ class enoTiledImgNav:
   #indexSidebarTLpos = [1300, 5]
   indexSidebarTLpos = [1570, 5]
 
-  indexSidebarHighlightFn    = "app_support/indices_sidebars_select01a"
+  indexSidebarHighlightFn    = "app_support/indices_sidebars_select01b"
   #indexSidebarHighlightTLpos = [1295, -3]
-  indexSidebarHighlightTLpos = [1560, -3]
+  indexSidebarHighlightTLpos = [1568, 2]
   indexSidebarActor = None
 
   ############### constructor ###############
