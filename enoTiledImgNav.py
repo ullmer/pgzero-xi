@@ -61,7 +61,7 @@ class enoTiledImgNav:
   indexFnActors = None
   indexFnPad    = 5
   indexFnBasePos = [700, 5]
-  drawIndexGui   = False
+  drawIndices    = False
 
   ############### constructor ###############
   
@@ -119,16 +119,19 @@ class enoTiledImgNav:
 
         imgIndexCache1 = "%s/%s" % (path2, indexImgDirname.lower())
         imgIndexCache2 = imgIndexCache1 + ".png"
+        imgIndexCache3 = "%s/%s" % (self.imgsPathIndexCache, indexImgDirname.lower())
 
         if (os.path.exists(imgIndexCache2) is False) or \
            (os.path.getsize(imgIndexCache2) != os.path.getsize(fn1)):
           os.link(fn1, imgIndexCache2) #https://www.tutorialspoint.com/python/os_link.htm
 
-        a = Actor(imgIndexCache1, topleft=(x,y))
+        #print("L:", imgIndexCache3)
+
+        a = Actor(imgIndexCache3, topleft=(x,y))
         y += a.size[1] + self.indexFnPad
         self.indexFnActors[indexImgDirname] = a
 
-      self.drawIndexGui   = True
+      self.drawIndices = True
 
     except: traceback.print_exc()
 
@@ -157,7 +160,7 @@ class enoTiledImgNav:
       txt = self.textlist[self.textlistIdx].rstrip() # remove possible trailing newline from readlines/etc.
       screen.draw.text(txt, topleft=self.textpos, color=self.textcolor, fontsize=self.textsize)
 
-    if self.drawIndexGui: self.drawIndexGui()
+    if self.drawIndices: self.drawIndexGui()
 
   ############### is cursor pressed ###############
   
