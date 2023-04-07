@@ -48,9 +48,12 @@ class enoContentResolver:
   # is present in the dbase
     
   def isAddressMapped(self, netloc): 
-    if self.dbCon == None: self.loadContentDb3()
+    if self.dbCon == None or self.dbCursor == None: self.loadContentDb3()
     queryStr = '''select abbrev, abbrevCount from contentServerEntry
                     where fullAddress="%s";''' % netloc
+    self.dbCursor.execute(queryStr)
+    result = self.dbCursor.fetchone()
+    return result
 
   ########################## abbrev netloc #########################
     
