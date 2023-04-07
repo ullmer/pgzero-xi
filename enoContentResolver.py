@@ -21,6 +21,7 @@ class enoContentResolver:
   defaultDb  = 'enoContent.db3'
   dbConn     = None
   dbCursor   = None
+  abbrevCountZPad = 3 #zero-pad to N digits
 
   ############################## constructor ##############################
 
@@ -43,11 +44,11 @@ class enoContentResolver:
       self.dbCursor = self.dbConn.cursor()
     except: traceback.print_exc()
 
-  ########################## isAddressMapped #########################
+  ########################## getAddressMap #########################
   # See if a row mapping the netloc address to a numbered abbreviation 
   # is present in the dbase
     
-  def isAddressMapped(self, netloc): 
+  def getDbAddressMap(self, netloc): 
     if self.dbCon == None or self.dbCursor == None: self.loadContentDb3()
     queryStr = '''select abbrev, abbrevCount from contentServerEntry
                     where fullAddress="%s";''' % netloc
@@ -59,9 +60,17 @@ class enoContentResolver:
     
   def abbrevNetloc(self, netloc):
     # first, look in dbase to see if already existing
-    # if so,  use
-    # if not, see if abbrev already exists
-    # if so,  increment count and return
+
+    result = self.getDbAddressMap()
+
+    if result is None:
+      result = self.constructDbAddress(netloc)
+      if result is None:
+        self.logError("abbrevNetloc: constructDbAddress fails on", netloc)
+        return None
+
+    abbrev, abbrevCount = result
+
     # if not, populate and return
 
     firstLetters1 = ''
@@ -69,6 +78,9 @@ class enoContentResolver:
     for el in els:
       if len(el) > 0: firstLetters1.append(el[0])
     firstLetters2 = firstLetters1.lower()
+
+    FOO abbrevCountZPad = 3 #zero-pad to N digits
+
     return firstLetters2
 
   ########################## parse url #########################
