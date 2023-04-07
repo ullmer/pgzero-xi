@@ -12,17 +12,23 @@ import urllib.request
 from datetime import *
 
 #########################################################################
-############################## Enodia tiled image #######################
+######################### Enodia Content Resolver #######################
 
-class enoTiledImg:
+class enoContentResolver:
 
   ############################## constructor ##############################
 
-  def __init__(self, **kwargs):
+  def __init__(self, targetContent, **kwargs):
     self.__dict__.update(kwargs) #allow class fields to be passed in constructor
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
 
-eyu = 'https://enodia.computing.clemson.edu/'
-ecr = enoContentResolver(eyu)
+    self.loadTargetContent(targetContent)
+
+  ########################## load target content #########################
+    
+  def loadTargetContent(self, targetContent):
+
+#eyu = 'https://enodia.computing.clemson.edu/'
+#ecr = enoContentResolver(eyu)
 
 ### end ###
