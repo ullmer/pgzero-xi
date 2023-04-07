@@ -41,6 +41,12 @@ class enoContentResolver:
   ########################## abbrev netloc #########################
     
   def abbrevNetloc(self, netloc):
+    # first, look in dbase to see if already existing
+    # if so,  use
+    # if not, see if abbrev already exists
+    # if so,  increment count and return
+    # if not, populate and return
+
     firstLetters1 = ''
     els = netloc.split('.')
     for el in els:
