@@ -7,7 +7,7 @@
 # This work supported in part by NSF "Enodia" MRI CNS-1828611
 
 import os, sys, math, traceback
-import yaml, PIL, pygame
+import yaml, sqlite3
 import urllib.request
 from datetime import *
 
@@ -15,6 +15,10 @@ from datetime import *
 ######################### Enodia Content Resolver #######################
 
 class enoContentResolver:
+  
+  defaultDir = 'resources'
+  defaultDb  = 'enoContent.db3'
+  dbCon      = None
 
   ############################## constructor ##############################
 
@@ -23,6 +27,15 @@ class enoContentResolver:
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
 
     self.loadTargetContent(targetContent)
+
+  ########################## load content db3 #########################
+    
+  def loadContentDb3(self):
+    fn = '%s/%s' % (self.defaultDir, self.defaultDb)
+    if os.path.exists(fn) == False:
+      self.logError("loadContentDb3: content resolution dbase doesn't appear to exist"); sys.exit(-1)
+
+    self.dbCon = sqlite3.connect(fn)
 
   ########################## load target content #########################
     
