@@ -9,6 +9,7 @@
 import os, sys, math, traceback
 import yaml, sqlite3
 import urllib.request
+from urllib.parse import urlparse
 from datetime import *
 
 #########################################################################
@@ -36,6 +37,23 @@ class enoContentResolver:
       self.logError("loadContentDb3: content resolution dbase doesn't appear to exist"); sys.exit(-1)
 
     self.dbCon = sqlite3.connect(fn)
+
+  ########################## abbrev netloc #########################
+    
+  def abbrevNetloc(self, netloc):
+    firstLetters1 = ''
+    els = netloc.split('.')
+    for el in els:
+      if len(el) > 0: firstLetters1.append(el[0])
+    firstLetters2 = firstLetters1.lower()
+    return firstLetters2
+
+  ########################## parse url #########################
+    
+  def parseUrl(self, targetContent):
+    up       = urlparse(targetContent)
+    netloc   = up.netloc
+    nlAbbrev = self.abbrevNetloc(netloc)
 
   ########################## load target content #########################
     
