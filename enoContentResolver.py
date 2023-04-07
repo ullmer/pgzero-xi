@@ -19,7 +19,8 @@ class enoContentResolver:
   
   defaultDir = 'resources'
   defaultDb  = 'enoContent.db3'
-  dbCon      = None
+  dbConn     = None
+  dbCursor   = None
 
   ############################## constructor ##############################
 
@@ -32,11 +33,24 @@ class enoContentResolver:
   ########################## load content db3 #########################
     
   def loadContentDb3(self):
-    fn = '%s/%s' % (self.defaultDir, self.defaultDb)
-    if os.path.exists(fn) == False:
-      self.logError("loadContentDb3: content resolution dbase doesn't appear to exist"); sys.exit(-1)
+    try:
+      fn = '%s/%s' % (self.defaultDir, self.defaultDb)
+      if os.path.exists(fn) == False:
+        self.logError("loadContentDb3: content resolution dbase " + \
+                      "doesn't appear to exist"); sys.exit(-1)
 
-    self.dbCon = sqlite3.connect(fn)
+      self.dbConn   = sqlite3.connect(fn)
+      self.dbCursor = self.dbConn.cursor()
+    except: traceback.print_exc()
+
+  ########################## isAddressMapped #########################
+  # See if a row mapping the netloc address to a numbered abbreviation 
+  # is present in the dbase
+    
+  def isAddressMapped(self, netloc): 
+    if self.dbCon == None: self.loadContentDb3()
+    queryStr = '''select abbrev, abbrevCount from contentServerEntry
+                    where fullAddress="%s";''' % netloc
 
   ########################## abbrev netloc #########################
     
