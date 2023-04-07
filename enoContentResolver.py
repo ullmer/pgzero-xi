@@ -21,7 +21,8 @@ class enoContentResolver:
   defaultDb  = 'enoContent.db3'
   dbConn     = None
   dbCursor   = None
-  abbrevCountZPad = 3 #zero-pad to N digits
+  abbrevCountZPad  = 3 #zero-pad to N digits
+  abbrevCountFirst = 1 #start abbreviation counts at this number
 
   ############################## constructor ##############################
 
@@ -65,7 +66,20 @@ class enoContentResolver:
       if len(el) > 0: firstLetters1.append(el[0])
     firstLetters2 = firstLetters1.lower()
 
-    return firstLetters2
+    queryStr = '''select count from contentServerAbbrev
+                    where abbrev="%s";''' % firstLetters2
+    self.dbCursor.execute(queryStr)
+    result = self.dbCursor.fetchone()
+
+    if result is None:
+      ac = self.abbrevCountFirst
+      queryStr = '''insert into contentServerAbbrev (abbrev, count) 
+                      values ("%s", %i);''' % (firstLetters2, ac)
+      self.dbCursor.execute(queryStr)
+      self.dbConn.commit()
+    else: ac = result[0]
+
+    return (firstLetters2, ac)
 
   ########################## abbrev netloc #########################
     
