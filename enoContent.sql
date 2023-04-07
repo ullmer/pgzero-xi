@@ -15,9 +15,20 @@ create table contentServerAbbrev(
   count  integer
 );
 
-create table spreadDetails(
-  id integer unique primary key,
-  serverId  integer, -- contentServerEntry.id
+create table spreadHead(
+  id               integer unique primary key,
+  contentSourceUrl text,
+  relPath          text,
+  numLevels        integer,
+  serverId         integer, -- contentServerEntry.id
+);
+
+create table spreadLevel(
+  id           integer unique primary key,
+  spreadHeadId integer,
+  level        integer,
+  dimX         integer,
+  dimY         integer
 );
 
 --- end ---
