@@ -56,6 +56,17 @@ class enoContentResolver:
     result = self.dbCursor.fetchone()
     return result
 
+  ########################## construct db address #########################
+    
+  def constructDbAddress(self, netloc):
+    firstLetters1 = ''
+    els = netloc.split('.')
+    for el in els:
+      if len(el) > 0: firstLetters1.append(el[0])
+    firstLetters2 = firstLetters1.lower()
+
+    return firstLetters2
+
   ########################## abbrev netloc #########################
     
   def abbrevNetloc(self, netloc):
@@ -71,17 +82,8 @@ class enoContentResolver:
 
     abbrev, abbrevCount = result
 
-    # if not, populate and return
-
-    firstLetters1 = ''
-    els = netloc.split('.')
-    for el in els:
-      if len(el) > 0: firstLetters1.append(el[0])
-    firstLetters2 = firstLetters1.lower()
-
-    FOO abbrevCountZPad = 3 #zero-pad to N digits
-
-    return firstLetters2
+    result = "%s%s" % (abbrev, str(abbrevCount).zfill(self.abbrevCountZPad)
+    return result
 
   ########################## parse url #########################
     
