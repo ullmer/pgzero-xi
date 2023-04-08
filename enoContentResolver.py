@@ -68,13 +68,13 @@ class enoContentResolver:
       urllib.request.urlretrieve(yu, yfn)
       return yfn
 
-      elif targetContent.find(self.defaultYamlFn): yu = targetContent
-      elif targetContent[-1] = '/': 
-        yu = '%s/%s' % (targetContent, self.defaultYamlFn)
+    elif targetContent.find(self.defaultYamlFn): yu = targetContent
+    elif targetContent[-1] = '/': 
+      yu = '%s/%s' % (targetContent, self.defaultYamlFn)
 
-      urllib.request.urlretrieve(yu, yfn)
+    urllib.request.urlretrieve(yu, yfn)
 
-    self.loadYaml(yfn) # may require more contemplation
+    #self.loadYaml(yfn) # may require more contemplation
 
   ########################## retrieve image #########################
     
