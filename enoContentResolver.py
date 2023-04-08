@@ -34,8 +34,9 @@ class enoContentResolver:
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
-  defaultHost = 'https://enodia.computing.clemson.edu'
-  defaultRemotePath = 'tiled'
+  defaultHostProtocol = 'https'
+  defaultHost         = 'enodia.computing.clemson.edu'
+  defaultRemotePath   = 'tiled'
   defaultLocalPath  = ''
   rootYaml    = None
   defaultStayLocal = True #default to local content if present
@@ -58,7 +59,8 @@ class enoContentResolver:
     
   def retrieveRootYaml(self, url=None):
     if url is None:
-      url = '%s/%s/%s' % (self.defaultHost, self.defaultRemotePath, self.defaultYamlFn)
+      url = '%s://%s/%s/%s' % (self.defaultHostProtocol, self.defaultHost, \
+                               self.defaultRemotePath, self.defaultYamlFn)
     
     localFn   = self.mapUrl2Local(url)
     localFn = localFn.replace(self.defaultRemotePath, self.defaultLocalPath)
@@ -98,14 +100,16 @@ class enoContentResolver:
 
   def getFirstContentMatchUrl(self, targetStr): 
     result1 = self.getFirstContentMatch(targetStr)
-    result2 = '%s/%s/%s' % (self.defaultHost, self.defaultRemotePath, result1)
+    result2 = '%s://%s/%s/%s' % (self.defaultHostProtocol, self.defaultHost, 
+                                 self.defaultRemotePath, result1)
     return result2
     
   ########################## get first content match #########################
 
   def getFirstContentMatchLocal(self, targetStr): 
+    anl = self.abbrevNetloc(self.defaultHost)
     result1 = self.getFirstContentMatch(targetStr)
-    result2 = '%s/%s' % (self.defaultDir, result1)
+    result2 = '%s/%s/%s' % (self.defaultDir, anl, result1)
     return result2
 
   ########################## get first root yaml match #########################
@@ -182,24 +186,19 @@ class enoContentResolver:
     
   def layPath(self, path): 
     if os.path.exists(path): return 
-    print("layPath1:", path)
+    #print("layPath1:", path)
 
     splitpath = self.splitPathFull(path)
-    progressivePath = ''
-FOO    
+    progressivePath = None
+
     for pathEl in splitpath:
-      
-      print('"%s" "%s"' % (head, tail))
-      if head is None or tail is None: return #this may require more thought
-      if progressivePath is None: progressivePath = head
-      elif head == '': return #this may require more thought
-      else: progressivePath += '/' + head
-      print("LP:", progressivePath)
+      if progressivePath is None: progressivePath = pathEl
+      else:                       progressivePath += "/" + pathEl
 
       if os.path.exists(progressivePath) is False:
         os.mkdir(progressivePath)
 
-    print("layPath2:", progressivePath)
+    #print("layPath2:", progressivePath)
 
   ########################## map url 2 local #########################
 

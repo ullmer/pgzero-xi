@@ -18,7 +18,7 @@ for i in range(20):
   url = '%s%s%02i.png' % (addrU, tprefix, i)
   fn  = '%s%s%02i.png' % (addrL, tprefix, i)
   pn  = addrL + '1'
-  print(url, fn)
+  #print(url, fn)
   ecResolv.layPath(pn)
   ecRetr.retrieveContent(url, fn, ecRetr.printUrlLoaded)
 
