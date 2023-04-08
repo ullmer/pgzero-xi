@@ -15,8 +15,8 @@ for i in range(20):
   ecr.retrieveContent(url, fn, ecr.printUrlLoaded)
 
 with ecr.executor:
-  ecr.checkResults()  
-  print(".")
-  sleep(100)
+  ecr.awaitResults()  
+
+print("done")
 
 ### end ###
