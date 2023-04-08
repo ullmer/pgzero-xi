@@ -179,7 +179,7 @@ class enoContentResolver:
       head, tail = os.path.split(head)
       fullsplit.insert(0,tail)
       print('"%s" "%s"' % (head,tail))
-      if head is '': break
+      if head == '': break
     return fullsplit
 
   ########################## lay path #########################
