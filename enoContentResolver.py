@@ -63,7 +63,16 @@ class enoContentResolver:
 
       urllib.request.urlretrieve(yu, yfn)
 
-    self.loadYaml(ynf) # may require more contemplation
+    self.loadYaml(yfn) # may require more contemplation
+
+  ########################## retrieve image #########################
+    
+  def retrieveImage(self, url, imgFn): 
+    if self.ecr is None:
+      self.logError("retrieveImage: enodia content retriever not available")
+      return None
+
+    ecr.
 
   ########################## load yaml #########################
     
