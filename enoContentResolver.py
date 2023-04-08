@@ -17,20 +17,29 @@ from datetime import *
 
 class enoContentResolver:
   
-  defaultDir = 'resources'
-  defaultDb  = 'enoContent.db3'
-  dbConn     = None
-  dbCursor   = None
+  defaultDir   = 'resources'
+  defaultDb    = 'enoContent.db3'
+  dbActivated  = False
+  dbConn       = None
+  dbCursor     = None
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
+
+  hardcodedMappings = 
+    {'enodia.computing.clemson.edu': 'ecce001'}
 
   ############################## constructor ##############################
 
   def __init__(self, targetContent, **kwargs):
     self.__dict__.update(kwargs) #allow class fields to be passed in constructor
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
-
+    if self.dbActivated: self.loadContentDb3()
     self.loadTargetContent(targetContent)
+
+  ########################## load target content #########################
+    
+  def loadTargetContent(self, targetContent):
+    # to accelerate onward movement, hardcoding for the moment
 
   ########################## load content db3 #########################
     
@@ -86,6 +95,14 @@ class enoContentResolver:
   def abbrevNetloc(self, netloc):
     # first, look in dbase to see if already existing
 
+    if self.dbActivated is False:
+      if netloc in self.hardcodedMappings:
+        result = self.hardcodedMappings[netloc]
+        return result
+      else:
+        self.logError("abbrevNetloc: db not activated, and hardedcoded" + \
+                      "mappings do not include", netloc); return None
+
     result = self.getDbAddressMap()
 
     if result is None:
@@ -105,10 +122,6 @@ class enoContentResolver:
     up       = urlparse(targetContent)
     netloc   = up.netloc
     nlAbbrev = self.abbrevNetloc(netloc)
-
-  ########################## load target content #########################
-    
-  def loadTargetContent(self, targetContent):
 
 #eyu = 'https://enodia.computing.clemson.edu/'
 #ecr = enoContentResolver(eyu)
