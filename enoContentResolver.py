@@ -35,7 +35,8 @@ class enoContentResolver:
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
   defaultHost = 'https://enodia.computing.clemson.edu'
-  defaultPath = 'tiled'
+  defaultRemotePath = 'tiled'
+  defaultLocalPath  = 'tiled'
   rootYaml    = None
   defaultStayLocal = True #default to local content if present
   defaultLoadRoot  = True #default to local content if present
@@ -57,10 +58,12 @@ class enoContentResolver:
     
   def retrieveRootYaml(self, url=None):
     if url is None:
-      url = '%s/%s/%s' % (self.defaultHost, self.defaultPath, self.defaultYamlFn)
-
-    localFn = self.mapUrl2Local(url)
+      url = '%s/%s/%s' % (self.defaultHost, self.defaultRemotePath, self.defaultYamlFn)
+    
+    localFn   = self.mapUrl2Local(url)
+    localPath = os.path.dirname(localFn)
     if not os.path.exists(localFn) or not self.defaultStayLocal:
+      self.layPath(localPath)
       urllib.request.urlretrieve(url, localFn)
 
     y = self.loadRootYaml(localFn)
@@ -145,15 +148,18 @@ class enoContentResolver:
     
   def layPath(self, path): 
     if os.path.exists(path): return 
+    print("layPath1:", path)
 
     progressivePath = None; tail = path
     while True:
       head, tail = os.path.split(tail)
-      if head is None and tail is None: return #this may require more thought
+      if head is None or tail is None: return #this may require more thought
       if progressivePath is None: progressivePath = head
       else: progressivePath += '/' + head
       if os.path.exists(progressivePath) is False:
         os.mkdir(progressivePath)
+
+    print("layPath2:", progressivePath)
 
   ########################## map url 2 local #########################
 
