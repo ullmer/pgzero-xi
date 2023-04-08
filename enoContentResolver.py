@@ -36,6 +36,9 @@ class enoContentResolver:
 
   defaultHost = 'enodia.computing.clemson.edu'
   defaultPath = 'tiled'
+  rootYaml    = None
+  defaultStayLocal = True #default to local content if present
+  defaultLoadRoot  = True #default to local content if present
 
   hardcodedMappings = 
     {'enodia.computing.clemson.edu': 'ecce001'}
@@ -45,9 +48,50 @@ class enoContentResolver:
   def __init__(self, **kwargs):
     self.__dict__.update(kwargs) #allow class fields to be passed in constructor
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
+
     if self.dbActivated: self.loadContentDb3()
     if self.ecr is None: self.ecr = enoContentRetriever()
+    if self.defaultLoadRoot: self.retrieveRootYaml()
 
+  ########################## retrieveRootYaml #########################
+    
+  def retrieveRootYaml(self, url=None):
+    if url is None:
+      url = '%s/%s/%s' % (self.defaultHost, self.defaultPath, self.defaultYamlFn)
+
+    localFn = self.mapUrl2Local(url)
+    if not os.path.exists(localFn) or not self.defaultStayLocal:
+      urllib.request.urlretrieve(url, localFn)
+
+    y = self.loadRootYaml(localFn)
+    return y
+    
+  ########################## load yaml #########################
+    
+  def loadRootYaml(self, yfn): 
+    if os.path.exists(yfn):
+      f = open(yfn, 'rt')
+      self.rootYaml = safe_load(f)
+      f.close()
+      return self.rootYaml
+
+    self.logError("loadRootYaml called on nonpresent path: " + yfn)
+    return None
+
+  ########################## first root yaml match #########################
+    
+  def firstRootYamlMatch(self, targetStr): 
+    if self.rootYaml is None: self.retrieveRootYaml()
+    if 'images' not in self.rootYaml:
+      self.logError("firstRootYamlMatch error: images not present in YAML')
+      return None
+
+    imageList = self.rootYaml['images']
+    for imageStr in images:
+      if imageStr.find(targetStr) > -1: return imageStr
+
+    return None
+   
   ########################## retrieve target content #########################
     
   def retrieveTargetContent(self, targetContent):
