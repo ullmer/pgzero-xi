@@ -31,6 +31,9 @@ class enoContentResolver:
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
+  defaultHost = 'enodia.computing.clemson.edu'
+  defaultPath = 'tiled'
+
   hardcodedMappings = 
     {'enodia.computing.clemson.edu': 'ecce001'}
 
