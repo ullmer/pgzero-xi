@@ -99,7 +99,7 @@ class enoContentResolver:
     imageList = self.rootYaml['images']
     tsl = targetStr.lower()
 
-    for imageStr in images:
+    for imageStr in imageList:
       isl = imageStr.lower()
       if isl.find(tsl) > -1: return imageStr
 
