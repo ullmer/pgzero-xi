@@ -7,6 +7,7 @@
 # This work supported in part by NSF "Enodia" MRI CNS-1828611
 
 import os, sys, math, traceback
+import concurrent.futures
 import urllib.request
 from urllib.parse import urlparse
 
@@ -16,6 +17,7 @@ from urllib.parse import urlparse
 class enoContentRetriever:
   
   maxThreads    = 5 
+  timeout       = 60
   executor      = None
   future_to_url = None
 
@@ -29,5 +31,21 @@ class enoContentRetriever:
     
   def buildThreadPool(self):
     # https://docs.python.org/3.2/library/concurrent.futures.html
+    self.executor = concurrent.futures.ThreadPoolExecutor(max_workers = \
+      self.maxThreads)
+
+    self.future_to_url = {}
+
+  ########################## load url #########################
+    
+  def load_url(self, url, localFn):
+    result = urllib.request.urlretrieve(url, localFn, timeout=self.timeout)
+
+  ########################## retrieve content #########################
+    
+  def retrieveContent(self, url, localFn):
+    future = self.executor.submit(self.load_url, url, localFn)
+    self.future_to_url[future] = url
+    
 
 ### end ###
