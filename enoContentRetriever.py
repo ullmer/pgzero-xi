@@ -88,34 +88,3 @@ class enoContentRetriever:
     return newlyCompleteDLs 
 
 ### end ###
-  ########################## retrieve content #########################
-    
-  def retrieveContent(self, url, localFn, whenCompleteCB=None):
-    self.urlToLocalFn[url]  = localFn
-    self.urlDlActive[url]   = True
-    self.urlDlComplete[url] = False
-    self.urlDlNewlyComplete[url]   = False
-    self.urlDlNewlyCompleteCB[url] = whenCompleteCB
-    future = self.executor.submit(self.load_url, url, localFn)
-    self.futureToUrl[future] = url
-
-  ########################## check results #########################
-    
-  def checkResults(self):
-    newlyCompleteDLs = []
-    for future in concurrent.futures.as_completed(self.futureToUrl):
-      url = self.futureToUrl[future]
-      self.urlDlActive[url]        = False
-      self.urlDlComplete[url]      = True
-      self.urlDlNewlyComplete[url] = True
-      if self.urlNewlyCompleteCB[url] is not None:
-        self.urlNewlyCompleteCB[url](url)
-      self.newlyCompleteDLs.append(url)
-
-      if future.exception() is not None:
-        self.logError("checkResults returned an exception on", \
-                      url, future.exception())
-
-    return newlyCompleteDLs 
-
-### end ###
