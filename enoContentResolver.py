@@ -153,8 +153,10 @@ class enoContentResolver:
     progressivePath = None; tail = path
     while True:
       head, tail = os.path.split(tail)
+      print('"%s" "%s"' % (head, tail))
       if head is None or tail is None: return #this may require more thought
       if progressivePath is None: progressivePath = head
+      elif head == '': return #this may require more thought
       else: progressivePath += '/' + head
       if os.path.exists(progressivePath) is False:
         os.mkdir(progressivePath)
