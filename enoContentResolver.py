@@ -88,6 +88,19 @@ class enoContentResolver:
     self.logError("loadRootYaml called on nonpresent path: " + yfn)
     return None
 
+  ########################## get first content match #########################
+
+  def getFirstContentMatch(self, targetStr): 
+    result = self.getFirstRootYamlMatch(targetStr)
+    return result
+
+  ########################## get first content match #########################
+
+  def getFirstContentMatchUrl(self, targetStr): 
+    result1 = self.getFirstContentMatch(targetStr)
+    result2 = '%s/%s/%s' % (self.defaultHost, self.defaultRemotePath, result1)
+    return result2
+    
   ########################## get first root yaml match #########################
     
   def getFirstRootYamlMatch(self, targetStr): 

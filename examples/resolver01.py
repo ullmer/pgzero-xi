@@ -5,7 +5,9 @@
 from enoContentResolver import *
 
 ecr     = enoContentResolver()
-firstSC = ecr.getFirstRootYamlMatch('SC')
-print(firstSC)
+addr1 = ecr.getFirstContentMatch('SC')
+addr2 = ecr.getFirstContentMatchUrl('SC')
+print(addr1)
+print(addr2)
 
 ### end ###
