@@ -23,11 +23,14 @@ class enoContentResolver:
   defaultYamlFn = 'index.yaml'
   defaultDb     = 'enoContent.db3'
   dbActivated   = False
-  imageSuffixes = ['png']
   dbConn        = None
   dbCursor      = None
   lastLocalPath = None
   ecr           = None  #Enodia content retriever
+
+  imageSuffixes = ['png']
+  yamlSuffixes  = ['yaml']
+
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
@@ -45,18 +48,26 @@ class enoContentResolver:
     if self.dbActivated: self.loadContentDb3()
     if self.ecr is None: self.ecr = enoContentRetriever()
 
-  ########################## load target content #########################
+  ########################## retrieve target content #########################
     
-  def loadTargetContent(self, targetContent):
+  def retrieveTargetContent(self, targetContent):
     path = self.mapUrl2Local(targetContent)
-    self.layPath(path)
+    if os.path.exists(path): return path
 
     yfn = '%s/%s' % (path, self.defaultYamlFn)
-    if os.path.exists(yfn) is False:
-      root, ext = os.path.splitext(yfn)
-      if ext.lower() in self.imagesSuffixes: 
-        result = self.retrieveImage(targetContent, yfn)
-        return result
+    if os.path.exists(yfn): return yfn
+
+    self.layPath(path) # assure and/or deploy requisite directories
+
+    root, ext = os.path.splitext(path)
+    if ext.lower() in self.imagesSuffixes: 
+      result = self.retrieveImage(targetContent, path)
+      return path
+
+    if ext.lower() in self.yamlSuffixes:
+      urllib.request.urlretrieve(yu, yfn)
+      return yfn
+
       elif targetContent.find(self.defaultYamlFn): yu = targetContent
       elif targetContent[-1] = '/': 
         yu = '%s/%s' % (targetContent, self.defaultYamlFn)
@@ -72,7 +83,7 @@ class enoContentResolver:
       self.logError("retrieveImage: enodia content retriever not available")
       return None
 
-    ecr.
+    ecr.retrieveContent(url, imgFn)
 
   ########################## load yaml #########################
     
