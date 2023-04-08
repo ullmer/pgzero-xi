@@ -9,8 +9,10 @@
 import os, sys, math, traceback
 import yaml, sqlite3
 import urllib.request
-from urllib.parse import urlparse
-from datetime import *
+
+from urllib.parse        import urlparse
+from datetime            import *
+from enoContentRetriever import *
 
 #########################################################################
 ######################### Enodia Content Resolver #######################
@@ -25,6 +27,7 @@ class enoContentResolver:
   dbConn        = None
   dbCursor      = None
   lastLocalPath = None
+  ecr           = None  #Enodia content retriever
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
@@ -33,11 +36,11 @@ class enoContentResolver:
 
   ############################## constructor ##############################
 
-  def __init__(self, targetContent, **kwargs):
+  def __init__(self, **kwargs):
     self.__dict__.update(kwargs) #allow class fields to be passed in constructor
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
     if self.dbActivated: self.loadContentDb3()
-    self.(targetContent)
+    if self.ecr is None: self.ecr = enoContentRetriever()
 
   ########################## load target content #########################
     
