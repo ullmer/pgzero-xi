@@ -23,6 +23,8 @@ class enoContentRetriever:
   urlToLocalFn  = None
   urlDlActive   = None
   urlDlComplete = None
+  urlDlNewlyComplete   = None
+  urlDlNewlyCompleteCB = None
 
   ############################## constructor ##############################
 
@@ -41,6 +43,8 @@ class enoContentRetriever:
     self.urlToLocalFn  = {}
     self.urlDlActive   = {}
     self.urlDlComplete = {}
+    self.urlDlNewlyComplete   = {}
+    self.urlDlNewlyCompleteCB = {}
 
   ########################## load url #########################
     
@@ -49,10 +53,12 @@ class enoContentRetriever:
 
   ########################## retrieve content #########################
     
-  def retrieveContent(self, url, localFn):
+  def retrieveContent(self, url, localFn, whenCompleteCB=None):
     self.urlToLocalFn[url]  = localFn
     self.urlDlActive[url]   = True
     self.urlDlComplete[url] = False
+    self.urlDlNewlyComplete[url]   = False
+    self.urlDlNewlyCompleteCB[url] = whenCompleteCB
     future = self.executor.submit(self.load_url, url, localFn)
     self.futureToUrl[future] = url
 
@@ -61,6 +67,12 @@ class enoContentRetriever:
   def checkResults(self):
     for future in concurrent.futures.as_completed(self.futureToUrl):
       url = self.futureToUrl[future]
+      self.urlDlActive[url]        = False
+      self.urlDlComplete[url]      = True
+      self.urlDlNewlyComplete[url] = True
+      if self.urlNewlyCompleteCB[url] is not None:
+        self.urlNewlyCompleteCB[url](url)
+
       if future.exception() is not None:
         self.logError("checkResults returned an exception on", \
                       url, future.exception())
