@@ -1,6 +1,6 @@
-# Tiled image support library
+# Enodia content resolver
 # Brygg Ullmer, Clemson University
-# Begun 2023-03-22
+# Begun 2023-04-06
 
 # SPDX-FileCopyrightText: © 2023 Brygg Ullmer, Clemson University
 # SPDX-License-Identifier: LGPL3

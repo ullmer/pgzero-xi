@@ -1,4 +1,4 @@
-# Tiled image support library
+# Tiled image navigation support library
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 

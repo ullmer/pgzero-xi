@@ -1,4 +1,4 @@
-# Tiled image support library
+# Enodia Tiled image support library
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 
