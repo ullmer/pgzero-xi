@@ -42,6 +42,8 @@ class enoContentResolver:
     
   def loadTargetContent(self, targetContent):
     path = self.mapUrl2Local(targetContent)
+    self.layPath(path)
+
     yfn = '%s/%s' % (path, self.defaultYamlFn)
     if os.path.exists(yfn) is False:
       if targetContent.find(self.defaultYamlFn): yu = targetContent
@@ -55,6 +57,20 @@ class enoContentResolver:
   ########################## load yaml #########################
     
   def loadYaml(self, yfn): pass
+
+  ########################## makePath #########################
+    
+  def layPath(self, path): 
+    if os.path.exists(path): return 
+
+    progressivePath = None; tail = path
+    while True:
+      head, tail = os.path.split(tail)
+      if head is None and tail is None: return #this may require more thought
+      if progressivePath is None: progressivePath = head
+      else: progressivePath += '/' + head
+      if os.path.exists(progressivePath) is False:
+        os.mkdir(progressivePath)
 
   ########################## map url 2 local #########################
 
