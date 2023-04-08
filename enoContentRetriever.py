@@ -53,9 +53,19 @@ class enoContentRetriever:
 
   ########################## load url #########################
     
+  def logError(self, errMsg):
+    print("enoContentRetriever error:", errMsg)
+
+  ########################## load url #########################
+    
   def clearNewlyCompleteURL(self, url):
     if url in self.urlDlNewlyComplete:
       self.urlDlNewlyComplete[url] = False
+
+  ########################## printUrlLoaded#########################
+    
+  def printUrlLoaded(self, url):
+    print("URL loaded:", url)
 
   ########################## retrieve content #########################
     
@@ -77,9 +87,9 @@ class enoContentRetriever:
       self.urlDlActive[url]        = False
       self.urlDlComplete[url]      = True
       self.urlDlNewlyComplete[url] = True
-      if self.urlNewlyCompleteCB[url] is not None:
-        self.urlNewlyCompleteCB[url](url)
-      self.newlyCompleteDLs.append(url)
+      if self.urlDlNewlyCompleteCB[url] is not None:
+        self.urlDlNewlyCompleteCB[url](url)
+      newlyCompleteDLs.append(url)
 
       if future.exception() is not None:
         self.logError("checkResults returned an exception on", \
