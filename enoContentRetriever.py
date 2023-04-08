@@ -46,6 +46,16 @@ class enoContentRetriever:
   def retrieveContent(self, url, localFn):
     future = self.executor.submit(self.load_url, url, localFn)
     self.future_to_url[future] = url
+
+  ########################## check results #########################
     
+  def checkResults(self):
+    for future in concurrent.futures.as_completed(self.future_to_url):
+      url = self.future_to_url[future]
+      if future.exception() is not None:
+        self.logError("checkResults returned an exception on", \
+                      url, future.exception())
+      else:
+        return future.result()
 
 ### end ###
