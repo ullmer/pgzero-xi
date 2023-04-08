@@ -21,6 +21,7 @@ class enoContentResolver:
   defaultYamlFn = 'index.yaml'
   defaultDb     = 'enoContent.db3'
   dbActivated   = False
+  imageSuffixes = ['png']
   dbConn        = None
   dbCursor      = None
   lastLocalPath = None
@@ -36,7 +37,7 @@ class enoContentResolver:
     self.__dict__.update(kwargs) #allow class fields to be passed in constructor
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
     if self.dbActivated: self.loadContentDb3()
-    self.loadTargetContent(targetContent)
+    self.(targetContent)
 
   ########################## load target content #########################
     
@@ -46,13 +47,17 @@ class enoContentResolver:
 
     yfn = '%s/%s' % (path, self.defaultYamlFn)
     if os.path.exists(yfn) is False:
-      if targetContent.find(self.defaultYamlFn): yu = targetContent
+      root, ext = os.path.splitext(yfn)
+      if ext.lower() in self.imagesSuffixes: 
+        result = self.retrieveImage(targetContent, yfn)
+        return result
+      elif targetContent.find(self.defaultYamlFn): yu = targetContent
       elif targetContent[-1] = '/': 
         yu = '%s/%s' % (targetContent, self.defaultYamlFn)
 
       urllib.request.urlretrieve(yu, yfn)
 
-    self.loadYaml(ynf) #not always
+    self.loadYaml(ynf) # may require more contemplation
 
   ########################## load yaml #########################
     
