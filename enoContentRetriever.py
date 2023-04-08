@@ -19,7 +19,10 @@ class enoContentRetriever:
   maxThreads    = 5 
   timeout       = 60
   executor      = None
-  future_to_url = None
+  futureToUrl   = None
+  urlToLocalFn  = None
+  urlDlActive   = None
+  urlDlComplete = None
 
   ############################## constructor ##############################
 
@@ -34,7 +37,10 @@ class enoContentRetriever:
     self.executor = concurrent.futures.ThreadPoolExecutor(max_workers = \
       self.maxThreads)
 
-    self.future_to_url = {}
+    self.futureToUrl   = {}
+    self.urlToLocalFn  = {}
+    self.urlDlActive   = {}
+    self.urlDlComplete = {}
 
   ########################## load url #########################
     
@@ -44,14 +50,17 @@ class enoContentRetriever:
   ########################## retrieve content #########################
     
   def retrieveContent(self, url, localFn):
+    self.urlToLocalFn[url]  = localFn
+    self.urlDlActive[url]   = True
+    self.urlDlComplete[url] = False
     future = self.executor.submit(self.load_url, url, localFn)
-    self.future_to_url[future] = url
+    self.futureToUrl[future] = url
 
   ########################## check results #########################
     
   def checkResults(self):
-    for future in concurrent.futures.as_completed(self.future_to_url):
-      url = self.future_to_url[future]
+    for future in concurrent.futures.as_completed(self.futureToUrl):
+      url = self.futureToUrl[future]
       if future.exception() is not None:
         self.logError("checkResults returned an exception on", \
                       url, future.exception())
