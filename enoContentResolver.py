@@ -26,7 +26,7 @@ class enoContentResolver:
   dbConn        = None
   dbCursor      = None
   lastLocalPath = None
-  ecr           = None  #Enodia content retriever
+  ecRetr        = None  #Enodia content retriever
 
   imageSuffixes = ['png']
   yamlSuffixes  = ['yaml']
@@ -51,7 +51,7 @@ class enoContentResolver:
     #https://stackoverflow.com/questions/739625/setattr-with-kwargs-pythonic-or-not
 
     if self.dbActivated: self.loadContentDb3()
-    if self.ecr is None: self.ecr = enoContentRetriever()
+    if self.ecRetr is None: self.ecRetr = enoContentRetriever()
     if self.defaultLoadRoot: self.retrieveRootYaml()
 
   ########################## retrieveRootYaml #########################
@@ -156,11 +156,11 @@ class enoContentResolver:
   ########################## retrieve image #########################
     
   def retrieveImage(self, url, imgFn): 
-    if self.ecr is None:
+    if self.ecRetr is None:
       self.logError("retrieveImage: enodia content retriever not available")
       return None
 
-    ecr.retrieveContent(url, imgFn)
+    ecRetr.retrieveContent(url, imgFn)
 
   ########################## load yaml #########################
     
@@ -280,7 +280,6 @@ class enoContentResolver:
     nlAbbrev = self.abbrevNetloc(netloc)
 
 #eyu = 'https://enodia.computing.clemson.edu/'
-#ecr = enoContentResolver(eyu)
-
+#ecRetr = enoContentResolver(eyu)
 
 ### end ###

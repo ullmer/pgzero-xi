@@ -5,23 +5,25 @@
 from enoContentRetriever import *
 from enoContentResolver  import *
 
-ecrs = enoContentResolver()
-ecrt = enoContentRetriever()
+ecResolv = enoContentResolver()
+ecRetr   = enoContentRetriever()
 
-addr1 = ecrs.getFirstContentMatch('SC')
-addrU = ecrs.getFirstContentMatchUrl('SC')
-addrL = ecrs.getFirstContentMatchLocal('SC')
+addr1 = ecResolv.getFirstContentMatch('SC')
+addrU = ecResolv.getFirstContentMatchUrl('SC')
+addrL = ecResolv.getFirstContentMatchLocal('SC')
 
 tprefix = '1/tile00x'
 
 for i in range(20):
   url = '%s%s%02i.png' % (addrU, tprefix, i)
   fn  = '%s%s%02i.png' % (addrL, tprefix, i)
+  pn  = addrL + '1'
   print(url, fn)
-  #ecr.retrieveContent(url, fn, ecr.printUrlLoaded)
+  ecResolv.layPath(pn)
+  ecRetr.retrieveContent(url, fn, ecRetr.printUrlLoaded)
 
-#with ecr.executor:
-#  ecr.awaitResults()  
+with ecRetr.executor:
+  ecRetr.awaitResults()  
 
 print("done")
 
