@@ -166,20 +166,36 @@ class enoContentResolver:
     
   def loadYaml(self, yfn): pass
 
-  ########################## makePath #########################
+  ########################## load yaml #########################
+    
+  def splitPathFull(self, path): 
+    fullsplit = []
+    head = path
+    while True:
+      head, tail = os.path.split(head)
+      fullsplit.insert(0,tail)
+      print('"%s" "%s"' % (head,tail))
+      if head is '': break
+    return fullsplit
+
+  ########################## lay path #########################
     
   def layPath(self, path): 
     if os.path.exists(path): return 
     print("layPath1:", path)
 
-    progressivePath = None; tail = path
-    while True:
-      head, tail = os.path.split(tail)
+    splitpath = self.splitPathFull(path)
+    progressivePath = ''
+FOO    
+    for pathEl in splitpath:
+      
       print('"%s" "%s"' % (head, tail))
       if head is None or tail is None: return #this may require more thought
       if progressivePath is None: progressivePath = head
       elif head == '': return #this may require more thought
       else: progressivePath += '/' + head
+      print("LP:", progressivePath)
+
       if os.path.exists(progressivePath) is False:
         os.mkdir(progressivePath)
 
