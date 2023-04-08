@@ -34,13 +34,13 @@ class enoContentResolver:
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
-  defaultHost = 'enodia.computing.clemson.edu'
+  defaultHost = 'https://enodia.computing.clemson.edu'
   defaultPath = 'tiled'
   rootYaml    = None
   defaultStayLocal = True #default to local content if present
   defaultLoadRoot  = True #default to local content if present
 
-  hardcodedMappings = 
+  hardcodedMappings = \
     {'enodia.computing.clemson.edu': 'ecce001'}
 
   ############################## constructor ##############################
@@ -66,6 +66,11 @@ class enoContentResolver:
     y = self.loadRootYaml(localFn)
     return y
     
+  ########################## log error #########################
+    
+  def logError(self, errMsg):
+    print("enoContentRetriever error:", errMsg)
+
   ########################## load yaml #########################
     
   def loadRootYaml(self, yfn): 
@@ -78,17 +83,20 @@ class enoContentResolver:
     self.logError("loadRootYaml called on nonpresent path: " + yfn)
     return None
 
-  ########################## first root yaml match #########################
+  ########################## get first root yaml match #########################
     
-  def firstRootYamlMatch(self, targetStr): 
+  def getFirstRootYamlMatch(self, targetStr): 
     if self.rootYaml is None: self.retrieveRootYaml()
     if 'images' not in self.rootYaml:
-      self.logError("firstRootYamlMatch error: images not present in YAML')
+      self.logError("getFirstRootYamlMatch error: images not present in YAML")
       return None
 
     imageList = self.rootYaml['images']
+    tsl = targetStr.lower()
+
     for imageStr in images:
-      if imageStr.find(targetStr) > -1: return imageStr
+      isl = imageStr.lower()
+      if isl.find(tsl) > -1: return imageStr
 
     return None
    
@@ -113,7 +121,7 @@ class enoContentResolver:
       return yfn
 
     elif targetContent.find(self.defaultYamlFn): yu = targetContent
-    elif targetContent[-1] = '/': 
+    elif targetContent[-1] == '/': 
       yu = '%s/%s' % (targetContent, self.defaultYamlFn)
 
     urllib.request.urlretrieve(yu, yfn)
@@ -219,7 +227,7 @@ class enoContentResolver:
         return result
       else:
         self.logError("abbrevNetloc: db not activated, and hardedcoded" + \
-                      "mappings do not include", netloc); return None
+                      "mappings do not include " + netloc); return None
 
     result = self.getDbAddressMap()
 
@@ -231,7 +239,7 @@ class enoContentResolver:
 
     abbrev, abbrevCount = result
 
-    result = "%s%s" % (abbrev, str(abbrevCount).zfill(self.abbrevCountZPad)
+    result = "%s%s" % (abbrev, str(abbrevCount).zfill(self.abbrevCountZPad))
     return result
 
   ########################## parse url #########################
