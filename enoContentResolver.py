@@ -40,6 +40,9 @@ class enoContentResolver:
     
   def loadTargetContent(self, targetContent):
     # to accelerate onward movement, hardcoding for the moment
+    o = urlparse(targetContent)
+    netloc, path = o.netloc, o.path
+    nlAbbrev = self.abbrevNetloc(netloc)
 
   ########################## load content db3 #########################
     
