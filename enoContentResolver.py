@@ -17,11 +17,13 @@ from datetime import *
 
 class enoContentResolver:
   
-  defaultDir   = 'resources'
-  defaultDb    = 'enoContent.db3'
-  dbActivated  = False
-  dbConn       = None
-  dbCursor     = None
+  defaultDir    = 'resources'
+  defaultYamlFn = 'index.yaml'
+  defaultDb     = 'enoContent.db3'
+  dbActivated   = False
+  dbConn        = None
+  dbCursor      = None
+  lastLocalPath = None
   abbrevCountZPad  = 3 #zero-pad to N digits
   abbrevCountFirst = 1 #start abbreviation counts at this number
 
@@ -39,10 +41,26 @@ class enoContentResolver:
   ########################## load target content #########################
     
   def loadTargetContent(self, targetContent):
+    path = self.mapUrl2Local(targetContent)
+    yfn = '%s/%s' % (path, self.defaultYamlFn)
+    if os.path.exists(yfn) is False:
+      if targetContent.find(self.defaultYamlFn): yu = targetContent
+      else: yu = '%s/%s' % (targetContent, self.defaultYamlFn)
+      urllib.request.urlretrieve(yu, yfn)
+
+    self.loadYaml(ynf)
+
+  ########################## map url 2 local #########################
+
+  def mapUrl2Local(self, targetContent):
     # to accelerate onward movement, hardcoding for the moment
     o = urlparse(targetContent)
     netloc, path = o.netloc, o.path
     nlAbbrev = self.abbrevNetloc(netloc)
+
+    path = '%s/%s/%s' % (self.defaultDir, nlAbbrev, path)
+    self.lastLocalPath = path
+    return path
 
   ########################## load content db3 #########################
     
