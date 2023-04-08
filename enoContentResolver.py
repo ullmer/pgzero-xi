@@ -36,7 +36,7 @@ class enoContentResolver:
 
   defaultHost = 'https://enodia.computing.clemson.edu'
   defaultRemotePath = 'tiled'
-  defaultLocalPath  = 'tiled'
+  defaultLocalPath  = ''
   rootYaml    = None
   defaultStayLocal = True #default to local content if present
   defaultLoadRoot  = True #default to local content if present
@@ -61,6 +61,8 @@ class enoContentResolver:
       url = '%s/%s/%s' % (self.defaultHost, self.defaultRemotePath, self.defaultYamlFn)
     
     localFn   = self.mapUrl2Local(url)
+    localFn = localFn.replace(self.defaultRemotePath, self.defaultLocalPath)
+
     localPath = os.path.dirname(localFn)
     if not os.path.exists(localFn) or not self.defaultStayLocal:
       self.layPath(localPath)
@@ -79,7 +81,7 @@ class enoContentResolver:
   def loadRootYaml(self, yfn): 
     if os.path.exists(yfn):
       f = open(yfn, 'rt')
-      self.rootYaml = safe_load(f)
+      self.rootYaml = yaml.safe_load(f)
       f.close()
       return self.rootYaml
 
