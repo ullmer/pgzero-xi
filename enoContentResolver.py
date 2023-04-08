@@ -45,10 +45,16 @@ class enoContentResolver:
     yfn = '%s/%s' % (path, self.defaultYamlFn)
     if os.path.exists(yfn) is False:
       if targetContent.find(self.defaultYamlFn): yu = targetContent
-      else: yu = '%s/%s' % (targetContent, self.defaultYamlFn)
+      elif targetContent[-1] = '/': 
+        yu = '%s/%s' % (targetContent, self.defaultYamlFn)
+
       urllib.request.urlretrieve(yu, yfn)
 
-    self.loadYaml(ynf)
+    self.loadYaml(ynf) #not always
+
+  ########################## load yaml #########################
+    
+  def loadYaml(self, yfn): pass
 
   ########################## map url 2 local #########################
 
