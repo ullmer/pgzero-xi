@@ -49,7 +49,8 @@ class enoContentRetriever:
   ########################## load url #########################
     
   def load_url(self, url, localFn):
-    result = urllib.request.urlretrieve(url, localFn, timeout=self.timeout)
+    #result = urllib.request.urlretrieve(url, localFn, timeout=self.timeout)
+    result = urllib.request.urlretrieve(url, localFn)
 
   ########################## load url #########################
     
@@ -80,7 +81,7 @@ class enoContentRetriever:
 
   ########################## check results #########################
     
-  def checkResults(self):
+  def awaitResults(self):
     newlyCompleteDLs = []
     for future in concurrent.futures.as_completed(self.futureToUrl):
       url = self.futureToUrl[future]
@@ -92,8 +93,8 @@ class enoContentRetriever:
       newlyCompleteDLs.append(url)
 
       if future.exception() is not None:
-        self.logError("checkResults returned an exception on", \
-                      url, future.exception())
+        self.logError("checkResults returned an exception on" + \
+                      url + str(future.exception()))
 
     return newlyCompleteDLs 
 
