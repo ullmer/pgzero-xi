@@ -244,6 +244,9 @@ class enoTiledImgNav:
   def on_mouse_down(self, pos): 
     self.mouseDown = True #pan
 
+    if self.indexFnActors is None:
+      print("enoTiledImgNav on_mouse_down error: actors list empty"); return
+
     for actorName in self.indexFnActors:
       a = self.indexFnActors[actorName]
       if a.collidepoint(pos):

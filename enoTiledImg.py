@@ -413,6 +413,9 @@ class enoTiledImg:
     tagHash = self.tags
 
     msc = self.getMappedScreenCoords()
+    if tagHash is None:
+      print("enoTileImg drawTags error: tagHash empty"); return
+
     for tag in tagHash:
       globalTagCoords = self.tagActorGlobalPos[tag]
       size         = self.tagSize[tag]

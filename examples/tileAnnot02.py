@@ -13,7 +13,7 @@ from enoTiledImgNav import *
 
 WIDTH, HEIGHT=1920, 1080
 
-tmdn    = 'resources/loc/maps/us/1975aL01'
+tmdn    = 'resources/ecce001/loc/maps/us/1975aL01'
 #states1Fn = 'resources/usAnnot01a.txt'
 states1Fn = 'usAnnot01a.txt'
 states1F  = open(states1Fn, 'rt')
