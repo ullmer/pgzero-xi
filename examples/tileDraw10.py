@@ -23,6 +23,8 @@ multiresLevel = 2
 #multiresLevel = 1 
 
 eti.adjustWindowPlacement(WIDTH, HEIGHT)
+
+tmdn = 'resources/ecce001/loc/maps/sc/1970'
 eti.loadTmap(tmdn, multiresLevel) #needs evolution
 etinav.constructIndexGui()
 
