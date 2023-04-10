@@ -303,7 +303,7 @@ class enoTiledImg:
 
   def buildTagActors(self):
     if self.featuresTags == None:
-      self.logError("buildTagActors error: featuresTags is empty")
+      #self.logError("buildTagActors error: featuresTags is empty")
       return None
 
     print("cfn:", self.getDefaultCursorImgFn())
@@ -414,7 +414,8 @@ class enoTiledImg:
 
     msc = self.getMappedScreenCoords()
     if tagHash is None:
-      print("enoTileImg drawTags error: tagHash empty"); return
+      #print("enoTileImg drawTags error: tagHash empty"); return
+      return
 
     for tag in tagHash:
       globalTagCoords = self.tagActorGlobalPos[tag]

@@ -2,14 +2,16 @@
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 
+import sys; sys.path.append('c:/git/pgzero-xi')
+
 from enoTiledImg    import *
 from enoTiledImgNav import *
-import sys
 
 WIDTH, HEIGHT=1920, 1080
 
 #tmdn = 'rmUS1882a'
-tmdn = 'cuMap2'
+#tmdn = 'cuMap2'
+tmdn = 'resources/ecce001/edu/clemson/map02'
 #tmdn = 'rmUS1882b'
 
 eti    = enoTiledImg()
@@ -19,7 +21,7 @@ etinav = enoTiledImgNav(eti)
 eti.adjustWindowPlacement(WIDTH, HEIGHT)
 eti.loadTmap(tmdn)
 
-c1 = Actor("cursor01a", pos=(200, 200))
+c1 = Actor("app_support/cursor01a", pos=(200, 200))
 
 ############### draw callback ###############
 
