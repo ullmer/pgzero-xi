@@ -283,7 +283,9 @@ class enoTiledImg:
     self.generated = y['generated']
     self.generated = y['generated']
 
-    if 'multiresolution' in y:      self.multiresolution =      y['multiresolution']
+    if 'multiresolution' in y:      
+       self.multiresolution =      y['multiresolution']
+
     if 'defaultMultiresLevel' in y: 
        self.defaultMultiresLevel = y['defaultMultiresLevel']
        #self.multiresLevel = self.defaultMultiresLevel
@@ -292,7 +294,9 @@ class enoTiledImg:
 
     if 'features' in y: 
       f = self.features = y['features']
-      if 'multiresLevel' in f: self.featuresResLevel = f['multiresLevel']
+      if 'multiresLevel' in f: 
+        self.featuresResLevel = f['multiresLevel']
+
       if 'tags' in f:          
         self.featuresTags      = f['tags']
         self.buildTagActors()
@@ -306,7 +310,7 @@ class enoTiledImg:
       #self.logError("buildTagActors error: featuresTags is empty")
       return None
 
-    print("cfn:", self.getDefaultCursorImgFn())
+    #print("cfn:", self.getDefaultCursorImgFn())
 
     self.tags              = []
     self.tagActors         = {}
