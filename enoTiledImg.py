@@ -17,7 +17,6 @@ from PIL import Image, ImageFont, ImageDraw
 from queue import *
 from datetime import *
 
-
 #########################################################################
 ############################## Enodia tiled image #######################
 
