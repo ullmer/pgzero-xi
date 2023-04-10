@@ -2,8 +2,9 @@
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 
-from enoTiledImg import *
 import sys
+sys.path.append('c:/git/pgzero-xi')
+from enoTiledImg import *
 
 WIDTH, HEIGHT=1920, 1080
 
@@ -29,6 +30,6 @@ def on_key_down(key):
   if key is keys.UP:    eti.shiftImg(0, -nudge)
   if key is keys.DOWN:  eti.shiftImg(0,  nudge)
 
-def update():
+#def update():
 
 ### end ###

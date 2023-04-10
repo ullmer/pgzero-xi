@@ -2,8 +2,10 @@
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 
-from enoTiledImg import *
 import sys
+sys.path.append('c:/git/pgzero-xi')
+
+from enoTiledImg import *
 
 if len(sys.argv) < 2:
   print("Please provide image tilemap directory as argument"); sys.exit(-1)

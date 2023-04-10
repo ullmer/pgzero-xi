@@ -85,7 +85,9 @@ class enoTiledImgNav:
     for k in self.cursorKeys:
       self.cursorsPressed[k] = False
 
-    self.c1                = Actor(self.cursorFns[1],        pos=(200, 200))
+    c1Fn = self.cursorFns[1]; print("enoTiledImgNav contructor c1Fn:", c1Fn)
+
+    self.c1                = Actor(c1Fn, pos=(200, 200))
     #self.legendRight       = Actor(self.legendRightFn,       pos=(1680, 500))
     self.legendRight       = Actor(self.legendRightFn,       pos=(1900, 500))
     self.legendRightCursor = Actor(self.legendRightCursorFn, pos=(1680, 905))
