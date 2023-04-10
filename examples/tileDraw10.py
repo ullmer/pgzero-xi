@@ -2,10 +2,12 @@
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 
+import sys
+sys.path.append('c:/git/pgzero-xi')
+
 from enoContentResolver import *
 from enoTiledImg        import *
 from enoTiledImgNav     import *
-import sys
 
 WIDTH, HEIGHT=1920, 1080
 
