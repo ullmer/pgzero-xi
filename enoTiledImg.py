@@ -166,7 +166,7 @@ class enoTiledImg:
 
   #def mapWithinBounds(self, testpos, pixelbounds): 
 
-  ############################## anim top, bottom, left, right ##############################
+  ########################### anim top ######################
 
   def animTop(self):
     self.animPrefatory()
@@ -177,6 +177,8 @@ class enoTiledImg:
             on_finished=self.animationFinishedCB)
     self.animationActive = True
 
+  ########################### anim left ######################
+
   def animLeft(self):
     self.animPrefatory()
     x, y            = self.imgPos; x = 0
@@ -185,10 +187,18 @@ class enoTiledImg:
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
             on_finished=self.animationFinishedCB)
     self.animationActive = True
+  
+  ########################### anim right ######################
 
   def animRight(self):
     self.animPrefatory()
-    isx             = self.getImageSize()[0]
+    isz = self.getImageSize()
+    if isz == None: 
+      print("enoTiledImg animRight error: image size = null"); return
+    print("isz:", isz)
+    print("mrl:", self.multiresLevel)
+
+    isx             = isz[0]
     x, y            = self.imgPos; x = self.screenDim[0] - isx
     self.lastImgPos = self.imgPos
     self.imgPos     = (x,y)
@@ -196,10 +206,13 @@ class enoTiledImg:
             on_finished=self.animationFinishedCB)
     self.animationActive = True
 
+  ########################### anim bottom ######################
+
   def animBottom(self):
     self.animPrefatory()
     isy             = self.getImageSize()[1]
-    x, y            = self.imgPos; y = self.screenDim[1] - isy
+    x, y            = self.imgPos; 
+    y = self.screenDim[1] - isy
     self.lastImgPos = self.imgPos
     self.imgPos     = (x,y)
     animate(self.imgActor, pos=self.imgPos, duration=self.animDuration, tween=self.animTween,
@@ -209,16 +222,22 @@ class enoTiledImg:
   ############################## imageSize ##############################
 
   def getImageSize(self):
-    if self.multiresolution == False: return self.imgSize
+    isz = self.imgSize
+
+    if self.multiresolution == False and type(isz) is list and len(isz) == 2: 
+      return self.imgSize
+      # it appears multiresolution isn't always correctly set
+
     mrlevel = self.multiresLevel
-    if mrlevel in self.imgSize:
-      imgsize    = self.imgSize[mrlevel]  #error handling needed
+
+    if mrlevel in isz: 
+      imgsize    = isz[mrlevel]  #error handling needed
       return imgsize
 
     print("enoTiledImg getImageSize error: multiresolution=True, and error with self.imgSize:", self.imgSize)
     return None
 
-  ############################## shift image ##############################
+  ############################## shift mage ##############################
 
   def animUpdateImg(self):
     if self.imgActor == None: return
