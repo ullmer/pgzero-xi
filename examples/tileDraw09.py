@@ -2,17 +2,13 @@
 # Brygg Ullmer, Clemson University
 # Begun 2023-03-22
 
+import sys; sys.path.append('c:/git/pgzero-xi')
 from enoTiledImg    import *
 from enoTiledImgNav import *
-import sys
 
 WIDTH, HEIGHT=1920, 1080
 
-#tmdn = 'rmUS1882a'
-#tmdn = 'resources/cuMap2'
-tmdn = 'resources/loc-sc1970'
-#tmdn = 'resources/loc-sc1876'
-#tmdn = 'rmUS1882b'
+tmdn = 'resources/ecce001/loc/maps/sc/1970'
 
 eti    = enoTiledImg()
 etinav = enoTiledImgNav(eti)
