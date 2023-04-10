@@ -11,8 +11,10 @@ from enoTiledImgNav     import *
 
 WIDTH, HEIGHT=1920, 1080
 
-eyu = 'https://enodia.computing.clemson.edu/'
-ecr = enoContentResolver(eyu)
+#ecr = enoContentResolver(eyu)
+#ecr = enoContentResolver()
+#ecr.
+#addrL = ecResolv.getFirstContentMatchLocal('SC')
 
 eti    = enoTiledImg()
 etinav = enoTiledImgNav(eti)
