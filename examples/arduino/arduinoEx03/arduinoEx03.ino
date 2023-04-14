@@ -13,9 +13,6 @@ int millisPerUpdate = 1000; //how many milliseconds should pass before each ~hea
 #include <Adafruit_NeoPixel.h>
 #include <SerialCommands.h>
 
-// https://github.com/ppedro74/Arduino-SerialCommands
-// https://github.com/ppedro74/Arduino-SerialCommands/tree/master/examples/SerialCommandsOneKeySimple
-
 #define NUMPIXELS 1
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 
@@ -25,7 +22,18 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
   #define Serial SERIAL_PORT_USBVIRTUAL
 #endif
 
-int millisLastUpdate = 0;
+////////////////// led & serial code /////////////////////
+
+void lightRed()  {pixels.fill(0xFF0000); pixels.show();}
+void lightBlue() {pixels.fill(0x0000FF); pixels.show();}
+void lightOff()  {pixels.fill(0x000000); pixels.show();}
+
+char serial_command_buffer[32];
+SerialCommands serCmds(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+
+SerialCommand cmd_red( "r", lightRed,  true);
+SerialCommand cmd_blue("b", lightBlue, true);
+SerialCommand cmd_off( "-", lightOff,  true);
 
 ////////////////// setup /////////////////////
 
@@ -45,54 +53,15 @@ void setup() {
 
   pixels.begin();                       // INITIALIZE NeoPixel strip object (REQUIRED)
   pixels.setBrightness(LED_BRIGHTNESS); // not so bright
-}
 
-////////////////// serialCount /////////////////////
-
-int serialIdx = 0;
-
-void serialCount() {
-  Serial.println(serialIdx); serialIdx += 1;
-}
-
-////////////////// toggle LED0 /////////////////////
-
-int led0Activated = 0;
-int led1Activated = 1;
-int led0State = 0;
-int led1State = 0;
-void toggleLED() {
-  if (led0Activated && led0State == 0) {digitalWrite(LED0, HIGH); led0State=1;}
-  else               {digitalWrite(LED0, LOW);  led0State=0;}
-
-  if (led1Activated && led1State == 0) {
-    pixels.fill(0xFF0000);
-    pixels.show(); led1State=1;
-  } else {
-    pixels.fill(0x0000FF);
-    pixels.show(); led1State=0;
-  }
-}
-
-////////////////// heartbeat /////////////////////
-void heartbeat() {
-  toggleLED(); serialCount();
-}
-
-////////////////// serial read update /////////////////////
-void serialReadUpdate() {
-  char ch = Serial.read();
-  Serial.print(">>");
-  Serial.println(ch); 
+  serCmds.SetDefaultHandler(&cmd_off);
+  serCmds.AddCommand(&cmd_red);
+  serCmds.AddCommand(&cmd_blue);  
 }
 
 ////////////////// loop /////////////////////
 
 // the loop function runs over and over again forever
 void loop() {
-  int currentTime = millis();
-  if (millisLastUpdate == 0 || millisLastUpdate + millisPerUpdate < currentTime) {
-      heartbeat(); millisLastUpdate = currentTime;
-  }
-  if (Serial.available()) {serialReadUpdate();}
+  serCmds.ReadSerial();
 }
