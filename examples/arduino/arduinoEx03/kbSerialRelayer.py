@@ -10,18 +10,21 @@ SerialObj.baudrate = 115200 # set Baud rate to 9600
 SerialObj.bytesize = 8      # Number of data bits = 8
 SerialObj.parity   ='N'      # No parity
 SerialObj.stopbits = 1   # Number of Stop bits = 1
-
-def sigint_handler(sig, frame):
+  
+def quit(): 
   SerialObj.close()      # Close the port
   sys.exit(0)
+
+def sigint_handler(sig, frame): quit()
 
 signal.signal(signal.SIGINT, sigint_handler)
 
 while True:
   if msvcrt.kbhit(): 
     ch = getch.getch()
+    if ch == 'q': quit()
     SerialObj.write(ch) 
 
-  time.sleep(1)
+  time.sleep(.01)
 
 ### end ###
