@@ -3,12 +3,10 @@
 // Support by NSF CNS-1828611
 // Begun 2023-04
 
-#define LED0 13
 //#define BAUD 9600
-
 #define BAUD 115200
+#define LED0 13
 #define LED_BRIGHTNESS 1
-int millisPerUpdate = 1000; //how many milliseconds should pass before each ~heartbeat update
 
 #include <Adafruit_NeoPixel.h>
 #include <SerialCommands.h>
@@ -67,3 +65,4 @@ void setup() {
 void loop() {
   serCmds.ReadSerial();
 }
+/// end ///
