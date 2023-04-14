@@ -27,8 +27,10 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 void lightBlue(SerialCommands *sender) {pixels.fill(0x0000FF); pixels.show();}
 void lightRed( SerialCommands *sender) {pixels.fill(0xFF0000); pixels.show();}
 void lightOff( SerialCommands *sender) {pixels.fill(0x000000); pixels.show();}
+void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
 
 char serial_command_buffer[32];
+
 SerialCommands serCmds(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
 
 SerialCommand cmd_red( "r", lightRed,  true);
@@ -54,7 +56,7 @@ void setup() {
   pixels.begin();                       // INITIALIZE NeoPixel strip object (REQUIRED)
   pixels.setBrightness(LED_BRIGHTNESS); // not so bright
 
-  serCmds.SetDefaultHandler(&cmd_off);
+  serCmds.SetDefaultHandler(unrecognized);
   serCmds.AddCommand(&cmd_red);
   serCmds.AddCommand(&cmd_blue);  
 }
