@@ -24,9 +24,9 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 
 ////////////////// led & serial code /////////////////////
 
-void lightRed()  {pixels.fill(0xFF0000); pixels.show();}
-void lightBlue() {pixels.fill(0x0000FF); pixels.show();}
-void lightOff()  {pixels.fill(0x000000); pixels.show();}
+void lightBlue(SerialCommands *sender) {pixels.fill(0x0000FF); pixels.show();}
+void lightRed( SerialCommands *sender) {pixels.fill(0xFF0000); pixels.show();}
+void lightOff( SerialCommands *sender) {pixels.fill(0x000000); pixels.show();}
 
 char serial_command_buffer[32];
 SerialCommands serCmds(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
