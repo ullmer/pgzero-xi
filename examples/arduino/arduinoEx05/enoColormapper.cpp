@@ -41,16 +41,18 @@ char *enoColormapper::getColorSummaryStr() {
   String result = null;
   char **buffer = new char*[numColorkeysUsed];
 
+
   for (int i=0; i<numColorkeysUsed; i++) {
     result += 
 
   }
 }
 
+//////////////////////////  getColorSummaryStr //////////////////////////
 
-    int   getColorByKey(char colorKey);
-    int   getColorByIdx(int  colorIdx);
-    int   getColorByName(char *colorName, bool caseSensitive=false);
+int  enoColormapper::getColorByKey(char colorKey);
+int   getColorByIdx(int  colorIdx);
+int   getColorByName(char *colorName, bool caseSensitive=false);
     
   private:
     char  *colorKeys;

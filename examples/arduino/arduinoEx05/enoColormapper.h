@@ -25,6 +25,7 @@ class enoColormapper {
     int   *colorVals;
     int numColorkeysUsed;
     int maxColorkeysPerChunk;
+    int maxCharsPerLine = 82; //80 + CRLF
     enoColormapper *nextColormapperChunk;
 }
 
