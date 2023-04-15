@@ -42,10 +42,18 @@ char *enoColormapper::getColorSummaryStr() {
   String result = null;
   int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
+  char colorNameBuffer[maxColorNamelen];
+  char *currentColor;
 
   for (int i=0; i<numColorkeysUsed; i++) {
     char *currentLine  = new char[maxCharsPerLine];
-    sprintf(currentLine, "%c %6xi %10s\n", colorKeys[i], colorVals[i], colorNames[i]);
+
+    currentColor = colorNames[i];
+    if strlen(currentColor > maxColornameLen) { // avoid buffer overflow error
+      currentColor = strncpy(colorNameBuffer, colorNames[i], maxColornameLen);
+    }
+    
+    sprintf(currentLine, "%c %6X %10s\n", colorKeys[i], colorVals[i], currentColor);
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
