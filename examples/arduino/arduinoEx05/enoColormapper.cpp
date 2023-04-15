@@ -38,8 +38,12 @@ int enoColormapper::registerColor(char colorKey, String colorName, int colorVal)
 //////////////////////////  getColorSummaryStr //////////////////////////
 
 String enoColormapper::getColorSummaryStr() {
-   
+  String result = "";
 
+  for (int i=0; i<numColorkeysUsed; i++) {
+    result += 
+
+  }
 }
 
 
