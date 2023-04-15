@@ -22,8 +22,8 @@ void enoColormapper::populateStandardColors() {
   registerColor('g', 'green',  0x00ff00);
   registerColor('b', 'blue',   0x0000ff);
   registerColor('w', 'white',  0xffffff);
-  registerColor('o', 'orange', 0x0000ff);
-  registerColor('p', 'purple', 0x0000ff);
+  registerColor('o', 'orange', 0xff8000);
+  registerColor('p', 'purple', 0x800080);
 }
 
 ////////////////////////// allocate buffers //////////////////////////
