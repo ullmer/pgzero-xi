@@ -13,7 +13,7 @@ enoColormapper(int maxColorkeysPerChunk) {
   nextColormapperChunk = null;
 }
 
-////////////////////////// constructor //////////////////////////
+////////////////////////// allocate buffers //////////////////////////
 
 int   allocateBuffers(int numColorkeys) {
   maxColorkeysPerChunk = numColorkeys;
@@ -23,8 +23,17 @@ int   allocateBuffers(int numColorkeys) {
   numColorkeysUsed = 0;
 }
 
+//////////////////////////  register color //////////////////////////
 
-    int   registerColor(char colorKey, char *colorName, int colorVal);
+int registerColor(char colorKey, char *colorName, int colorVal) {
+  if (numColorskeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
+
+  idx = numColorkeysUsed; numColorkeysUsed++;
+
+  colorKeys[idx]  = colorKey;
+  colorNames[idx] = colorName;
+  colorVals[idx]  = colorVal;
+}
 
     char *getColorSummaryStr();
     int   getColorByKey(char colorKey);
