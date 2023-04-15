@@ -9,8 +9,14 @@
 #endif
 
 class enoColormapper {
-
-
+  public:
+    enoColormapper(int maxColorkeysPerChunk);
+    int registerColor(char colorKey, char *colorName, int colorVal);
+    int allocateBuffers();
+    
+  private:
+    int maxColorkeysPerChunk;
+    enoColormapper *nextColormapperChunk;
 }
 
 // end //
