@@ -12,17 +12,17 @@ class enoColormapper {
   public:
     enoColormapper(int maxColorkeysPerChunk);
     int   allocateBuffers(int numColorkeys);
-    int   registerColor(char colorKey, char *colorName, int colorVal);
+    int   registerColor(char colorKey, String colorName, int colorVal);
 
-    char *getColorSummaryStr();
-    int   getColorByKey(char colorKey);
-    int   getColorByIdx(int  colorIdx);
-    int   getColorByName(char *colorName, bool caseSensitive=false);
+    String getColorSummaryStr();
+    int    getColorByKey(char colorKey);
+    int    getColorByIdx(int  colorIdx);
+    int    getColorByName(char *colorName, bool caseSensitive=false);
     
   private:
-    char  *colorKeys;
-    char **colorNames;
-    int   *colorVals;
+    char   *colorKeys;
+    String *colorNames;
+    int    *colorVals;
     int numColorskeysUsed;
     int maxColorkeysPerChunk;
     enoColormapper *nextColormapperChunk;
