@@ -9,9 +9,21 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoColormapper::enoColormapper(int maxColorkeysPerChunk) {
+enoColormapper::enoColormapper(int maxColorkeysPerChunk, generateStandardColors=true) {
   allocateBuffers(maxColorkeysPerChunk);
   nextColormapperChunk = null;
+  if (generateStandardColors) {populateStandardColors();}
+}
+
+////////////////////////// populate standard colors //////////////////////////
+
+void enoColormapper::populateStandardColors() {
+  registerColor('r', 'red',    0xff0000);
+  registerColor('g', 'green',  0x00ff00);
+  registerColor('b', 'blue',   0x0000ff);
+  registerColor('w', 'white',  0xffffff);
+  registerColor('o', 'orange', 0x0000ff);
+  registerColor('p', 'purple', 0x0000ff);
 }
 
 ////////////////////////// allocate buffers //////////////////////////
@@ -35,6 +47,7 @@ int enoColormapper::registerColor(char colorKey, char *colorName, int colorVal) 
   colorNames[idx] = colorName;
   colorVals[idx]  = colorVal;
 }
+
 
 //////////////////////////  getColorSummaryStr //////////////////////////
 
