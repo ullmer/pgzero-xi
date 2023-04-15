@@ -4,6 +4,7 @@
 // Begun 2023-04
 // LLGPL3
 
+#include <stdio>
 #include "enoColormapper.h"
 
 ////////////////////////// constructor //////////////////////////
@@ -39,12 +40,14 @@ int enoColormapper::registerColor(char colorKey, char *colorName, int colorVal) 
 
 char *enoColormapper::getColorSummaryStr() {
   String result = null;
+  int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
 
-
   for (int i=0; i<numColorkeysUsed; i++) {
-    result += 
-
+    char *currentLine  = new char[maxCharsPerLine];
+    sprintf(currentLine, "%c %6xi %10s\n", colorKeys[i], colorVals[i], colorNames[i]);
+    resultlen += strlen(currentLine);
+    buffer[i] = currentLine;
   }
 }
 
