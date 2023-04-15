@@ -8,14 +8,14 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoColormapper(int maxColorkeysPerChunk) {
+enoColormapper::enoColormapper(int maxColorkeysPerChunk) {
   allocateBuffers(maxColorkeysPerChunk);
   nextColormapperChunk = null;
 }
 
 ////////////////////////// allocate buffers //////////////////////////
 
-int   allocateBuffers(int numColorkeys) {
+int   enoColormapper::allocateBuffers(int numColorkeys) {
   maxColorkeysPerChunk = numColorkeys;
   colorKeys  = new char[numColorkeys];
   colorNames = new char*[numColorkeys];
@@ -25,7 +25,7 @@ int   allocateBuffers(int numColorkeys) {
 
 //////////////////////////  register color //////////////////////////
 
-int registerColor(char colorKey, char *colorName, int colorVal) {
+int enoColormapper::registerColor(char colorKey, char *colorName, int colorVal) {
   if (numColorskeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
 
   idx = numColorkeysUsed; numColorkeysUsed++;
@@ -35,7 +35,13 @@ int registerColor(char colorKey, char *colorName, int colorVal) {
   colorVals[idx]  = colorVal;
 }
 
-    char *getColorSummaryStr();
+//////////////////////////  getColorSummaryStr //////////////////////////
+
+char *enoColormapper::getColorSummaryStr() {
+
+}
+
+
     int   getColorByKey(char colorKey);
     int   getColorByIdx(int  colorIdx);
     int   getColorByName(char *colorName, bool caseSensitive=false);
