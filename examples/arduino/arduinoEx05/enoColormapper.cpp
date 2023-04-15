@@ -52,14 +52,13 @@ int enoColormapper::registerColor(char colorKey, char *colorName, int colorVal) 
 //////////////////////////  getColorSummaryStr //////////////////////////
 
 char *enoColormapper::getColorSummaryStr() {
-  String result = null;
   int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
   char colorNameBuffer[maxColorNamelen];
-  char *currentColor;
+  char *currentColor, *currentLine;
 
   for (int i=0; i<numColorkeysUsed; i++) {
-    char *currentLine  = new char[maxCharsPerLine];
+    currentLine  = new char[maxCharsPerLine];
 
     currentColor = colorNames[i];
     if strlen(currentColor > maxColornameLen) { // avoid buffer overflow error
@@ -70,6 +69,17 @@ char *enoColormapper::getColorSummaryStr() {
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
+
+  char *result = new char[resultLen];
+
+  int currentCharIdx = 0;
+  for (int i=0; i<numColorkeysUsed; i++) {
+    currentLine = buffer[i]
+    strcpy(&result[currentCharIdx], currentLine);
+    currentCharIdx += strlen(currentLine)
+  }
+
+  return result;
 }
 
 //////////////////////////  getColorSummaryStr //////////////////////////
