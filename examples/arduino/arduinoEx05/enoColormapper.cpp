@@ -75,7 +75,7 @@ char *enoColormapper::getColorSummaryStr() {
   int currentCharIdx = 0;
   for (int i=0; i<numColorkeysUsed; i++) {
     currentLine = buffer[i]
-    strcpy(&result[currentCharIdx], currentLine);
+    strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
     currentCharIdx += strlen(currentLine)
   }
 
