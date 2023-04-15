@@ -17,15 +17,15 @@ enoColormapper::enoColormapper(int maxColorkeysPerChunk) {
 
 int   enoColormapper::allocateBuffers(int numColorkeys) {
   maxColorkeysPerChunk = numColorkeys;
-  colorKeys  = new   char[numColorkeys];
-  colorNames = new String[numColorkeys];
-  colorVals  = new    int[numColorkeys];
+  colorKeys  = new  char[numColorkeys];
+  colorNames = new char*[numColorkeys];
+  colorVals  = new   int[numColorkeys];
   numColorkeysUsed = 0;
 }
 
 //////////////////////////  register color //////////////////////////
 
-int enoColormapper::registerColor(char colorKey, String colorName, int colorVal) {
+int enoColormapper::registerColor(char colorKey, char *colorName, int colorVal) {
   if (numColorskeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
 
   idx = numColorkeysUsed; numColorkeysUsed++;
@@ -37,8 +37,9 @@ int enoColormapper::registerColor(char colorKey, String colorName, int colorVal)
 
 //////////////////////////  getColorSummaryStr //////////////////////////
 
-String enoColormapper::getColorSummaryStr() {
-  String result = "";
+char *enoColormapper::getColorSummaryStr() {
+  String result = null;
+  char **buffer = new char*[numColorkeysUsed];
 
   for (int i=0; i<numColorkeysUsed; i++) {
     result += 
