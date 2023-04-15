@@ -11,8 +11,7 @@
 class enoColormapper {
   public:
     enoColormapper(int maxColorkeysPerChunk);
-    int   allocateBuffers();
-
+    int   allocateBuffers(int numColorkeys);
     int   registerColor(char colorKey, char *colorName, int colorVal);
 
     char *getColorSummaryStr();
