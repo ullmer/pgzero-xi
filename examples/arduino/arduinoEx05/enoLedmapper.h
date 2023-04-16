@@ -14,7 +14,8 @@ class enoLEDmapper {
   public:
     enoLEDmapper(int numLEDs, int whichChain=0, int maxBrightVal=10);
     void allocateLedBuffers(int numLEDs);
-    void registerLED(char ledKey, char ledColorKey, int ledIdx=-1, const char ledName[], int ledBright=5); //-1 = next in sequence
+    void registerLED(char ledKey, char ledColorKey, int ledIdx=-1, 
+                     const char ledName[]="", int ledBright=5); //-1 = next in sequence
 
     char  *getLEDSummaryStr();
     char  *getLEDYamlStr();

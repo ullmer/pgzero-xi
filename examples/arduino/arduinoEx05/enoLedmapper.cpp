@@ -28,8 +28,9 @@ void enoLEDmapper::allocateBuffers(int numLEDkeys) {
 }
 
 //////////////////////////  register led //////////////////////////
+    void registerLED(
 
-void enoLEDmapper::registerLED(char ledKey, const char ledName[], int ledVal) {
+void enoLEDmapper::registerLED(char ledKey, char ledColorKey, int ledIdx, const char ledName[], int ledBright) {
   if (numLEDkeysUsed >= maxLEDkeysPerChunk) {return;} // need to handle better
 
   ledKeys[numLEDkeysUsed]  = ledKey;
@@ -121,7 +122,6 @@ int   enoLEDmapper::getLEDByName(char *ledName, bool caseSensitive) {
 
 class enoLEDmapper {
   public:
-    void registerLED(char ledKey, char ledColorKey, int ledIdx=-1, const char ledName[], int ledBright=5); //-1 = next in sequence
 
     char  *getLEDSummaryStr();
     char  *getLEDYamlStr();
