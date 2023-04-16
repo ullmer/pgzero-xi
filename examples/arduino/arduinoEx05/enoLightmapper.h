@@ -10,6 +10,8 @@
 
 #define ECM_DEFAULT_LightCHUNK 10
 
+///////////////////////////// Enodia Light Mapper /////////////////////////////
+
 class enoLightmapper {
   public:
     enoLightmapper(int numLights, int whichChain=0, int maxBrightVal=10);
@@ -43,4 +45,16 @@ class enoLightmapper {
     enoLightmapper *nextLightmapperChunk;
 };
 
-// end //
+///////////////////////////// integer array /////////////////////////////
+
+class IntArr {
+  public:
+    IntArr (int arrSize);
+    int getSize();
+    int setEls(int *list, int listLen);
+  private:
+    int *intArr;
+    int arrSize;
+}
+
+/// end ///
