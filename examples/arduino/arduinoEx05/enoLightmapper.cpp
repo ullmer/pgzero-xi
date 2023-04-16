@@ -10,17 +10,17 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal);
+enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal) {
   allocateLightBuffers(numLights);
-  this.whichChain    = whichChain;
-  this.maxBrightVal  = maxBrightVal;
+  this->whichChain    = whichChain;
+  this->maxBrightVal  = maxBrightVal;
   nextLightmapperChunk = NULL;
 }
 
 ////////////////////////// allocate light buffers //////////////////////////
 
 void enoLightmapper::allocateLightBuffers(int numLights) {
-  this.numLights = numLights;
+  this->numLights = numLights;
   lightKeys   = new char[numLights];
   lightVals   = new char[numLights];
   lightBright = new int[ numLights];
@@ -37,7 +37,7 @@ void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightI
   lightKeys[lightIdx]        = lightKey;
   lightColorKeys[lightIdx]   = lightColorKey;
   lightNames[lightIdx]       = lightName;
-  this.lightBright[lightIdx] = lightBright;
+  this->lightBright[lightIdx] = lightBright;
 }
 
 //////////////////////////  getLightSummaryStr //////////////////////////
@@ -154,7 +154,7 @@ int enoLightmapper::setLightByIdx(int lightIdx, char lightColor, int lightBright
 
 IntArr::IntArr(int arrSize) {
   intArr = new int[arrSize];
-  this.arrSize = arrSize;
+  this->arrSize = arrSize;
 }
 
 ///////////////////////////// getSize /////////////////////////////

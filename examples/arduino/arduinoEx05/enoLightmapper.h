@@ -10,6 +10,8 @@
 
 #define ECM_DEFAULT_LightCHUNK 10
 
+class IntArr; //forward declaration; at bottom, as details aren't of highest relevance
+
 ///////////////////////////// Enodia Light Mapper /////////////////////////////
 
 class enoLightmapper {
