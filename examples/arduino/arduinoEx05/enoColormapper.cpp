@@ -9,7 +9,7 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoColormapper::enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, bool generateStandardColors=true) {
+enoColormapper::enoColormapper(int maxColorkeysPerChunk, bool generateStandardColors) {
   allocateBuffers(maxColorkeysPerChunk);
   nextColormapperChunk = null;
   if (generateStandardColors) {populateStandardColors();}
@@ -18,12 +18,12 @@ enoColormapper::enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, 
 ////////////////////////// populate standard colors //////////////////////////
 
 void enoColormapper::populateStandardColors() {
-  registerColor('r', 'red',    0xff0000);
-  registerColor('g', 'green',  0x00ff00);
-  registerColor('b', 'blue',   0x0000ff);
-  registerColor('w', 'white',  0xffffff);
-  registerColor('o', 'orange', 0xff8000);
-  registerColor('p', 'purple', 0x800080);
+  registerColor('r', "red",    0xff0000);
+  registerColor('g', "green",  0x00ff00);
+  registerColor('b', "blue",   0x0000ff);
+  registerColor('w', "white",  0xffffff);
+  registerColor('o', "orange", 0xff8000);
+  registerColor('p', "purple", 0x800080);
 }
 
 ////////////////////////// allocate buffers //////////////////////////
