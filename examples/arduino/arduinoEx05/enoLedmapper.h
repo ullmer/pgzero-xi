@@ -20,9 +20,10 @@ class enoLEDmapper {
     char *getLEDSummaryStr();
     char *getLEDYamlStr();
 
-    int getLEDByKey(char ledKey);
-    int getLEDByIdx(int  ledIdx);
-    int getLEDByName( char *ledName, bool caseSensitive=false);
+    int getLEDColByKey(char ledKey);
+    int getLEDColByIdx(int  ledIdx);
+    int getLEDColByName(char *ledName, bool caseSensitive=false);
+    int getLEDIdxByName(char *ledName, bool caseSensitive=false);
     
     int setLEDByKey(char ledKey, char ledColor, int ledBrightness);
     int setLEDByIdx(int  ledIdx, char ledColor, int ledBrightness);
