@@ -29,8 +29,8 @@ class enoLEDmapper {
     char *ledColorKeys = NULL;
     char *ledBright    = NULL;
     const char **ledNames; // may benefit from revisiting
-    int numLED;
-    int maxLEDkeysPerChunk;
+    int numLEDs;
+    int ledCursorIdx  = 0;
     int maxLEDNameLen = 15; 
     int maxBrightVal  = 10; 
     int maxCharsPerLine = 82; //80 + CRLF

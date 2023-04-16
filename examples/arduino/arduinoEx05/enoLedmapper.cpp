@@ -17,28 +17,28 @@ enoLEDmapper::enoLEDmapper(int numLEDs, int whichChain, int maxBrightVal);
   nextLEDmapperChunk = NULL;
 }
 
-////////////////////////// allocate buffers //////////////////////////
+////////////////////////// allocate led buffers //////////////////////////
 
-void enoLEDmapper::allocateBuffers(int numLEDkeys) {
-  maxLEDkeysPerChunk = numLEDkeys;
-  ledKeys  = new  char[numLEDkeys];
-  ledVals  = new   int[numLEDkeys];
-  ledNames = new const char*[numLEDkeys];
-  numLEDkeysUsed = 0;
+void enoLEDmapper::allocateLedBuffers(int numLEDs) {
+  this.numLEDs = numLEDs;
+  ledKeys   = new char[numLEDs];
+  ledVals   = new char[numLEDs];
+  ledBright = new int[ numLEDs];
+  ledNames  = new const char*[numLEDs];
 }
-
+    
 //////////////////////////  register led //////////////////////////
-    void registerLED(
 
 void enoLEDmapper::registerLED(char ledKey, char ledColorKey, int ledIdx, const char ledName[], int ledBright) {
   if (numLEDkeysUsed >= maxLEDkeysPerChunk) {return;} // need to handle better
 
-  ledKeys[numLEDkeysUsed]  = ledKey;
-  ledNames[numLEDkeysUsed] = ledName;
-  ledVals[numLEDkeysUsed]  = ledVal;
-  numLEDkeysUsed++;
-}
+  if (ledIdx == -1) {ledIdx = ledCursorIdx; ledCursorIdx++;}
 
+  ledKeys[ledIdx]        = ledKey;
+  ledColorKeys[ledIdx]   = ledColorKey;
+  ledNames[ledIdx]       = ledName;
+  this.ledBright[ledIdx] = ledBright;
+}
 
 //////////////////////////  getLEDSummaryStr //////////////////////////
 
@@ -107,40 +107,4 @@ int   enoLEDmapper::getLEDByName(char *ledName, bool caseSensitive) {
   return 0; //probably not ideal, but a start
 }
     
-// end //
-// Enodia LED mapper
-// Brygg Ullmer, Clemson University
-// Partial support from NSF CNS-1828611
-// Begun 2023-04
-// LLGPL3
-
-#ifndef enoLEDmapper_h
-#define enoLEDmapper_h
-#endif
-
-#define ECM_DEFAULT_LEDCHUNK 10
-
-class enoLEDmapper {
-  public:
-
-    char  *getLEDSummaryStr();
-    char  *getLEDYamlStr();
-    int    getLEDByKey(char ledKey);
-    int    getLEDByIdx(int  ledIdx);
-    int    getLEDByName( char *ledName, bool caseSensitive=false);
-    
-  private:
-    int  whichChain;
-    char *ledKeys      = NULL;
-    char *ledColorKeys = NULL;
-    char *ledBright    = NULL;
-    const char **ledNames; // may benefit from revisiting
-    int numLED;
-    int maxLEDkeysPerChunk;
-    int maxLEDNameLen = 15; 
-    int maxBrightVal  = 10; 
-    int maxCharsPerLine = 82; //80 + CRLF
-    enoLEDmapper *nextLEDmapperChunk;
-};
-
 // end //
