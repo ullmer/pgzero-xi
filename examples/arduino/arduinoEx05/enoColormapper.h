@@ -12,7 +12,7 @@
 
 class enoColormapper {
   public:
-    enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, generateStandardColors=true);
+    enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, bool generateStandardColors=true);
     int   allocateBuffers(int numColorkeys);
     int   registerColor(char colorKey, char *colorName, int colorVal);
 
@@ -31,6 +31,6 @@ class enoColormapper {
     int maxCharsPerLine = 82; //80 + CRLF
     int maxColorNamelen = 15; 
     enoColormapper *nextColormapperChunk;
-}
+};
 
 // end //

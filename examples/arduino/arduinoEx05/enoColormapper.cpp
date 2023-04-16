@@ -4,12 +4,12 @@
 // Begun 2023-04
 // LLGPL3
 
-#include <stdio>
+#include <stdio.h>
 #include "enoColormapper.h"
 
 ////////////////////////// constructor //////////////////////////
 
-enoColormapper::enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, generateStandardColors=true) {
+enoColormapper::enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, bool generateStandardColors=true) {
   allocateBuffers(maxColorkeysPerChunk);
   nextColormapperChunk = null;
   if (generateStandardColors) {populateStandardColors();}
