@@ -94,6 +94,15 @@ char *enoColormapper::getColorYamlStr() {
   char *currentLine;
   char *currentColor;
 
+  int maxColorNameLen=0;
+  for (int i=0; i<numColorkeysUsed; i++) {
+    int len = strlen(colorNames[i]);
+    if (len>maxColorNameLen) {maxColorNameLen = len;}
+  }
+
+  char *namePad = new char[maxColorNameLen];
+  for (int i=0; i<maxColorNameLen; i++) {namePad[i]=' ';} // toward alignment
+
   for (int i=0; i<numColorkeysUsed; i++) {
     currentLine  = new char[maxCharsPerLine];
     int colorNameLen = strlen(colorNames[i]);
@@ -104,8 +113,14 @@ char *enoColormapper::getColorYamlStr() {
       currentColor = strcpy(colorNameBuffer, colorNames[i]);
     }
     
-    sprintf(currentLine, "%2i: {key=%c, val=0x%06X, name=%s}\n", 
-        i, colorKeys[i], colorVals[i], currentColor);
+    //sprintf(currentLine, "%2i: {key=%c, val=0x%06X, name=%s}\n", 
+    //    i, colorKeys[i], colorVals[i], currentColor);
+
+    int  namePadOffset = colorNameLen;
+    char *namePad2 = &namePad[namePadOffset];
+
+    sprintf(currentLine, "%s: %s{key=%c, val=0x%06X}\n", 
+            currentColor, namePad2, colorKeys[i], colorVals[i]);
 
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;

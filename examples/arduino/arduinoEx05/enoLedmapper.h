@@ -12,22 +12,27 @@
 
 class enoLEDmapper {
   public:
-    enoLEDmapper(int maxLEDkeysPerChunk=ECM_DEFAULT_LEDCHUNK);
-    void allocateBuffers(int numLEDkeys);
-    void registerLED(char ledKey, const char ledName[], int ledVal);
+    enoLEDmapper(int numLEDs, int whichChain=0, int maxBrightVal=10);
+    void allocateLedBuffers(int numLEDs);
+    void registerLED(char ledKey, char ledColorKey, int ledIdx=-1, const char ledName[], int ledBright=5); //-1 = next in sequence
 
     char  *getLEDSummaryStr();
+    char  *getLEDYamlStr();
     int    getLEDByKey(char ledKey);
     int    getLEDByIdx(int  ledIdx);
-    int    getLEDByName(char *ledName, bool caseSensitive=false);
+    int    getLEDByName( char *ledName, bool caseSensitive=false);
+    int    getLEDByNameP(char *ledName, bool caseSensitive=false); // partial name
     
   private:
-    char  *ledKeys;
+    int  whichChain;
+    char *ledKeys      = NULL;
+    char *ledColorKeys = NULL;
+    char *ledBright    = NULL;
     const char **ledNames; // may benefit from revisiting
-    int   *ledVals;
-    int numLEDkeysUsed;
+    int numLED;
     int maxLEDkeysPerChunk;
     int maxLEDNameLen = 15; 
+    int maxBrightVal  = 10; 
     int maxCharsPerLine = 82; //80 + CRLF
     enoLEDmapper *nextLEDmapperChunk;
 };

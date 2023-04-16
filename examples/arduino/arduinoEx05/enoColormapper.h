@@ -24,9 +24,9 @@ class enoColormapper {
     int    getColorByName(char *colorName, bool caseSensitive=false);
     
   private:
-    char  *colorKeys;
-    const char **colorNames; // may benefit from revisiting
-    int   *colorVals;
+    char  *colorKeys = nullptr;
+    int   *colorVals = nullptr;
+    const char **colorNames = nullptr; // may benefit from revisiting
     int numColorkeysUsed;
     int maxColorkeysPerChunk;
     int maxCharsPerLine = 82; //80 + CRLF
