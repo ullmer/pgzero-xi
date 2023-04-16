@@ -29,7 +29,7 @@ void enoColormapper::populateStandardColors() {
 
 ////////////////////////// allocate buffers //////////////////////////
 
-int   enoColormapper::allocateBuffers(int numColorkeys) {
+void enoColormapper::allocateBuffers(int numColorkeys) {
   maxColorkeysPerChunk = numColorkeys;
   colorKeys  = new  char[numColorkeys];
   colorNames = new char*[numColorkeys];
@@ -76,7 +76,7 @@ char *enoColormapper::getColorSummaryStr() {
   for (int i=0; i<numColorkeysUsed; i++) {
     currentLine = buffer[i];
     strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
-    currentCharIdx += strlen(currentLine)
+    currentCharIdx += strlen(currentLine);
   }
 
   return result;
@@ -101,12 +101,12 @@ int   enoColormapper::getColorByIdx(int  colorIdx) {
 
 //////////////////////////  get color by key //////////////////////////
 
-int   enoColormapper::getColorByName(char *colorName, bool caseSensitive=false) {
+int   enoColormapper::getColorByName(char *colorName, bool caseSensitive) {
 
+  int cmp;
   for (int i=0; i<numColorkeysUsed; i++) {
-    int cmp;
-    if (caseSensitive) {cmp = strcmp( colorName, colorNames[i];}
-    else               {cmp = strcmpi(colorName, colorNames[i];}
+    if (caseSensitive) {cmp = strcmp( colorName, colorNames[i]);}
+    else               {cmp = strcmpi(colorName, colorNames[i]);}
 
     if (cmp==0) {return colorVals[i];}
   }
