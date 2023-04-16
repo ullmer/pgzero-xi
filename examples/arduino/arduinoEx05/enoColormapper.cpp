@@ -32,8 +32,8 @@ void enoColormapper::populateStandardColors() {
 void enoColormapper::allocateBuffers(int numColorkeys) {
   maxColorkeysPerChunk = numColorkeys;
   colorKeys  = new  char[numColorkeys];
-  colorNames = new char*[numColorkeys];
   colorVals  = new   int[numColorkeys];
+  colorNames = new const char*[numColorkeys];
   numColorkeysUsed = 0;
 }
 
