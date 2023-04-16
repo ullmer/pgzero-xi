@@ -65,7 +65,7 @@ char *enoColormapper::getColorSummaryStr() {
       currentColor = strncpy(colorNameBuffer, colorNames[i], maxColornameLen);
     }
     
-    sprintf(currentLine, "%c %6X %10s\n", colorKeys[i], colorVals[i], currentColor);
+    sprintf(currentLine, "%2i %c %6X %15s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
@@ -82,9 +82,13 @@ char *enoColormapper::getColorSummaryStr() {
   return result;
 }
 
-//////////////////////////  getColorSummaryStr //////////////////////////
+//////////////////////////  get color by key //////////////////////////
 
-int  enoColormapper::getColorByKey(char colorKey);
+int  enoColormapper::getColorByKey(char colorKey) {
+
+}
+
+
 int   getColorByIdx(int  colorIdx);
 int   getColorByName(char *colorName, bool caseSensitive=false);
     
