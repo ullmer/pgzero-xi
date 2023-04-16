@@ -76,35 +76,63 @@ char *enoLEDmapper::getLEDSummaryStr() {
   return result;
 }
 
-//////////////////////////  get led by key //////////////////////////
+//////////////////////////  get led color by key //////////////////////////
 
-int  enoLEDmapper::getLEDByKey(char ledKey) {
+int enoLEDmapper::getLEDColByKey(char ledKey) {
   for (int i=0; i<numLEDkeysUsed; i++) {
     if (ledKey == ledKeys[i]) {
-      return ledVals[i];
+      return ledColorKeys[i];
     }
   }
   return 0; //probably not ideal, but a start
 }
 
-//////////////////////////  get led by key //////////////////////////
+//////////////////////////  get led color by index //////////////////////////
 
-int   enoLEDmapper::getLEDByIdx(int  ledIdx) {
-  return ledVals[ledIdx];
+int enoLEDmapper::getLEDColByIdx(int  ledIdx) {
+  return ledColorKeys[ledIdx];
 }
 
-//////////////////////////  get led by key //////////////////////////
+//////////////////////////  get led idx by name //////////////////////////
 
-int   enoLEDmapper::getLEDByName(char *ledName, bool caseSensitive) {
+int enoLEDmapper::getLEDIdxByName(char *ledName, bool caseSensitive) {
 
   int cmp;
   for (int i=0; i<numLEDkeysUsed; i++) {
     if (caseSensitive) {cmp = strcmp(    ledName, ledNames[i]);}
     else               {cmp = strcasecmp(ledName, ledNames[i]);}
 
-    if (cmp==0) {return ledVals[i];}
+    if (cmp==0) {return i;}
   }
-  return 0; //probably not ideal, but a start
+  return -1; 
+}
+
+//////////////////////////  get led idx by key //////////////////////////
+
+int enoLEDmapper::getLEDIdxByKey(char ledKey) {
+  for (int i=0; i<numLEDkeysUsed; i++) {
+    if (ledKey == ledKeys[i]) {return i;}
+  }
+  return -1;
 }
     
+////////////////////////// set led by name //////////////////////////
+
+int enoLEDmapper::setLEDByName(char *ledName, char ledColor, int ledBrightness, bool caseSensitive) {
+  int ledIdx = getLEDIdxByName(ledName, caseSensitive);
+  setLedByIdx(ledIdx, ledColor, ledBrightness);
+}
+
+////////////////////////// set led by key //////////////////////////
+
+int enoLEDmapper::setLEDByKey(char ledKey, char ledColor, int ledBrightness) {
+  int ledIdx = getLEDIdxByKey(ledKey);
+  setLedByIdx(ledIdx, ledColor, ledBrightness);
+}
+
+////////////////////////// set led by idx //////////////////////////
+
+int enoLEDmapper::setLEDByIdx(int ledIdx, char ledColor, int ledBrightness) {
+}
+
 // end //
