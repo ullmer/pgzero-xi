@@ -1,4 +1,4 @@
-// Enodia ledmapper
+// Enodia lightmapper
 // Brygg Ullmer, Clemson University
 // Partial support from NSF CNS-1828611
 // Begun 2023-04
@@ -11,33 +11,33 @@
 ////////////////////////// constructor //////////////////////////
 
 enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal);
-  allocateLedBuffers(numLights);
+  allocateLightBuffers(numLights);
   this.whichChain    = whichChain;
   this.maxBrightVal  = maxBrightVal;
   nextLightmapperChunk = NULL;
 }
 
-////////////////////////// allocate led buffers //////////////////////////
+////////////////////////// allocate light buffers //////////////////////////
 
-void enoLightmapper::allocateLedBuffers(int numLights) {
+void enoLightmapper::allocateLightBuffers(int numLights) {
   this.numLights = numLights;
-  ledKeys   = new char[numLights];
-  ledVals   = new char[numLights];
-  ledBright = new int[ numLights];
-  ledNames  = new const char*[numLights];
+  lightKeys   = new char[numLights];
+  lightVals   = new char[numLights];
+  lightBright = new int[ numLights];
+  lightNames  = new const char*[numLights];
 }
     
-//////////////////////////  register led //////////////////////////
+//////////////////////////  register light //////////////////////////
 
-void enoLightmapper::registerLight(char ledKey, char ledColorKey, int ledIdx, const char ledName[], int ledBright) {
+void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightIdx, const char lightName[], int lightBright) {
   if (numLightkeysUsed >= maxLightkeysPerChunk) {return;} // need to handle better
 
-  if (ledIdx == -1) {ledIdx = ledCursorIdx; ledCursorIdx++;}
+  if (lightIdx == -1) {lightIdx = lightCursorIdx; lightCursorIdx++;}
 
-  ledKeys[ledIdx]        = ledKey;
-  ledColorKeys[ledIdx]   = ledColorKey;
-  ledNames[ledIdx]       = ledName;
-  this.ledBright[ledIdx] = ledBright;
+  lightKeys[lightIdx]        = lightKey;
+  lightColorKeys[lightIdx]   = lightColorKey;
+  lightNames[lightIdx]       = lightName;
+  this.lightBright[lightIdx] = lightBright;
 }
 
 //////////////////////////  getLightSummaryStr //////////////////////////
@@ -45,21 +45,21 @@ void enoLightmapper::registerLight(char ledKey, char ledColorKey, int ledIdx, co
 char *enoLightmapper::getLightSummaryStr() {
   int resultlen = 0;
   char **buffer = new char*[numLightkeysUsed];
-  char ledNameBuffer[maxLightNameLen];
+  char lightNameBuffer[maxLightNameLen];
   char *currentLine;
   char *currentLight;
 
   for (int i=0; i<numLightkeysUsed; i++) {
     currentLine  = new char[maxCharsPerLine];
-    int ledNameLen = strlen(ledNames[i]);
+    int lightNameLen = strlen(lightNames[i]);
 
-    if (ledNameLen > maxLightNameLen) { // avoid buffer overflow error
-      currentLight = strncpy(ledNameBuffer, ledNames[i], maxLightNameLen);
+    if (lightNameLen > maxLightNameLen) { // avoid buffer overflow error
+      currentLight = strncpy(lightNameBuffer, lightNames[i], maxLightNameLen);
     } else {
-      currentLight = strcpy(ledNameBuffer, ledNames[i]);
+      currentLight = strcpy(lightNameBuffer, lightNames[i]);
     }
     
-    sprintf(currentLine, "%2i %c %2X %s\n", i, ledKeys[i], ledVals[i], currentLight); //could be refined further
+    sprintf(currentLine, "%2i %c %2X %s\n", i, lightKeys[i], lightVals[i], currentLight); //could be refined further
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
@@ -76,63 +76,68 @@ char *enoLightmapper::getLightSummaryStr() {
   return result;
 }
 
-//////////////////////////  get led color by key //////////////////////////
+//////////////////////////  get light color by key //////////////////////////
 
-int enoLightmapper::getLightColByKey(char ledKey) {
+int enoLightmapper::getLightColByKey(char lightKey) {
   for (int i=0; i<numLightkeysUsed; i++) {
-    if (ledKey == ledKeys[i]) {
-      return ledColorKeys[i];
+    if (lightKey == lightKeys[i]) {
+      return lightColorKeys[i];
     }
   }
   return 0; //probably not ideal, but a start
 }
 
-//////////////////////////  get led color by index //////////////////////////
+//////////////////////////  get light color by index //////////////////////////
 
-int enoLightmapper::getLightColByIdx(int  ledIdx) {
-  return ledColorKeys[ledIdx];
+int enoLightmapper::getLightColByIdx(int  lightIdx) {
+  return lightColorKeys[lightIdx];
 }
 
-//////////////////////////  get led idx by name //////////////////////////
+//////////////////////////  get light idx by name //////////////////////////
 
-int enoLightmapper::getLightIdxByName(char *ledName, bool caseSensitive) {
+int enoLightmapper::getLightIdxByName(char *lightName, bool caseSensitive) {
 
   int cmp;
   for (int i=0; i<numLightkeysUsed; i++) {
-    if (caseSensitive) {cmp = strcmp(    ledName, ledNames[i]);}
-    else               {cmp = strcasecmp(ledName, ledNames[i]);}
+    if (caseSensitive) {cmp = strcmp(    lightName, lightNames[i]);}
+    else               {cmp = strcasecmp(lightName, lightNames[i]);}
 
     if (cmp==0) {return i;}
   }
   return -1; 
 }
 
-//////////////////////////  get led idx by key //////////////////////////
+//////////////////////////  get light idx by key //////////////////////////
 
-int enoLightmapper::getLightIdxByKey(char ledKey) {
+int enoLightmapper::getLightIdxByKey(char lightKey) {
   for (int i=0; i<numLightkeysUsed; i++) {
-    if (ledKey == ledKeys[i]) {return i;}
+    if (lightKey == lightKeys[i]) {return i;}
   }
   return -1;
 }
     
-////////////////////////// set led by name //////////////////////////
+////////////////////////// set light by name //////////////////////////
 
-int enoLightmapper::setLightByName(char *ledName, char ledColor, int ledBrightness, bool caseSensitive) {
-  int ledIdx = getLightIdxByName(ledName, caseSensitive);
-  setLedByIdx(ledIdx, ledColor, ledBrightness);
+int enoLightmapper::setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive) {
+  int lightIdx = getLightIdxByName(lightName, caseSensitive);
+  setLightByIdx(lightIdx, lightColor, lightBrightness);
 }
 
-////////////////////////// set led by key //////////////////////////
+////////////////////////// set light by key //////////////////////////
 
-int enoLightmapper::setLightByKey(char ledKey, char ledColor, int ledBrightness) {
-  int ledIdx = getLightIdxByKey(ledKey);
-  setLedByIdx(ledIdx, ledColor, ledBrightness);
+int enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey) {
+  if (!multikey()) {
+    int lightIdx = getLightIdxByKey(lightKey);
+    setLightByIdx(lightIdx, lightColor, lightBrightness);
+  } else {
+    int lightIdx[] = getLightIdxByKeyMulti(lightKey);
+    l
+    
 }
 
-////////////////////////// set led by idx //////////////////////////
+////////////////////////// set light by idx //////////////////////////
 
-int enoLightmapper::setLightByIdx(int ledIdx, char ledColor, int ledBrightness) {
+int enoLightmapper::setLightByIdx(int lightIdx, char lightColor, int lightBrightness) {
 }
 
 // end //
