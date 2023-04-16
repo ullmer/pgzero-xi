@@ -68,7 +68,7 @@ char *enoColormapper::getColorSummaryStr() {
       currentColor = strcpy(colorNameBuffer, colorNames[i]);
     }
     
-    sprintf(currentLine, "%2i %c %6X %15s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
+    sprintf(currentLine, "%2i %c %6X %s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
