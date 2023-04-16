@@ -12,7 +12,7 @@
 
 class enoLEDmapper {
   public:
-    enoLEDmapper(int maxLEDkeysPerChunk=ECM_DEFAULT_LEDCHUNK, bool generateStandardLEDs=true);
+    enoLEDmapper(int maxLEDkeysPerChunk=ECM_DEFAULT_LEDCHUNK);
     void allocateBuffers(int numLEDkeys);
     void registerLED(char ledKey, const char ledName[], int ledVal);
 

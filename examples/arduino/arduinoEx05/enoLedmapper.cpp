@@ -1,4 +1,4 @@
-// Enodia colormapper
+// Enodia ledmapper
 // Brygg Ullmer, Clemson University
 // Partial support from NSF CNS-1828611
 // Begun 2023-04
@@ -6,69 +6,69 @@
 
 #include <stdio.h>
 #include <cstring>
-#include "enoColormapper.h"
+#include "enoLEDmapper.h"
 
 ////////////////////////// constructor //////////////////////////
 
-enoColormapper::enoColormapper(int maxColorkeysPerChunk, bool generateStandardColors) {
-  allocateBuffers(maxColorkeysPerChunk);
-  nextColormapperChunk = NULL;
-  if (generateStandardColors) {populateStandardColors();}
+enoLEDmapper::enoLEDmapper(int maxLEDkeysPerChunk) {
+  allocateBuffers(maxLEDkeysPerChunk);
+  nextLEDmapperChunk = NULL;
+  if (generateStandardLEDs) {populateStandardLEDs();}
 }
 
-////////////////////////// populate standard colors //////////////////////////
+////////////////////////// populate standard leds //////////////////////////
 
-void enoColormapper::populateStandardColors() {
-  registerColor('r', "red",    0xff0000);
-  registerColor('g', "green",  0x00ff00);
-  registerColor('b', "blue",   0x0000ff);
-  registerColor('w', "white",  0xffffff);
-  registerColor('o', "orange", 0xff8000);
-  registerColor('p', "purple", 0x800080);
+void enoLEDmapper::populateStandardLEDs() {
+  registerLED('r', "red",    0xff0000);
+  registerLED('g', "green",  0x00ff00);
+  registerLED('b', "blue",   0x0000ff);
+  registerLED('w', "white",  0xffffff);
+  registerLED('o', "orange", 0xff8000);
+  registerLED('p', "purple", 0x800080);
 }
 
 ////////////////////////// allocate buffers //////////////////////////
 
-void enoColormapper::allocateBuffers(int numColorkeys) {
-  maxColorkeysPerChunk = numColorkeys;
-  colorKeys  = new  char[numColorkeys];
-  colorVals  = new   int[numColorkeys];
-  colorNames = new const char*[numColorkeys];
-  numColorkeysUsed = 0;
+void enoLEDmapper::allocateBuffers(int numLEDkeys) {
+  maxLEDkeysPerChunk = numLEDkeys;
+  ledKeys  = new  char[numLEDkeys];
+  ledVals  = new   int[numLEDkeys];
+  ledNames = new const char*[numLEDkeys];
+  numLEDkeysUsed = 0;
 }
 
-//////////////////////////  register color //////////////////////////
+//////////////////////////  register led //////////////////////////
 
-void enoColormapper::registerColor(char colorKey, const char colorName[], int colorVal) {
-  if (numColorkeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
+void enoLEDmapper::registerLED(char ledKey, const char ledName[], int ledVal) {
+  if (numLEDkeysUsed >= maxLEDkeysPerChunk) {return;} // need to handle better
 
-  colorKeys[numColorkeysUsed]  = colorKey;
-  colorNames[numColorkeysUsed] = colorName;
-  colorVals[numColorkeysUsed]  = colorVal;
-  numColorkeysUsed++;
+  ledKeys[numLEDkeysUsed]  = ledKey;
+  ledNames[numLEDkeysUsed] = ledName;
+  ledVals[numLEDkeysUsed]  = ledVal;
+  numLEDkeysUsed++;
 }
 
 
-//////////////////////////  getColorSummaryStr //////////////////////////
+//////////////////////////  getLEDSummaryStr //////////////////////////
 
-char *enoColormapper::getColorSummaryStr() {
+char *enoLEDmapper::getLEDSummaryStr() {
   int resultlen = 0;
-  char **buffer = new char*[numColorkeysUsed];
-  char colorNameBuffer[maxColorNameLen];
+  char **buffer = new char*[numLEDkeysUsed];
+  char ledNameBuffer[maxLEDNameLen];
   char *currentLine;
-  char *currentColor;
+  char *currentLED;
 
-  for (int i=0; i<numColorkeysUsed; i++) {
+  for (int i=0; i<numLEDkeysUsed; i++) {
     currentLine  = new char[maxCharsPerLine];
-    int colorNameLen = strlen(colorNames[i]);
+    int ledNameLen = strlen(ledNames[i]);
 
-    if (colorNameLen > maxColorNameLen) { // avoid buffer overflow error
-      currentColor = strncpy(colorNameBuffer, colorNames[i], maxColorNameLen);
+    if (ledNameLen > maxLEDNameLen) { // avoid buffer overflow error
+      currentLED = strncpy(ledNameBuffer, ledNames[i], maxLEDNameLen);
     } else {
-      currentColor = strcpy(colorNameBuffer, colorNames[i]);
+      currentLED = strcpy(ledNameBuffer, ledNames[i]);
     }
     
-    sprintf(currentLine, "%2i %c %6X %s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
+    sprintf(currentLine, "%2i %c %6X %s\n", i, ledKeys[i], ledVals[i], currentLED); //could be refined further
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
@@ -76,7 +76,7 @@ char *enoColormapper::getColorSummaryStr() {
   char *result = new char[resultlen];
 
   int currentCharIdx = 0;
-  for (int i=0; i<numColorkeysUsed; i++) {
+  for (int i=0; i<numLEDkeysUsed; i++) {
     currentLine = buffer[i];
     strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
     currentCharIdx += strlen(currentLine);
@@ -85,33 +85,33 @@ char *enoColormapper::getColorSummaryStr() {
   return result;
 }
 
-//////////////////////////  get color by key //////////////////////////
+//////////////////////////  get led by key //////////////////////////
 
-int  enoColormapper::getColorByKey(char colorKey) {
-  for (int i=0; i<numColorkeysUsed; i++) {
-    if (colorKey == colorKeys[i]) {
-      return colorVals[i];
+int  enoLEDmapper::getLEDByKey(char ledKey) {
+  for (int i=0; i<numLEDkeysUsed; i++) {
+    if (ledKey == ledKeys[i]) {
+      return ledVals[i];
     }
   }
   return 0; //probably not ideal, but a start
 }
 
-//////////////////////////  get color by key //////////////////////////
+//////////////////////////  get led by key //////////////////////////
 
-int   enoColormapper::getColorByIdx(int  colorIdx) {
-  return colorVals[colorIdx];
+int   enoLEDmapper::getLEDByIdx(int  ledIdx) {
+  return ledVals[ledIdx];
 }
 
-//////////////////////////  get color by key //////////////////////////
+//////////////////////////  get led by key //////////////////////////
 
-int   enoColormapper::getColorByName(char *colorName, bool caseSensitive) {
+int   enoLEDmapper::getLEDByName(char *ledName, bool caseSensitive) {
 
   int cmp;
-  for (int i=0; i<numColorkeysUsed; i++) {
-    if (caseSensitive) {cmp = strcmp(    colorName, colorNames[i]);}
-    else               {cmp = strcasecmp(colorName, colorNames[i]);}
+  for (int i=0; i<numLEDkeysUsed; i++) {
+    if (caseSensitive) {cmp = strcmp(    ledName, ledNames[i]);}
+    else               {cmp = strcasecmp(ledName, ledNames[i]);}
 
-    if (cmp==0) {return colorVals[i];}
+    if (cmp==0) {return ledVals[i];}
   }
   return 0; //probably not ideal, but a start
 }
