@@ -14,7 +14,7 @@ class enoColormapper {
   public:
     enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, bool generateStandardColors=true);
     void allocateBuffers(int numColorkeys);
-    void registerColor(char colorKey, char colorName[], int colorVal);
+    void registerColor(char colorKey, const char colorName[], int colorVal);
 
     char  *getColorSummaryStr();
     void   populateStandardColors();
@@ -24,7 +24,7 @@ class enoColormapper {
     
   private:
     char  *colorKeys;
-    char **colorNames;
+    const char **colorNames; // may benefit from revisiting
     int   *colorVals;
     int numColorkeysUsed;
     int maxColorkeysPerChunk;

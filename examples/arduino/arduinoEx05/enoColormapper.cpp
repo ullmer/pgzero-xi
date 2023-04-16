@@ -39,7 +39,7 @@ void enoColormapper::allocateBuffers(int numColorkeys) {
 
 //////////////////////////  register color //////////////////////////
 
-void enoColormapper::registerColor(char colorKey, char colorName[], int colorVal) {
+void enoColormapper::registerColor(char colorKey, const char colorName[], int colorVal) {
   if (numColorkeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
 
   colorKeys[numColorkeysUsed]  = colorKey;
@@ -55,14 +55,17 @@ char *enoColormapper::getColorSummaryStr() {
   int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
   char colorNameBuffer[maxColorNameLen];
-  char *currentColor, *currentLine;
+  char *currentLine;
+  char *currentColor;
 
   for (int i=0; i<numColorkeysUsed; i++) {
     currentLine  = new char[maxCharsPerLine];
+    int colorNameLen = strlen(colorNames[i]);
 
-    currentColor = colorNames[i];
-    if (strlen(currentColor) > maxColorNameLen) { // avoid buffer overflow error
+    if (colorNameLen > maxColorNameLen) { // avoid buffer overflow error
       currentColor = strncpy(colorNameBuffer, colorNames[i], maxColorNameLen);
+    } else {
+      currentColor = strcpy(colorNameBuffer, colorNames[i]);
     }
     
     sprintf(currentLine, "%2i %c %6X %15s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
