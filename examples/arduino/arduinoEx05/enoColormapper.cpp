@@ -11,7 +11,7 @@
 
 enoColormapper::enoColormapper(int maxColorkeysPerChunk, bool generateStandardColors) {
   allocateBuffers(maxColorkeysPerChunk);
-  nextColormapperChunk = null;
+  nextColormapperChunk = NULL;
   if (generateStandardColors) {populateStandardColors();}
 }
 
@@ -38,7 +38,7 @@ int   enoColormapper::allocateBuffers(int numColorkeys) {
 
 //////////////////////////  register color //////////////////////////
 
-int enoColormapper::registerColor(char colorKey, char *colorName, int colorVal) {
+int enoColormapper::registerColor(char colorKey, char colorName[], int colorVal) {
   if (numColorskeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
 
   idx = numColorkeysUsed; numColorkeysUsed++;
