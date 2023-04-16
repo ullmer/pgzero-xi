@@ -38,14 +38,13 @@ int   enoColormapper::allocateBuffers(int numColorkeys) {
 
 //////////////////////////  register color //////////////////////////
 
-int enoColormapper::registerColor(char colorKey, char colorName[], int colorVal) {
-  if (numColorskeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
+void enoColormapper::registerColor(char colorKey, char colorName[], int colorVal) {
+  if (numColorkeysUsed >= maxColorkeysPerChunk) {return;} // need to handle better
 
-  idx = numColorkeysUsed; numColorkeysUsed++;
-
-  colorKeys[idx]  = colorKey;
-  colorNames[idx] = colorName;
-  colorVals[idx]  = colorVal;
+  colorKeys[numColorkeysUsed]  = colorKey;
+  colorNames[numColorkeysUsed] = colorName;
+  colorVals[numColorkeysUsed]  = colorVal;
+  numColorkeysUsed++;
 }
 
 
@@ -54,15 +53,15 @@ int enoColormapper::registerColor(char colorKey, char colorName[], int colorVal)
 char *enoColormapper::getColorSummaryStr() {
   int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
-  char colorNameBuffer[maxColorNamelen];
+  char colorNameBuffer[maxColorNameLen];
   char *currentColor, *currentLine;
 
   for (int i=0; i<numColorkeysUsed; i++) {
     currentLine  = new char[maxCharsPerLine];
 
     currentColor = colorNames[i];
-    if strlen(currentColor > maxColornameLen) { // avoid buffer overflow error
-      currentColor = strncpy(colorNameBuffer, colorNames[i], maxColornameLen);
+    if (strlen(currentColor) > maxColorNameLen)) { // avoid buffer overflow error
+      currentColor = strncpy(colorNameBuffer, colorNames[i], maxColorNameLen);
     }
     
     sprintf(currentLine, "%2i %c %6X %15s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
