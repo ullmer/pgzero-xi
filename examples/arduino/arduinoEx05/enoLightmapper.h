@@ -22,14 +22,16 @@ class enoLightmapper {
     char *getLightSummaryStr();
     char *getLightYamlStr();
 
-    int getLightColByKey(char lightKey);
+    int    getLightColByKey(     char lightKey);
+    IntArr getLightColByKeyMulti(char lightKey);
+
     int getLightColByIdx(int  lightIdx);
     int getLightColByName(char *lightName, bool caseSensitive=false);
     int getLightIdxByName(char *lightName, bool caseSensitive=false);
     
-    int setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey=true);
-    int setLightByIdx(int  lightIdx, char lightColor, int lightBrightness);
-    int setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive=false);
+    void setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey=true);
+    void setLightByIdx(int  lightIdx, char lightColor, int lightBrightness);
+    void setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive=false);
     
   private:
     int  whichChain;
@@ -53,10 +55,11 @@ class IntArr {
     int getSize();
     int setEls(int *list, int listLen);
     int getEl(int idx);
+    int operator[](int idx);
  
   private:
     int *intArr;
     int arrSize;
-}
+};
 
 /// end ///

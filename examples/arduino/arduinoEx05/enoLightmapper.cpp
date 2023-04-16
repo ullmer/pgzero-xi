@@ -125,14 +125,19 @@ int enoLightmapper::setLightByName(char *lightName, char lightColor, int lightBr
 
 ////////////////////////// set light by key //////////////////////////
 
-int enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey) {
+void enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey) {
   if (!multikey()) {
     int lightIdx = getLightIdxByKey(lightKey);
     setLightByIdx(lightIdx, lightColor, lightBrightness);
+
   } else {
-    int lightIdx[] = getLightIdxByKeyMulti(lightKey);
-    l
-    
+
+    IntArr lightIdxs = getLightIdxByKeyMulti(lightKey);
+    int liLen = lightIdx.getSize();
+    for (int i; i<liLen; i++) {
+      idx = lightIdxs[i];
+    setLightByIdx(lightIdx, lightColor, lightBrightness);
+  } 
 }
 
 ////////////////////////// set light by idx //////////////////////////
@@ -174,4 +179,10 @@ int IntArr::getEl(int idx) {
   return intArr[idx];
 }
 
-// end //
+int IntArr::operator[](int idx) 
+
+  if (idx >= arrSize) {return -1;} // consider an alternate implementation
+  return intArr[idx];
+}
+
+/// end ///
