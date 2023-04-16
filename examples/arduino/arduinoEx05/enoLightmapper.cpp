@@ -140,4 +140,44 @@ int enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrigh
 int enoLightmapper::setLightByIdx(int lightIdx, char lightColor, int lightBrightness) {
 }
 
+
+/////////////////////////////////////////////////////////////////////////
+///////////////////////////// integer array /////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+///////////////////////////// constructor /////////////////////////////
+
+IntArr::IntArr(int arrSize) {
+  intArr = new int[arrSize];
+  this.arrSize = arrSize;
+}
+
+///////////////////////////// getSize /////////////////////////////
+
+int IntArr::getSize() {return arrSize;}
+  
+///////////////////////////// getSize /////////////////////////////
+
+int IntArr::setEls(int *array, int listLen) {
+  if (listLen > arrSize) {return -1;}
+  for (int i=0; i<listLen; i++) {
+    intArr[i] = array[i];
+  }
+
+  return 1;
+}
+
+  
+
+class IntArr {
+  public:
+    IntArr (int arrSize);
+    int getSize();
+    int setEls(int *list, int listLen);
+  private:
+    int *intArr;
+    int arrSize;
+}
+
+
 // end //
