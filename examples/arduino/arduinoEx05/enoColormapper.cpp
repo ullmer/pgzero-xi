@@ -85,11 +85,22 @@ char *enoColormapper::getColorSummaryStr() {
 //////////////////////////  get color by key //////////////////////////
 
 int  enoColormapper::getColorByKey(char colorKey) {
-
+  for (int i=0; i<numColorkeysUsed; i++) {
+    if (colorKey == colorKeys[i]) {
+      return colorVals[i];
+    }
+  }
+  return 0; //probably not ideal, but a start
 }
 
+//////////////////////////  get color by key //////////////////////////
 
-int   getColorByIdx(int  colorIdx);
+int   enoColormapper::getColorByIdx(int  colorIdx) {
+  return colorVals[colorIdx];
+}
+
+//////////////////////////  get color by key //////////////////////////
+
 int   getColorByName(char *colorName, bool caseSensitive=false);
     
   private:
