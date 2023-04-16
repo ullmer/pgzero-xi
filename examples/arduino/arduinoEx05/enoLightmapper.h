@@ -52,6 +52,8 @@ class IntArr {
     IntArr (int arrSize);
     int getSize();
     int setEls(int *list, int listLen);
+    int getEl(int idx);
+ 
   private:
     int *intArr;
     int arrSize;

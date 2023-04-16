@@ -156,7 +156,7 @@ IntArr::IntArr(int arrSize) {
 
 int IntArr::getSize() {return arrSize;}
   
-///////////////////////////// getSize /////////////////////////////
+///////////////////////////// set elements /////////////////////////////
 
 int IntArr::setEls(int *array, int listLen) {
   if (listLen > arrSize) {return -1;}
@@ -167,17 +167,11 @@ int IntArr::setEls(int *array, int listLen) {
   return 1;
 }
 
-  
+///////////////////////////// get elements /////////////////////////////
 
-class IntArr {
-  public:
-    IntArr (int arrSize);
-    int getSize();
-    int setEls(int *list, int listLen);
-  private:
-    int *intArr;
-    int arrSize;
+int IntArr::getEl(int idx) {
+  if (idx >= arrSize) {return -1;} // consider an alternate implementation
+  return intArr[idx];
 }
-
 
 // end //
