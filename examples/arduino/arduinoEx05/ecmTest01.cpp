@@ -7,7 +7,8 @@ main() {
   char *ecmHelp = ecm.getColorSummaryStr();
   printf(ecmHelp);
   
-  printf("------------\n");
+  //printf("------------\n");
+  printf("%0*c\n", 20, '-');
 
   char *ecmYHelp = ecm.getColorYamlStr();
   printf(ecmYHelp);
