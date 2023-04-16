@@ -17,6 +17,7 @@ class enoColormapper {
     void registerColor(char colorKey, const char colorName[], int colorVal);
 
     char  *getColorSummaryStr();
+    char  *getColorYamlStr();
     void   populateStandardColors();
     int    getColorByKey(char colorKey);
     int    getColorByIdx(int  colorIdx);

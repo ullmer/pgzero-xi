@@ -85,6 +85,44 @@ char *enoColormapper::getColorSummaryStr() {
   return result;
 }
 
+//////////////////////////  getColorYamlStr //////////////////////////
+
+char *enoColormapper::getColorYamlStr() {
+  int resultlen = 0;
+  char **buffer = new char*[numColorkeysUsed];
+  char colorNameBuffer[maxColorNameLen];
+  char *currentLine;
+  char *currentColor;
+
+  for (int i=0; i<numColorkeysUsed; i++) {
+    currentLine  = new char[maxCharsPerLine];
+    int colorNameLen = strlen(colorNames[i]);
+
+    if (colorNameLen > maxColorNameLen) { // avoid buffer overflow error
+      currentColor = strncpy(colorNameBuffer, colorNames[i], maxColorNameLen);
+    } else {
+      currentColor = strcpy(colorNameBuffer, colorNames[i]);
+    }
+    
+    sprintf(currentLine, "%2i: {key=%c, val=0x%06X, name=%s}\n", 
+        i, colorKeys[i], colorVals[i], currentColor);
+
+    resultlen += strlen(currentLine);
+    buffer[i] = currentLine;
+  }
+
+  char *result = new char[resultlen];
+
+  int currentCharIdx = 0;
+  for (int i=0; i<numColorkeysUsed; i++) {
+    currentLine = buffer[i];
+    strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
+    currentCharIdx += strlen(currentLine);
+  }
+
+  return result;
+}
+
 //////////////////////////  get color by key //////////////////////////
 
 int  enoColormapper::getColorByKey(char colorKey) {
