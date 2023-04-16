@@ -21,7 +21,6 @@ class enoLEDmapper {
     int    getLEDByKey(char ledKey);
     int    getLEDByIdx(int  ledIdx);
     int    getLEDByName( char *ledName, bool caseSensitive=false);
-    int    getLEDByNameP(char *ledName, bool caseSensitive=false); // partial name
     
   private:
     int  whichChain;

@@ -10,21 +10,11 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoLEDmapper::enoLEDmapper(int maxLEDkeysPerChunk) {
-  allocateBuffers(maxLEDkeysPerChunk);
+enoLEDmapper::enoLEDmapper(int numLEDs, int whichChain, int maxBrightVal);
+  allocateLedBuffers(numLEDs);
+  this.whichChain    = whichChain;
+  this.maxBrightVal  = maxBrightVal;
   nextLEDmapperChunk = NULL;
-  if (generateStandardLEDs) {populateStandardLEDs();}
-}
-
-////////////////////////// populate standard leds //////////////////////////
-
-void enoLEDmapper::populateStandardLEDs() {
-  registerLED('r', "red",    0xff0000);
-  registerLED('g', "green",  0x00ff00);
-  registerLED('b', "blue",   0x0000ff);
-  registerLED('w', "white",  0xffffff);
-  registerLED('o', "orange", 0xff8000);
-  registerLED('p', "purple", 0x800080);
 }
 
 ////////////////////////// allocate buffers //////////////////////////
@@ -116,4 +106,41 @@ int   enoLEDmapper::getLEDByName(char *ledName, bool caseSensitive) {
   return 0; //probably not ideal, but a start
 }
     
+// end //
+// Enodia LED mapper
+// Brygg Ullmer, Clemson University
+// Partial support from NSF CNS-1828611
+// Begun 2023-04
+// LLGPL3
+
+#ifndef enoLEDmapper_h
+#define enoLEDmapper_h
+#endif
+
+#define ECM_DEFAULT_LEDCHUNK 10
+
+class enoLEDmapper {
+  public:
+    void registerLED(char ledKey, char ledColorKey, int ledIdx=-1, const char ledName[], int ledBright=5); //-1 = next in sequence
+
+    char  *getLEDSummaryStr();
+    char  *getLEDYamlStr();
+    int    getLEDByKey(char ledKey);
+    int    getLEDByIdx(int  ledIdx);
+    int    getLEDByName( char *ledName, bool caseSensitive=false);
+    
+  private:
+    int  whichChain;
+    char *ledKeys      = NULL;
+    char *ledColorKeys = NULL;
+    char *ledBright    = NULL;
+    const char **ledNames; // may benefit from revisiting
+    int numLED;
+    int maxLEDkeysPerChunk;
+    int maxLEDNameLen = 15; 
+    int maxBrightVal  = 10; 
+    int maxCharsPerLine = 82; //80 + CRLF
+    enoLEDmapper *nextLEDmapperChunk;
+};
+
 // end //
