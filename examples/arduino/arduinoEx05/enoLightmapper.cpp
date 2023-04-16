@@ -21,16 +21,16 @@ enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal) 
 
 void enoLightmapper::allocateLightBuffers(int numLights) {
   this->numLights = numLights;
-  lightKeys   = new char[numLights];
-  lightVals   = new char[numLights];
-  lightBright = new int[ numLights];
+  lightKeys      = new char[numLights];
+  lightColorKeys = new char[numLights];
+  lightBright    = new int[ numLights];
   lightNames  = new const char*[numLights];
 }
     
 //////////////////////////  register light //////////////////////////
 
 void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightIdx, const char lightName[], int lightBright) {
-  if (numLightkeysUsed >= maxLightkeysPerChunk) {return;} // need to handle better
+  if (numLights >= maxLightkeysPerChunk) {return;} // need to handle better
 
   if (lightIdx == -1) {lightIdx = lightCursorIdx; lightCursorIdx++;}
 
