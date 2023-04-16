@@ -9,7 +9,7 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoColormapper::enoColormapper(int maxColorkeysPerChunk, generateStandardColors=true) {
+enoColormapper::enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, generateStandardColors=true) {
   allocateBuffers(maxColorkeysPerChunk);
   nextColormapperChunk = null;
   if (generateStandardColors) {populateStandardColors();}

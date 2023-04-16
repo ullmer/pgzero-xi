@@ -8,9 +8,11 @@
 #define enoColormapper_h
 #endif
 
+#define ECM_DEFAULT_COLORCHUNK 10
+
 class enoColormapper {
   public:
-    enoColormapper(int maxColorkeysPerChunk, generateStandardColors=true);
+    enoColormapper(int maxColorkeysPerChunk=ECM_DEFAULT_COLORCHUNK, generateStandardColors=true);
     int   allocateBuffers(int numColorkeys);
     int   registerColor(char colorKey, char *colorName, int colorVal);
 
