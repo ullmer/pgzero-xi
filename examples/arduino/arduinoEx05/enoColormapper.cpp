@@ -101,15 +101,16 @@ int   enoColormapper::getColorByIdx(int  colorIdx) {
 
 //////////////////////////  get color by key //////////////////////////
 
-int   getColorByName(char *colorName, bool caseSensitive=false);
-    
-  private:
-    char  *colorKeys;
-    char **colorNames;
-    int   *colorVals;
-    int numColorskeysUsed;
-    int maxColorkeysPerChunk;
-    enoColormapper *nextColormapperChunk;
-}
+int   enoColormapper::getColorByName(char *colorName, bool caseSensitive=false) {
 
+  for (int i=0; i<numColorkeysUsed; i++) {
+    int cmp;
+    if (caseSensitive) {cmp = strcmp( colorName, colorNames[i];}
+    else               {cmp = strcmpi(colorName, colorNames[i];}
+
+    if (cmp==0) {return colorVals[i];}
+  }
+  return 0; //probably not ideal, but a start
+}
+    
 // end //
