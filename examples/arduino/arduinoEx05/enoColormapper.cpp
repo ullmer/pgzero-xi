@@ -5,6 +5,7 @@
 // LLGPL3
 
 #include <stdio.h>
+#include <cstring>
 #include "enoColormapper.h"
 
 ////////////////////////// constructor //////////////////////////
@@ -60,7 +61,7 @@ char *enoColormapper::getColorSummaryStr() {
     currentLine  = new char[maxCharsPerLine];
 
     currentColor = colorNames[i];
-    if (strlen(currentColor) > maxColorNameLen)) { // avoid buffer overflow error
+    if (strlen(currentColor) > maxColorNameLen) { // avoid buffer overflow error
       currentColor = strncpy(colorNameBuffer, colorNames[i], maxColorNameLen);
     }
     
@@ -69,11 +70,11 @@ char *enoColormapper::getColorSummaryStr() {
     buffer[i] = currentLine;
   }
 
-  char *result = new char[resultLen];
+  char *result = new char[resultlen];
 
   int currentCharIdx = 0;
   for (int i=0; i<numColorkeysUsed; i++) {
-    currentLine = buffer[i]
+    currentLine = buffer[i];
     strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
     currentCharIdx += strlen(currentLine)
   }
