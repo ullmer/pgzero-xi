@@ -105,8 +105,8 @@ int   enoColormapper::getColorByName(char *colorName, bool caseSensitive) {
 
   int cmp;
   for (int i=0; i<numColorkeysUsed; i++) {
-    if (caseSensitive) {cmp = strcmp( colorName, colorNames[i]);}
-    else               {cmp = strcmpi(colorName, colorNames[i]);}
+    if (caseSensitive) {cmp = strcmp(    colorName, colorNames[i]);}
+    else               {cmp = strcasecmp(colorName, colorNames[i]);}
 
     if (cmp==0) {return colorVals[i];}
   }
