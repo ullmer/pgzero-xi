@@ -17,11 +17,16 @@ class enoLEDmapper {
     void registerLED(char ledKey, char ledColorKey, int ledIdx=-1, 
                      const char ledName[]="", int ledBright=5); //-1 = next in sequence
 
-    char  *getLEDSummaryStr();
-    char  *getLEDYamlStr();
-    int    getLEDByKey(char ledKey);
-    int    getLEDByIdx(int  ledIdx);
-    int    getLEDByName( char *ledName, bool caseSensitive=false);
+    char *getLEDSummaryStr();
+    char *getLEDYamlStr();
+
+    int getLEDByKey(char ledKey);
+    int getLEDByIdx(int  ledIdx);
+    int getLEDByName( char *ledName, bool caseSensitive=false);
+    
+    int setLEDByKey(char ledKey, char ledColor, int ledBrightness);
+    int setLEDByIdx(int  ledIdx, char ledColor, int ledBrightness);
+    int setLEDByName(char *ledName, char ledColor, int ledBrightness, bool caseSensitive=false);
     
   private:
     int  whichChain;
