@@ -59,7 +59,7 @@ char *enoLEDmapper::getLEDSummaryStr() {
       currentLED = strcpy(ledNameBuffer, ledNames[i]);
     }
     
-    sprintf(currentLine, "%2i %c %6X %s\n", i, ledKeys[i], ledVals[i], currentLED); //could be refined further
+    sprintf(currentLine, "%2i %c %2X %s\n", i, ledKeys[i], ledVals[i], currentLED); //could be refined further
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
