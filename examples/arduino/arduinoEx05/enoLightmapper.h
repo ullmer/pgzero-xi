@@ -37,17 +37,17 @@ class enoLightmapper {
     
   private:
     int  whichChain;
-    char *lightKeys      = NULL;
-    char *lightColorKeys = NULL;
-    int  *lightBright    = NULL;
+    char *lightKeys;
+    char *lightColorKeys;
+    int  *lightBright;
 
     const char **lightNames; // may benefit from revisiting
 
     int numLights;
-    int lightCursorIdx  = 0;
-    int maxLightNameLen = 15; 
-    int maxBrightVal    = 10; 
-    int maxCharsPerLine = 82; //80 + CRLF
+    int lightCursorIdx;
+    const static int maxLightNameLen = 15; 
+    const static int maxBrightVal    = 10; 
+    const static int maxCharsPerLine = 82; //80 + CRLF
     enoLightmapper *nextLightmapperChunk;
 };
 

@@ -14,7 +14,8 @@ enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal) 
   allocateLightBuffers(numLights);
   this->whichChain    = whichChain;
   this->maxBrightVal  = maxBrightVal;
-  nextLightmapperChunk = NULL;
+  lightCursorIdx       = 0;
+  nextLightmapperChunk = 0;
 }
 
 ////////////////////////// allocate light buffers //////////////////////////
