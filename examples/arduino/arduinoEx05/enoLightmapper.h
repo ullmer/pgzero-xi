@@ -30,7 +30,6 @@ class enoLightmapper {
 
     int getLightColByIdx(int  lightIdx);
     int getLightColByName(char *lightName, bool caseSensitive=false);
-    int getLightIdxByKey(char lightKey);
     int getLightIdxByName(char *lightName, bool caseSensitive=false);
     
     void setLightByKey(char lightKey, char lightColor, int lightBrightness, 
@@ -70,6 +69,7 @@ class IntArr {
     IntArr (int arrSize);
     int getSize();
     int setEls(int *list, int listLen);
+    int setEl(int idx, int val);
     int getEl(int idx);
     int operator[](int idx);
  
