@@ -1,7 +1,7 @@
 #include "enoColormapper.h"
 #include <stdio.h>
 
-main() {
+int main() {
   enoColormapper ecm = enoColormapper();
 
   char *ecmHelp = ecm.getColorSummaryStr();
