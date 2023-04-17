@@ -5,7 +5,9 @@
 // LLGPL3
 
 #include <stdio.h>
-#include <cstring>
+#include <stdlib.h>
+#include <string.h>
+//#include <cstring.h>
 #include "enoLightmapper.h"
 
 ////////////////////////// constructor //////////////////////////
@@ -64,9 +66,11 @@ char *enoLightmapper::getLightSummaryStr() {
   char *currentLine;
   char *currentLight;
   int  buffIdx = 0;
+  char *helpHeaderHandle = 0;
 
   if (showHelpHeader) {
-    buffer[0] = helpHeader;
+    helpHeaderHandle = strdup(helpHeader); // workaround casting issue
+    buffer[0] = helpHeaderHandle;
     buffIdx += 1;
   }
 
@@ -86,8 +90,8 @@ char *enoLightmapper::getLightSummaryStr() {
     //helpHeader : "idx col brt key name"
     //helpTempl  : "%2i %1c %2X %1c %s\n"
 
-    sprintf(currentLine, helpTempl, i, 
-i, lightKeys[i], lightVals[i], currentLight); //could be refined further
+    sprintf(currentLine, helpTempl, i, lightColorKeys[i], lightBright[i], 
+            lightKeys[i], lightNames[i]);
 
     resultlen += strlen(currentLine);
     buffer[buffIdx] = currentLine;
@@ -102,6 +106,8 @@ i, lightKeys[i], lightVals[i], currentLight); //could be refined further
     strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
     currentCharIdx += strlen(currentLine);
   }
+
+  if (helpHeaderHandle != 0) {free(helpHeaderHandle);} 
 
   return result;
 }
