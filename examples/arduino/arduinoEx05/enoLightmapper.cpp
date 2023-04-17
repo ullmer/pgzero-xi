@@ -100,15 +100,15 @@ IntArr enoLightmapper::getLightIdxByKeyMulti(char lightKey) {
     }
   }
 
-  if (keyCount == 0) {return 0; //probably not ideal, but a start}
+  if (keyCount == 0) {return 0;} //probably not ideal, but a start
 
   IntArr iaResult = IntArr(keyCount);
 
-  keyIdx = 0;
+  int keyIdx = 0;
 
   for (int i=0; i<numLights; i++) {
     if (lightKey == lightKeys[i]) {
-      iaResult.set(keyIdx, i); keyIdx++;
+      iaResult.setEl(keyIdx, i); keyIdx++;
     }
   }
 
@@ -118,7 +118,7 @@ IntArr enoLightmapper::getLightIdxByKeyMulti(char lightKey) {
 //////////////////////////  get light color by key //////////////////////////
 
 int enoLightmapper::getLightColByKey(char lightKey) {
-  lightIdx = getLightIdxByKey(lightKey);
+  int lightIdx = getLightIdxByKey(lightKey);
   if (lightIdx < 0) {return lightIdx;}
   int color = lightColorKeys[lightIdx];
   return color; 
