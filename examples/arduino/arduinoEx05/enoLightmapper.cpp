@@ -137,7 +137,7 @@ void enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrig
     int liLen = lightIdxs.getSize();
     for (int i; i<liLen; i++) {
       int idx = lightIdxs[i];
-      setLightByIdx(lightIdx, lightColor, lightBrightness);
+      setLightByIdx(idx, lightColor, lightBrightness);
     }
   } 
 }
