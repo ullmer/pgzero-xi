@@ -32,9 +32,19 @@ class enoLightmapper {
     int getLightIdxByKey(char lightKey);
     int getLightIdxByName(char *lightName, bool caseSensitive=false);
     
-    void setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey=true);
-    virtual void setLightByIdx(int  lightIdx, char lightColor, int lightBrightness);
-    void setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive=false);
+    void setLightByKey(char lightKey, char lightColor, int lightBrightness, 
+                       bool multikey=true);
+
+    void setLightByName(char *lightName, char lightColor, 
+                        int lightBrightness, bool caseSensitive=false);
+
+    // virtual functions, allowing for different implementation for 
+    // different tech (with different extant implementational calls)
+    
+    virtual void setLightByIdx(int  lightIdx, char lightColor, 
+                               int lightBrightness);
+
+    virtual void showLight();
     
   private:
     int  whichChain;
