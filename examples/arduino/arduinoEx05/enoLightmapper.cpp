@@ -26,6 +26,13 @@ void enoLightmapper::allocateLightBuffers(int numLights) {
   lightColorKeys = new char[numLights];
   lightBright    = new int[ numLights];
   lightNames  = new const char*[numLights];
+
+  for (int i=0; i<numLights; i++) {
+    lightKeys[i]      = ' ';
+    lightColorKeys[i] = ' ';
+    lightBright[i]    = 0;
+    lightNames[i]     = "";
+  }
 }
     
 //////////////////////////  register light //////////////////////////
@@ -45,24 +52,43 @@ void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightI
 
 char *enoLightmapper::getLightSummaryStr() {
   int resultlen = 0;
-  char **buffer = new char*[numLights];
+
+  int bufflen = numLights;
+  if (showHelpHeader) {bufflen++;}
+
+  char **buffer = new char*[bufflen];
   char lightNameBuffer[maxLightNameLen];
   char *currentLine;
   char *currentLight;
+  int  buffIdx = 0;
+
+  if (showHelpHeader) {
+    buffer[0] = helpHeader;
+    buffIdx += 1;
+  }
 
   for (int i=0; i<numLights; i++) {
     currentLine  = new char[maxCharsPerLine];
     int lightNameLen = strlen(lightNames[i]);
 
-    if (lightNameLen > maxLightNameLen) { // avoid buffer overflow error
-      currentLight = strncpy(lightNameBuffer, lightNames[i], maxLightNameLen);
+    if (lightNameLen > maxLightNameLen) {
+      // buffer overflow errors are problematic 
+      currentLight = strncpy(lightNameBuffer, lightNames[i], 
+                             maxLightNameLen);
     } else {
       currentLight = strcpy(lightNameBuffer, lightNames[i]);
     }
+
     
-    //sprintf(currentLine, "%2i %c %2X %s\n", i, lightKeys[i], lightVals[i], currentLight); //could be refined further
+    //helpHeader : "idx col brt key name"
+    //helpTempl  : "%2i %1c %2X %1c %s\n"
+
+    sprintf(currentLine, helpTempl, i, 
+i, lightKeys[i], lightVals[i], currentLight); //could be refined further
+
     resultlen += strlen(currentLine);
-    buffer[i] = currentLine;
+    buffer[buffIdx] = currentLine;
+    buffIdx++;
   }
 
   char *result = new char[resultlen];
