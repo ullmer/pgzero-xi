@@ -119,7 +119,7 @@ int enoLightmapper::getLightIdxByKey(char lightKey) {
     
 ////////////////////////// set light by name //////////////////////////
 
-int enoLightmapper::setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive) {
+void enoLightmapper::setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive) {
   int lightIdx = getLightIdxByName(lightName, caseSensitive);
   setLightByIdx(lightIdx, lightColor, lightBrightness);
 }
@@ -127,17 +127,18 @@ int enoLightmapper::setLightByName(char *lightName, char lightColor, int lightBr
 ////////////////////////// set light by key //////////////////////////
 
 void enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey) {
-  if (!multikey()) {
+  if (!multikey) {
     int lightIdx = getLightIdxByKey(lightKey);
     setLightByIdx(lightIdx, lightColor, lightBrightness);
 
   } else {
 
     IntArr lightIdxs = getLightIdxByKeyMulti(lightKey);
-    int liLen = lightIdx.getSize();
+    int liLen = lightIdxs.getSize();
     for (int i; i<liLen; i++) {
-      idx = lightIdxs[i];
-    setLightByIdx(lightIdx, lightColor, lightBrightness);
+      int idx = lightIdxs[i];
+      setLightByIdx(lightIdx, lightColor, lightBrightness);
+    }
   } 
 }
 
