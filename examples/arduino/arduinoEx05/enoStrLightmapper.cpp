@@ -8,9 +8,10 @@
 
 ///////////////////////////// constructor /////////////////////////////
 
-enoStrLightmapper::enoStrLightmapper(int numLights, int whichChain=0, 
-  int maxBrightVal=10) : enoLightmapper(numLights, whichChain, maxBrightVal) {
+enoStrLightmapper::enoStrLightmapper(int numLights, int whichChain, 
+  int maxBrightVal) : enoLightmapper(numLights, whichChain, maxBrightVal) {
 
+  printf("enoStrLight mapper :: constructor called\n");
 }
 
 ///////////////////////////// set light by idx /////////////////////////////
@@ -24,7 +25,7 @@ void enoStrLightmapper::setLightByIdx(int  lightIdx, char lightColor,
 
 ///////////////////////////// show light /////////////////////////////
 
-void enoStrLightmapper::showLight();
+void enoStrLightmapper::showLight() {
   printf("enoStrLight mapper :: showLight\n");
 }
 
