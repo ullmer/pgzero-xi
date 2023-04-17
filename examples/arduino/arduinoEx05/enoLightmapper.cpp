@@ -31,7 +31,7 @@ void enoLightmapper::allocateLightBuffers(int numLights) {
 //////////////////////////  register light //////////////////////////
 
 void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightIdx, const char lightName[], int lightBright) {
-  if (numLights >= maxLightkeysPerChunk) {return;} // need to handle better
+  if (lightIdx >= numLights) {return;} // need to handle better
 
   if (lightIdx == -1) {lightIdx = lightCursorIdx; lightCursorIdx++;}
 
@@ -45,12 +45,12 @@ void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightI
 
 char *enoLightmapper::getLightSummaryStr() {
   int resultlen = 0;
-  char **buffer = new char*[numLightkeysUsed];
+  char **buffer = new char*[numLights];
   char lightNameBuffer[maxLightNameLen];
   char *currentLine;
   char *currentLight;
 
-  for (int i=0; i<numLightkeysUsed; i++) {
+  for (int i=0; i<numLights; i++) {
     currentLine  = new char[maxCharsPerLine];
     int lightNameLen = strlen(lightNames[i]);
 
