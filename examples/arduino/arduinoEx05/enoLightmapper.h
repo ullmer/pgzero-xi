@@ -62,8 +62,8 @@ class enoLightmapper {
     enoLightmapper *nextLightmapperChunk;
 
     const static bool showHelpHeader = true;
-    const static char helpHeader[]; // "idx col brt key name";
-    const static char helpTempl[];  // "%2i %1c %2X %1c %s\n";
+    const char *helpHeader; // "idx col brt key name";
+    const char *helpTempl;  // "%2i %1c %2X %1c %s\n";
 };
 
 ///////////////////////////// integer array /////////////////////////////
