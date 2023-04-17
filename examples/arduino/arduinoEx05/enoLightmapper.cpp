@@ -60,7 +60,7 @@ char *enoLightmapper::getLightSummaryStr() {
       currentLight = strcpy(lightNameBuffer, lightNames[i]);
     }
     
-    sprintf(currentLine, "%2i %c %2X %s\n", i, lightKeys[i], lightVals[i], currentLight); //could be refined further
+    //sprintf(currentLine, "%2i %c %2X %s\n", i, lightKeys[i], lightVals[i], currentLight); //could be refined further
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
@@ -68,7 +68,7 @@ char *enoLightmapper::getLightSummaryStr() {
   char *result = new char[resultlen];
 
   int currentCharIdx = 0;
-  for (int i=0; i<numLightkeysUsed; i++) {
+  for (int i=0; i<numLights; i++) {
     currentLine = buffer[i];
     strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
     currentCharIdx += strlen(currentLine);
@@ -80,7 +80,7 @@ char *enoLightmapper::getLightSummaryStr() {
 //////////////////////////  get light color by key //////////////////////////
 
 int enoLightmapper::getLightColByKey(char lightKey) {
-  for (int i=0; i<numLightkeysUsed; i++) {
+  for (int i=0; i<numLights; i++) {
     if (lightKey == lightKeys[i]) {
       return lightColorKeys[i];
     }
@@ -99,7 +99,7 @@ int enoLightmapper::getLightColByIdx(int  lightIdx) {
 int enoLightmapper::getLightIdxByName(char *lightName, bool caseSensitive) {
 
   int cmp;
-  for (int i=0; i<numLightkeysUsed; i++) {
+  for (int i=0; i<numLights; i++) {
     if (caseSensitive) {cmp = strcmp(    lightName, lightNames[i]);}
     else               {cmp = strcasecmp(lightName, lightNames[i]);}
 
@@ -111,7 +111,7 @@ int enoLightmapper::getLightIdxByName(char *lightName, bool caseSensitive) {
 //////////////////////////  get light idx by key //////////////////////////
 
 int enoLightmapper::getLightIdxByKey(char lightKey) {
-  for (int i=0; i<numLightkeysUsed; i++) {
+  for (int i=0; i<numLights; i++) {
     if (lightKey == lightKeys[i]) {return i;}
   }
   return -1;
