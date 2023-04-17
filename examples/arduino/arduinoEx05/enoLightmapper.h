@@ -46,7 +46,7 @@ class enoLightmapper {
     int numLights;
     int lightCursorIdx;
     const static int maxLightNameLen = 15; 
-    const static int maxBrightVal    = 10; 
+    int maxBrightVal; 
     const static int maxCharsPerLine = 82; //80 + CRLF
     enoLightmapper *nextLightmapperChunk;
 };
