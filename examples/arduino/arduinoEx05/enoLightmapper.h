@@ -42,9 +42,9 @@ class enoLightmapper {
     // different tech (with different extant implementational calls)
     
     virtual void setLightByIdx(int  lightIdx, char lightColor, 
-                               int lightBrightness);
+                               int lightBrightness) = 0;
 
-    virtual void showLight();
+    virtual void showLight() = 0;
     
   private:
     int  whichChain;
