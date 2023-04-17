@@ -25,6 +25,7 @@ class enoLightmapper {
     char *getLightYamlStr();
 
     int    getLightColByKey(     char lightKey);
+    int    getLightIdxByKey(     char lightKey);
     IntArr getLightIdxByKeyMulti(char lightKey);
 
     int getLightColByIdx(int  lightIdx);

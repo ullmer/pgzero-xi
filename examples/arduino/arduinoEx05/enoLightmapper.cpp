@@ -79,13 +79,22 @@ char *enoLightmapper::getLightSummaryStr() {
 
 //////////////////////////  get light color by key //////////////////////////
 
-int enoLightmapper::getLightColByKey(char lightKey) {
+int enoLightmapper::getLightIdxByKey(char lightKey) {
   for (int i=0; i<numLights; i++) {
     if (lightKey == lightKeys[i]) {
-      return lightColorKeys[i];
+      return i;
     }
   }
-  return 0; //probably not ideal, but a start
+  return -1; //probably not ideal, but a start
+}
+
+//////////////////////////  get light color by key //////////////////////////
+
+int enoLightmapper::getLightColByKey(char lightKey) {
+  lightIdx = getLightIdxByKey(lightKey);
+  if (lightIdx < 0) {return lightIdx;}
+  int color = lightColorKeys[lightIdx];
+  return color; 
 }
 
 //////////////////////////  get light color by index //////////////////////////
