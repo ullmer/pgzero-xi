@@ -103,6 +103,16 @@ IntArr enoLightmapper::getLightIdxByKeyMulti(char lightKey) {
   if (keyCount == 0) {return 0; //probably not ideal, but a start}
 
   IntArr iaResult = IntArr(keyCount);
+
+  keyIdx = 0;
+
+  for (int i=0; i<numLights; i++) {
+    if (lightKey == lightKeys[i]) {
+      iaResult.set(keyIdx, i); keyIdx++;
+    }
+  }
+
+  return iaResult;
 }
 
 //////////////////////////  get light color by key //////////////////////////
