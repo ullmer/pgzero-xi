@@ -18,10 +18,8 @@ enoStrLightmapper::enoStrLightmapper(int numLights, int whichChain=0,
 void enoStrLightmapper::setLightByIdx(int  lightIdx, char lightColor, 
    int lightBrightness) {
 
-  pixels.setPixelColor(pixelNumber,
-    pgm_read_byte(&gamma8[r]),
-    pgm_read_byte(&gamma8[g]),
-    pgm_read_byte(&gamma8[b]));
+  printf("enoStrLight mapper :: set light by index :: idx %i, col %c, brt %i\n",
+         lightIdx, lightColor, lightBrightness);
 }
 
 ///////////////////////////// show light /////////////////////////////
