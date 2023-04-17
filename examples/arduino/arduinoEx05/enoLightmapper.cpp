@@ -19,8 +19,8 @@ enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal) 
   lightCursorIdx       = 0;
   nextLightmapperChunk = 0;
  
-  helpHeader = "idx col brt key name";
-  helpTempl  =  "%2i %1c %2X %1c %s\n";
+  helpHeader = "idx col brt key name\n";
+  helpTempl  =   "%2i   %1c  %2X  %1c %s\n";
 }
 
 ////////////////////////// allocate light buffers //////////////////////////
