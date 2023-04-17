@@ -146,12 +146,12 @@ int enoLightmapper::getLightIdxByName(char *lightName, bool caseSensitive) {
 
 //////////////////////////  get light idx by key //////////////////////////
 
-int enoLightmapper::getLightIdxByKey(char lightKey) {
-  for (int i=0; i<numLights; i++) {
-    if (lightKey == lightKeys[i]) {return i;}
-  }
-  return -1;
-}
+//int enoLightmapper::getLightIdxByKey(char lightKey) {
+//  for (int i=0; i<numLights; i++) {
+//    if (lightKey == lightKeys[i]) {return i;}
+//  }
+//  return -1;
+//}
     
 ////////////////////////// set light by name //////////////////////////
 
@@ -203,6 +203,7 @@ int IntArr::getSize() {return arrSize;}
 int IntArr::setEl(int idx, int val) {
   if (idx > arrSize) {return -1;}
   intArr[idx] = val;
+  return 1;
 }
 
 int IntArr::setEls(int *array, int listLen) {
