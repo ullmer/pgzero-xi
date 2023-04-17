@@ -5,12 +5,12 @@ main() {
   enoColormapper ecm = enoColormapper();
 
   char *ecmHelp = ecm.getColorSummaryStr();
-  printf(ecmHelp);
+  printf("%s", ecmHelp);
   
   printf("------------\n");
 
   char *ecmYHelp = ecm.getColorYamlStr();
-  printf(ecmYHelp);
+  printf("%s", ecmYHelp);
 }
 
 // end //

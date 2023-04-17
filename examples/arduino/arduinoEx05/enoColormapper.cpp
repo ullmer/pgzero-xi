@@ -12,7 +12,7 @@
 
 enoColormapper::enoColormapper(int maxColorkeysPerChunk, bool generateStandardColors) {
   allocateBuffers(maxColorkeysPerChunk);
-  nextColormapperChunk = NULL;
+  nextColormapperChunk = 0;
   if (generateStandardColors) {populateStandardColors();}
 }
 
