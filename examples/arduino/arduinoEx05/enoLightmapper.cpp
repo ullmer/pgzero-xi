@@ -144,9 +144,8 @@ void enoLightmapper::setLightByKey(char lightKey, char lightColor, int lightBrig
 
 ////////////////////////// set light by idx //////////////////////////
 
-int enoLightmapper::setLightByIdx(int lightIdx, char lightColor, int lightBrightness) {
-}
-
+//int enoLightmapper::setLightByIdx(int lightIdx, char lightColor, int lightBrightness) {
+//}
 
 /////////////////////////////////////////////////////////////////////////
 ///////////////////////////// integer array /////////////////////////////
@@ -181,7 +180,7 @@ int IntArr::getEl(int idx) {
   return intArr[idx];
 }
 
-int IntArr::operator[](int idx) 
+int IntArr::operator[](int idx) {
 
   if (idx >= arrSize) {return -1;} // consider an alternate implementation
   return intArr[idx];

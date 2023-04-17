@@ -33,7 +33,7 @@ class enoLightmapper {
     int getLightIdxByName(char *lightName, bool caseSensitive=false);
     
     void setLightByKey(char lightKey, char lightColor, int lightBrightness, bool multikey=true);
-    void setLightByIdx(int  lightIdx, char lightColor, int lightBrightness);
+    virtual void setLightByIdx(int  lightIdx, char lightColor, int lightBrightness);
     void setLightByName(char *lightName, char lightColor, int lightBrightness, bool caseSensitive=false);
     
   private:
