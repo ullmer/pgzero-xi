@@ -82,10 +82,11 @@ char *enoLightmapper::getLightSummaryStr() {
   if (showHelpHeader) {
     helpHeaderHandle = strdup(helpHeader); // workaround casting issue
     buffer[0] = helpHeaderHandle;
+    resultlen += strlen(buffer[0]);
     buffIdx += 1;
   }
   for (int i=0; i<numLights; i++) {
-    char currentLine[maxCharsPerLine];
+    char *currentLine = new char[maxCharsPerLine];
     int lightNameLen = strlen(lightNames[i]);
 
     if (lightNameLen > maxLightNameLen) {
@@ -113,7 +114,6 @@ char *enoLightmapper::getLightSummaryStr() {
   for (int i=0; i<buffIdx; i++) {
     currentLine = buffer[i];
     int currentLineLen = strlen(currentLine);
-    printf("E: %i %i\n", i, currentLineLen);
     
     int bytesToCopy;
     if (currentLineLen < maxCharsPerLine) { bytesToCopy = currentLineLen;}
