@@ -108,11 +108,13 @@ char *enoLightmapper::getLightSummaryStr() {
   }
 
   char *result = new char[resultlen+1];
-
   int currentCharIdx = 0;
-  for (int i=0; i<numLights; i++) {
+
+  for (int i=0; i<buffIdx; i++) {
     currentLine = buffer[i];
     int currentLineLen = strlen(currentLine);
+    print("E: %i %i\n", i, currentLineLen);
+    
     int bytesToCopy;
     if (currentLineLen < maxCharsPerLine) { bytesToCopy = currentLineLen;}
     else                                  { bytesToCopy = maxCharsPerLine;}
