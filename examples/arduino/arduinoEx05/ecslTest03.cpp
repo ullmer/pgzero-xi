@@ -3,12 +3,12 @@
 // Support by NSF CNS-1828611
 // Begun 2023-04
 
-#include "SerialCommands.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "enoStrLightmapper.h"
 #include "enoColormapper.h"
-#include <unistd.h>
+#include "SerialCommands.h"
 
 ////////////////// led & serial code /////////////////////
 
