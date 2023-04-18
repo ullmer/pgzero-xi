@@ -79,15 +79,11 @@ char *enoLightmapper::getLightSummaryStr() {
   int  buffIdx = 0;
   char *helpHeaderHandle;
 
-  printf("foo\n");
   if (showHelpHeader) {
     helpHeaderHandle = strdup(helpHeader); // workaround casting issue
-    printf("foo1\n");
     buffer[0] = helpHeaderHandle;
     buffIdx += 1;
   }
-  printf("foo2\n");
-
   for (int i=0; i<numLights; i++) {
     char currentLine[maxCharsPerLine];
     int lightNameLen = strlen(lightNames[i]);
@@ -105,7 +101,6 @@ char *enoLightmapper::getLightSummaryStr() {
 
     sprintf(currentLine, helpTempl, i, lightColorKeys[i], lightBright[i], 
             lightKeys[i], lightNames[i]);
-    printf("bar\n");
 
     resultlen += strlen(currentLine);
     buffer[buffIdx] = currentLine;
@@ -117,9 +112,14 @@ char *enoLightmapper::getLightSummaryStr() {
   int currentCharIdx = 0;
   for (int i=0; i<numLights; i++) {
     currentLine = buffer[i];
-    strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
-    currentCharIdx += strlen(currentLine);
+    int currentLineLen = strlen(currentLine);
+    int bytesToCopy;
+    if (currentLineLen < maxCharsPerLine) { bytesToCopy = currentLineLen;}
+    else                                  { bytesToCopy = maxCharsPerLine;}
+    memcpy(&(result[currentCharIdx]), currentLine, bytesToCopy);
+    currentCharIdx += bytesToCopy;
   }
+  result[resultlen]=0;
 
   if (helpHeaderHandle != 0) {free(helpHeaderHandle);} 
 

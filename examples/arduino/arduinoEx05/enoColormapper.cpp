@@ -87,6 +87,7 @@ char *enoColormapper::getColorSummaryStr() {
     memcpy(&(result[currentCharIdx]), currentLine, bytesToCopy);
     currentCharIdx += bytesToCopy;
   }
+  result[resultlen] = 0;
 
   return result;
 }
