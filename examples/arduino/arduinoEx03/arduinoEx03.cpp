@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <iostream>
 #include <SerialCommands.h>
 
@@ -17,7 +18,7 @@ void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
 
 char serial_command_buffer[32];
 
-SerialCommands serCmds(cin, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+SerialCommands serCmds(serialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
 
 SerialCommand cmd_red( "r", lightRed,  true);
 SerialCommand cmd_blue("b", lightBlue, true);
@@ -31,7 +32,7 @@ int main() {
 
   if (1) {
     serCmds.ReadSerial();
-    sleep(200);
+    sleep(.2);
   }
 }
 /// end ///
