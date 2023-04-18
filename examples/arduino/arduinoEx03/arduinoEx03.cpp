@@ -18,7 +18,8 @@ void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
 
 char serial_command_buffer[32];
 
-SerialCommands serCmds(Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+Stream *SerialProxy = new Stream();
+SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
 
 SerialCommand cmd_red( "r", lightRed,  true);
 SerialCommand cmd_blue("b", lightBlue, true);
