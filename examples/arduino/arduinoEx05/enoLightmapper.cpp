@@ -27,8 +27,8 @@ enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal) 
 
 void enoLightmapper::allocateLightBuffers(int numLights) {
   this->numLights = numLights;
-  lightKeys      = new char[numLights];
-  lightColorKeys = new char[numLights];
+  lightKeys      = new char[numLights+1];
+  lightColorKeys = new char[numLights+1];
   lightBright    = new int[ numLights];
   lightNames  = new const char*[numLights];
 
@@ -56,10 +56,11 @@ void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightI
 //////////////////////////  getLightSummaryStr //////////////////////////
 
 char *enoLightmapper::getLightSummaryStrCompact() {
-  char *resultStr = new char[numLights];
+  char *resultStr = new char[numLights+1];
   for (int i=0; i<numLights; i++) {
     resultStr[i] = lightColorKeys[i];	    
-  }  
+  } 
+  resultStr[numLights] = 0; 
   return resultStr;
 }
 
@@ -111,7 +112,7 @@ char *enoLightmapper::getLightSummaryStr() {
     buffIdx++;
   }
 
-  char *result = new char[resultlen];
+  char *result = new char[resultlen+1];
 
   int currentCharIdx = 0;
   for (int i=0; i<numLights; i++) {
