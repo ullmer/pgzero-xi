@@ -54,7 +54,7 @@ void enoColormapper::registerColor(char colorKey, const char colorName[], int co
 char *enoColormapper::getColorSummaryStr() {
   int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
-  char colorNameBuffer[maxColorNameLen];
+  char colorNameBuffer[maxColorNameLen+1];
   char *currentLine;
   char *currentColor;
 
@@ -68,18 +68,24 @@ char *enoColormapper::getColorSummaryStr() {
       currentColor = strcpy(colorNameBuffer, colorNames[i]);
     }
     
-    sprintf(currentLine, "%2i %c %6X %s\n", i, colorKeys[i], colorVals[i], currentColor); //could be refined further
+    sprintf(currentLine, "%2i %c %6X %s\n", 
+     i, colorKeys[i], colorVals[i], currentColor); 
     resultlen += strlen(currentLine);
     buffer[i] = currentLine;
   }
 
-  char *result = new char[resultlen];
+  char *result = new char[resultlen+1];
+  printf("C %i %i\n", numColorkeysUsed, resultlen);
 
   int currentCharIdx = 0;
   for (int i=0; i<numColorkeysUsed; i++) {
-    currentLine = buffer[i];
-    strncpy(&result[currentCharIdx], currentLine, maxCharsPerLine);
-    currentCharIdx += strlen(currentLine);
+    currentLine      = buffer[i];
+    int currentLineLen = strlen(currentLine);
+    int bytesToCopy;
+    if (currentLineLen < maxCharsPerLine) { bytesToCopy = currentLineLen;}
+    else                                  { bytesToCopy = maxCharsPerLine;}
+    memcpy(&(result[currentCharIdx]), currentLine, bytesToCopy);
+    currentCharIdx += bytesToCopy;
   }
 
   return result;
@@ -90,7 +96,7 @@ char *enoColormapper::getColorSummaryStr() {
 char *enoColormapper::getColorYamlStr() {
   int resultlen = 0;
   char **buffer = new char*[numColorkeysUsed];
-  char colorNameBuffer[maxColorNameLen];
+  char colorNameBuffer[maxColorNameLen+1];
   char *currentLine;
   char *currentColor;
 
@@ -100,7 +106,7 @@ char *enoColormapper::getColorYamlStr() {
     if (len>maxColorNameLen) {maxColorNameLen = len;}
   }
 
-  char *namePad = new char[maxColorNameLen];
+  char *namePad = new char[maxColorNameLen+1];
   for (int i=0; i<maxColorNameLen; i++) {namePad[i]=' ';} // toward alignment
 
   for (int i=0; i<numColorkeysUsed; i++) {
@@ -126,7 +132,7 @@ char *enoColormapper::getColorYamlStr() {
     buffer[i] = currentLine;
   }
 
-  char *result = new char[resultlen];
+  char *result = new char[resultlen+1];
 
   int currentCharIdx = 0;
   for (int i=0; i<numColorkeysUsed; i++) {
