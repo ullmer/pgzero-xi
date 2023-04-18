@@ -1,11 +1,39 @@
-#include "enoStrLightmapper.h"
-#include "enoColormapper.h"
+// Progressive examples, toward PyGame Zero Xi (Extended Interaction) integration
+// Brygg Ullmer, Clemson University
+// Support by NSF CNS-1828611
+// Begun 2023-04
+
+#include "SerialCommands.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "enoStrLightmapper.h"
+#include "enoColormapper.h"
+
+Stream *SerialProxy = new Stream();
+SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+
+SerialCommand cmd_red( "r", lightRed,  true);
+SerialCommand cmd_blue("b", lightBlue, true);
+SerialCommand cmd_off( "-", lightOff,  true);
+
+////////////////// led & serial code /////////////////////
+
+char serial_command_buffer[32];
+
+void lightBlue(SerialCommands *sender) {printf("blue\n");}
+void lightRed( SerialCommands *sender) {printf("red\n");}
+void lightOff( SerialCommands *sender) {printf("off\n");}
+void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
+
+////////////////// main /////////////////////
 
 int main() {
   enoStrLightmapper ecsl = enoStrLightmapper(5);
   enoColormapper ecm = enoColormapper();
+
+  serCmds.SetDefaultHandler(unrecognized);
+  serCmds.AddCommand(&cmd_red);
+  serCmds.AddCommand(&cmd_blue);  
 
   char *ecmHelp = ecm.getColorSummaryStr();
   printf("\ncolormap summary\n");
@@ -24,6 +52,11 @@ int main() {
   ecsl.setLightByIdx(1, 'b', 20);
   ecslHelp = ecsl.getLightSummaryStr();
   printf("%s", ecslHelp);
+
+  while (1) {
+    serCmds.ReadSerial();
+    sleep(.2);
+  }
 }
 
 /// end ///
