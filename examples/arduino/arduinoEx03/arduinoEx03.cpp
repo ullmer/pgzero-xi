@@ -31,7 +31,7 @@ int main() {
   serCmds.AddCommand(&cmd_red);
   serCmds.AddCommand(&cmd_blue);  
 
-  if (1) {
+  while (1) {
     serCmds.ReadSerial();
     sleep(.2);
   }
