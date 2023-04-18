@@ -1,2 +1,3 @@
 arduinoEx03: arduinoEx03.cpp
-	g++ arduinoEx03.cpp Arduino-SerialCommands/SerialCommands.cpp -I Arduino-SerialCommands
+	g++ -o aEx03 arduinoEx03.cpp asc/SerialCommands.cpp \
+		asc/kbhit.c asc/getch.c -I asc
