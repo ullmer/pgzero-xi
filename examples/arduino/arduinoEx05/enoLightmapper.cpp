@@ -71,26 +71,24 @@ char *enoLightmapper::getLightSummaryStr() {
   int bufflen = numLights;
   if (showHelpHeader) {bufflen++;}
 
-  printf("foo000\n");
-  char **buffer         = new char*[bufflen];
-  printf("foo00\n");
-  char *lightNameBuffer = new char[maxLightNameLen];
-  printf("foo0\n");
+  char *buffer[bufflen];
+  char lightNameBuffer[maxLightNameLen];
   char *currentLine;
   char *currentLight;
   int  buffIdx = 0;
-  char *helpHeaderHandle = 0;
+  char *helpHeaderHandle;
 
   printf("foo\n");
   if (showHelpHeader) {
     helpHeaderHandle = strdup(helpHeader); // workaround casting issue
+    printf("foo1\n");
     buffer[0] = helpHeaderHandle;
     buffIdx += 1;
   }
-  printf("foo\n");
+  printf("foo2\n");
 
   for (int i=0; i<numLights; i++) {
-    currentLine  = new char[maxCharsPerLine];
+    char currentLine[maxCharsPerLine];
     int lightNameLen = strlen(lightNames[i]);
 
     if (lightNameLen > maxLightNameLen) {
