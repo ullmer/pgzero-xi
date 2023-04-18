@@ -11,6 +11,8 @@ int main() {
 
   ecsl.setLightByIdx(0, 'r', 10);
   ecsl.showLight();
+  char *ecslHelp = ecsl.getLightSummaryStr();
+  printf("%s", ecslHelp);
 }
 
 /// end ///
