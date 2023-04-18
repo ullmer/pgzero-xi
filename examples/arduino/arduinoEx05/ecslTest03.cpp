@@ -8,22 +8,22 @@
 #include <stdlib.h>
 #include "enoStrLightmapper.h"
 #include "enoColormapper.h"
-
-Stream *SerialProxy = new Stream();
-SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
-
-SerialCommand cmd_red( "r", lightRed,  true);
-SerialCommand cmd_blue("b", lightBlue, true);
-SerialCommand cmd_off( "-", lightOff,  true);
+#include <unistd.h>
 
 ////////////////// led & serial code /////////////////////
 
 char serial_command_buffer[32];
+Stream *SerialProxy = new Stream();
+SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
 
 void lightBlue(SerialCommands *sender) {printf("blue\n");}
 void lightRed( SerialCommands *sender) {printf("red\n");}
 void lightOff( SerialCommands *sender) {printf("off\n");}
 void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
+
+SerialCommand cmd_red( "r", lightRed,  true);
+SerialCommand cmd_blue("b", lightBlue, true);
+SerialCommand cmd_off( "-", lightOff,  true);
 
 ////////////////// main /////////////////////
 

@@ -55,24 +55,39 @@ void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightI
 
 //////////////////////////  getLightSummaryStr //////////////////////////
 
+char *enoLightmapper::getLightSummaryStrCompact() {
+  char *resultStr = new char[numLights];
+  for (int i=0; i<numLights; i++) {
+    resultStr[i] = lightColorKeys[i];	    
+  }  
+  return resultStr;
+}
+
+//////////////////////////  getLightSummaryStr //////////////////////////
+
 char *enoLightmapper::getLightSummaryStr() {
   int resultlen = 0;
 
   int bufflen = numLights;
   if (showHelpHeader) {bufflen++;}
 
-  char **buffer = new char*[bufflen];
-  char lightNameBuffer[maxLightNameLen];
+  printf("foo000\n");
+  char **buffer         = new char*[bufflen];
+  printf("foo00\n");
+  char *lightNameBuffer = new char[maxLightNameLen];
+  printf("foo0\n");
   char *currentLine;
   char *currentLight;
   int  buffIdx = 0;
   char *helpHeaderHandle = 0;
 
+  printf("foo\n");
   if (showHelpHeader) {
     helpHeaderHandle = strdup(helpHeader); // workaround casting issue
     buffer[0] = helpHeaderHandle;
     buffIdx += 1;
   }
+  printf("foo\n");
 
   for (int i=0; i<numLights; i++) {
     currentLine  = new char[maxCharsPerLine];
@@ -85,13 +100,13 @@ char *enoLightmapper::getLightSummaryStr() {
     } else {
       currentLight = strcpy(lightNameBuffer, lightNames[i]);
     }
-
     
-    //helpHeader : "idx col brt key name"
-    //helpTempl  : "%2i %1c %2X %1c %s\n"
+    //helpHeader = "idx col brt key name\n";
+    //helpTempl  =   "%2i   %1c  %2X  %1c %s\n";
 
     sprintf(currentLine, helpTempl, i, lightColorKeys[i], lightBright[i], 
             lightKeys[i], lightNames[i]);
+    printf("bar\n");
 
     resultlen += strlen(currentLine);
     buffer[buffIdx] = currentLine;

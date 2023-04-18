@@ -21,6 +21,7 @@ class enoLightmapper {
     void registerLight(char lightKey, char lightColorKey, int lightIdx=-1, 
                      const char lightName[]="", int lightBright=5); //-1 = next in sequence
 
+    char *getLightSummaryStrCompact();
     char *getLightSummaryStr();
     char *getLightYamlStr();
 
