@@ -21,6 +21,14 @@ void enoStrLightmapper::setLightByIdx(int  lightIdx, char lightColor,
 
   printf("enoStrLight mapper :: set light by index :: idx %i, col %c, brt %i\n",
          lightIdx, lightColor, lightBrightness);
+
+  if (lightIdx > numLights) {
+    printf("enoStrLightmapper setLightByIdx error: idx > numLights!\n");
+    return;
+  }
+
+  lightColorKeys[lightIdx] = lightColor;
+  lightBright[lightIdx]    = lightBrightness;
 }
 
 ///////////////////////////// show light /////////////////////////////

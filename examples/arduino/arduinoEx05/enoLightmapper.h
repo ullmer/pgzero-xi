@@ -46,7 +46,7 @@ class enoLightmapper {
 
     virtual void showLight() = 0;
     
-  private:
+  protected:
     int  whichChain;
     char *lightKeys;
     char *lightColorKeys;
