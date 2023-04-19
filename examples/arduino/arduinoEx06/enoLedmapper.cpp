@@ -10,8 +10,8 @@
 
 ///////////////////////////// constructor /////////////////////////////
 
-enoLedmapper::enoLedmapper(int numLights, int whichChain=0, 
-  int maxBrightVal=10) : enoLightmapper(numLights, whichChain, maxBrightVal) {
+enoLedmapper::enoLedmapper(int numLights, int whichChain, 
+  int maxBrightVal) : enoLightmapper(numLights, whichChain, maxBrightVal) {
 
   initLeds();
 }

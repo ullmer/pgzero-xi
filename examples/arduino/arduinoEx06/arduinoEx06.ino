@@ -26,7 +26,13 @@
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 
 int cursorIdx = 0;
+
+#ifndef ARDUINO
 enoStrLightmapper *ecsl;
+#endif
+#ifdef ARDUINO
+enoLedmapper *ecsl;
+#endif
 
 char serial_command_buffer[32];
 
