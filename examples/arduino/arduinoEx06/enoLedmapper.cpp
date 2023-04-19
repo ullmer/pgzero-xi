@@ -50,7 +50,7 @@ void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor,
 
 ///////////////////////////// show light /////////////////////////////
 
-void enoLedmapper::showLight();
+void enoLedmapper::showLight() {
   pixels.show();
 }
 
