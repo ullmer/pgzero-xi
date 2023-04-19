@@ -18,12 +18,14 @@ class enoColormapper {
     char  *getColorSummaryStr();
     char  *getColorYamlStr();
     void   populateStandardColors();
+
     int    getColorByKey(char colorKey);
     int    getColorByIdx(int  colorIdx);
     int    getColorByName(char *colorName, bool caseSensitive=false);
-    int    getR(int color) {int result = color & 0xff0000; result >>= 4; return result;}
-    int    getG(int color) {int result = color & 0xff00;   result >>= 2; return result;}
-    int    getB(int color) {int result = color & 0xff;                   return result;}
+
+    int    getR(int color) {int result = color & 0xff0000; result >>= 16; return result;}
+    int    getG(int color) {int result = color & 0xff00;   result >>= 8;  return result;}
+    int    getB(int color) {int result = color & 0xff;                    return result;}
     
   private:
     char  *colorKeys;
