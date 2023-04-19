@@ -1,3 +1,6 @@
+aex05: enoStrLightmapper.cpp enoLightmapper.cpp enoColormapper.cpp arduinoEx05.ino
+	g++ -o aex05 enoStrLightmapper.cpp enoLightmapper.cpp enoColormapper.cpp asc/SerialCommands.cpp asc/kbhit.c asc/getch.c arduinoEx05.ino -I asc
+
 ecslTest04: enoStrLightmapper.cpp enoLightmapper.cpp enoColormapper.cpp ecslTest04.cpp 
 	g++ -o ecslTest04 enoStrLightmapper.cpp enoLightmapper.cpp enoColormapper.cpp asc/SerialCommands.cpp asc/kbhit.c asc/getch.c ecslTest04.cpp -I asc
 
