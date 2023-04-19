@@ -35,8 +35,12 @@ void enoLedmapper::initLeds() {
 void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor, 
    int lightBrightness) {
 
-  ecm-> 
-  
+  int color = ecm->getColorByKey();
+  int r, g, b;
+
+  r = ecm->getR(color);
+  g = ecm->getG(color);
+  b = ecm->getB(color);
 
   pixels.setPixelColor(lightIdx,
     pgm_read_byte(&gamma8[r]),
