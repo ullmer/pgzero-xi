@@ -9,13 +9,14 @@
 #endif
 
 #include <stdio.h>
+#include "enoColormapper.h"
 #include "enoLightmapper.h"
 
 ///////////////////////////// Enodia Light Mapper /////////////////////////////
 
 class enoStrLightmapper : public enoLightmapper {
   public:
-    enoStrLightmapper(int numLights, int whichChain=0, int maxBrightVal=10);
+    enoStrLightmapper(int numLights, enoColormapper *ecm, int whichChain=0, int maxBrightVal=10);
   
     void setLightByIdx(int lightIdx, char lightColor, int lightBrightness);
     void showLight();
