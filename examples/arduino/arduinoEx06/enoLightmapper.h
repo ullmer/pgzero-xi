@@ -7,6 +7,7 @@
 #ifndef enoLightmapper_h
 #define enoLightmapper_h
 
+#include "enoColormapper.h"
 #define ECM_DEFAULT_LightCHUNK 10
 
 class IntArr; //forward declaration; at bottom, as details aren't of highest relevance
@@ -15,7 +16,7 @@ class IntArr; //forward declaration; at bottom, as details aren't of highest rel
 
 class enoLightmapper {
   public:
-    enoLightmapper(int numLights, int whichChain=0, int maxBrightVal=10);
+    enoLightmapper(int numLights, enoColormapper *ecm, int whichChain=0, int maxBrightVal=10);
     void allocateLightBuffers(int numLights);
     void registerLight(char lightKey, char lightColorKey, int lightIdx=-1, 
                      const char lightName[]="", int lightBright=5); //-1 = next in sequence
@@ -47,6 +48,7 @@ class enoLightmapper {
     virtual void showLight() = 0;
     
   protected:
+    enoColormapper *ecm;
     int  whichChain;
     char *lightKeys;
     char *lightColorKeys;

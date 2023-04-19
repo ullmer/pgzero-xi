@@ -8,13 +8,14 @@
 #define enoLedmapper_h
 
 #include <Adafruit_NeoPixel.h>
+#include "enoColormapper.h"
 #include "enoLightmapper.h"
 
 ///////////////////////////// Enodia Light Mapper /////////////////////////////
 
 class enoLedmapper : public enoLightmapper {
   public:
-    enoLedmapper(int numLights, int whichChain=0, int maxBrightVal=10);
+    enoLedmapper(int numLights, enoColormapper *ecm, int whichChain=0, int maxBrightVal=10);
   
     void initLeds();
     void setLightByIdx(int  lightIdx, char lightColor, int lightBrightness);

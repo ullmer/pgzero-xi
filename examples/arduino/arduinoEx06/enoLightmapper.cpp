@@ -12,8 +12,9 @@
 
 ////////////////////////// constructor //////////////////////////
 
-enoLightmapper::enoLightmapper(int numLights, int whichChain, int maxBrightVal) {
+enoLightmapper::enoLightmapper(int numLights, enoColormapper *ecm, int whichChain, int maxBrightVal) {
   allocateLightBuffers(numLights);
+  this->ecm           = ecm; //colormapper
   this->whichChain    = whichChain;
   this->maxBrightVal  = maxBrightVal;
   lightCursorIdx       = 0;
