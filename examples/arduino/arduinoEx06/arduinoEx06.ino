@@ -84,8 +84,15 @@ void setup() {
   pixels.setBrightness(7); // not so bright
   #endif
 
+  #ifdef ARDUINO
+  ecsl = new enoLedmapper(5);
+  #endif
+  #ifndef ARDUINO
   ecsl = new enoStrLightmapper(5);
+  #endif
+  
   enoColormapper ecm = enoColormapper();
+
 
   serCmds.SetDefaultHandler(unrecognized);
   serCmds.AddCommand(&cmd_orange);

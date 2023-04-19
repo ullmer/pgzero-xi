@@ -10,9 +10,8 @@
 
 ///////////////////////////// constructor /////////////////////////////
 
-enoLedmapper::enoLedmapper(int numLights, int whichChain, 
-  int maxBrightVal) : enoLightmapper(numLights, whichChain, maxBrightVal) {
-
+enoLedmapper::enoLedmapper(int numLights, int whichChain, int maxBrightVal) : 
+  enoLightmapper(numLights, whichChain, maxBrightVal) {
   initLeds();
 }
 
@@ -36,7 +35,9 @@ void enoLedmapper::initLeds() {
 void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor, 
    int lightBrightness) {
 
-  pixels.setPixelColor(pixelNumber,
+  
+
+  pixels.setPixelColor(lightIdx,
     pgm_read_byte(&gamma8[r]),
     pgm_read_byte(&gamma8[g]),
     pgm_read_byte(&gamma8[b]));
