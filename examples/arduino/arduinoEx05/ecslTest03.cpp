@@ -23,8 +23,8 @@ void lightBlue(SerialCommands *sender) {
   printf("blue\n");
   ecsl->setLightByIdx(cursorIdx, 'b', 20);
 
-  char *ecslHelp = ecsl->getLightSummaryStr();
-  printf("%s", ecslHelp); free(ecslHelp); 
+  char *ecslHelp = ecsl->getLightSummaryStrCompact();
+  printf(">>%s\n", ecslHelp); free(ecslHelp); 
   cursorIdx++;
 }
 
@@ -32,8 +32,8 @@ void lightRed( SerialCommands *sender) {
   printf("red\n");
   ecsl->setLightByIdx(cursorIdx, 'r', 20);
 
-  char *ecslHelp = ecsl->getLightSummaryStr();
-  printf("%s", ecslHelp); free(ecslHelp); 
+  char *ecslHelp = ecsl->getLightSummaryStrCompact();
+  printf(">>%s\n", ecslHelp); free(ecslHelp); 
   cursorIdx++;
 }
 
