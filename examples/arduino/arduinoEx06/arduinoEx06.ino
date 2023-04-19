@@ -3,7 +3,7 @@
 // Support by NSF CNS-1828611
 // Begun 2023-04
 
-#define LED0 13
+char serial_command_buffer[32];
 
 #ifndef ARDUINO
 #include <stdio.h>
@@ -11,11 +11,17 @@
 #include <unistd.h>
 #include "enoStrLightmapper.h"
 #include "SerialCommands.h"
+#define LED0 13
 #endif
 
 #ifdef ARDUINO
 #include "enoLedmapper.h"
 #include <SerialCommands.h>
+#define BAUD 9600
+//#define BAUD 115200
+#define LED0 13
+#define LED_BRIGHTNESS 255
+SerialCommands serCmds(&Serial, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
 #endif
 
 #include "enoColormapper.h"
@@ -33,8 +39,6 @@ enoStrLightmapper *ecsl;
 #ifdef ARDUINO
 enoLedmapper *ecsl;
 #endif
-
-char serial_command_buffer[32];
 
 /////// purple /////// 
 
@@ -85,6 +89,7 @@ void setup() {
   #endif
 
   enoColormapper *ecm = new enoColormapper();
+  
 
   #ifdef ARDUINO
   ecsl = new enoLedmapper(5, ecm);
