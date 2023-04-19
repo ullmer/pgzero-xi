@@ -56,11 +56,19 @@ void enoLightmapper::registerLight(char lightKey, char lightColorKey, int lightI
 //////////////////////////  getLightSummaryStr //////////////////////////
 
 char *enoLightmapper::getLightSummaryStrCompact() {
-  char *resultStr = new char[numLights+1];
-  for (int i=0; i<numLights; i++) {
+  int i, endVal = numLights*2+2;
+  char *resultStr = new char[endVal+1];
+
+  for (i=0; i<numLights; i++) {
     resultStr[i] = lightColorKeys[i];	    
-  } 
-  resultStr[numLights] = 0; 
+  }
+
+  resultStr[i++] = '\r';
+  resultStr[i++] = '\n';
+
+  for (;i<endVal; i++) {resultStr[i] = '.';}
+  resultStr[endVal] = 0; 
+
   return resultStr;
 }
 
