@@ -9,13 +9,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "enoStrLightmapper.h"
-#include <SerialCommands.h>
+//#include "enoStrLightmapper.h"
+//#include "SerialCommands.h"
 #endif
 
 #ifdef ARDUINO
 #include "enoLedmapper.h"
-#include "SerialCommands.h"
+#include <SerialCommands.h>
 #endif
 
 #include "enoColormapper.h"
