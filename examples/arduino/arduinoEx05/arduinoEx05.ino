@@ -25,39 +25,10 @@
 #define NUMPIXELS 1
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 
-////////////////// setup /////////////////////
-
-void setup() {
-  pinMode(13, OUTPUT); // initialize digital pin 13 as an output.
-  
-  #if defined(NEOPIXEL_POWER)
-  pinMode(NEOPIXEL_POWER, OUTPUT);
-  digitalWrite(NEOPIXEL_POWER, HIGH);
-  #endif
-
-  Serial.begin(9600);
-  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  pixels.setBrightness(7); // not so bright
-}
-
-////////////////// loop/////////////////////
-
-void loop() {
-}
-
-///end///
-// Progressive examples, toward PyGame Zero Xi (Extended Interaction) integration
-// Brygg Ullmer, Clemson University
-// Support by NSF CNS-1828611
-// Begun 2023-04
-
-
-char serial_command_buffer[32];
-Stream *SerialProxy = new Stream();
-SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
-
 int cursorIdx = 0;
 enoStrLightmapper *ecsl;
+
+char serial_command_buffer[32];
 
 /////// purple /////// 
 
@@ -82,17 +53,31 @@ void lightOrange( SerialCommands *sender) {
   printf("%s\n", ecslHelp); free(ecslHelp); 
   #endif
 }
-
-void lightOff( SerialCommands *sender) {printf("off\n");}
-void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
+  
+////////////////// serial commands /////////////////////
 
 SerialCommand cmd_orange("o", lightOrange,  true);
 SerialCommand cmd_purple("p", lightPurple, true);
 SerialCommand cmd_off(   "-", lightOff,  true);
+void lightOff( SerialCommands *sender) {printf("off\n");}
+void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
 
-////////////////// main /////////////////////
+////////////////// setup /////////////////////
 
-int main() {
+void setup() {
+  #ifdef ARDUINO
+  pinMode(13, OUTPUT); // initialize digital pin 13 as an output.
+  
+  #if defined(NEOPIXEL_POWER)
+  pinMode(NEOPIXEL_POWER, OUTPUT);
+  digitalWrite(NEOPIXEL_POWER, HIGH);
+  #endif
+
+  Serial.begin(9600);
+  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  pixels.setBrightness(7); // not so bright
+  #endif
+
   ecsl = new enoStrLightmapper(5);
   enoColormapper ecm = enoColormapper();
 
@@ -100,10 +85,26 @@ int main() {
   serCmds.AddCommand(&cmd_orange);
   serCmds.AddCommand(&cmd_purple);  
 
+  #ifndef ARDUINO
+  Stream *SerialProxy = new Stream();
+  SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
+  #endif
+}
+
+////////////////// loop/////////////////////
+
+void loop() {
+  serCmds.ReadSerial();
+}
+
+#ifndef ARDUINO
+int main() {
+  setup();
   while (1) {
-    serCmds.ReadSerial();
+    loop();
     sleep(.2);
   }
 }
+#endif
 
 /// end ///
