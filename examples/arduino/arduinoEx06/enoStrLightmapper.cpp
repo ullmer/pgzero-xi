@@ -9,7 +9,7 @@
 ///////////////////////////// constructor /////////////////////////////
 
 enoStrLightmapper::enoStrLightmapper(int numLights, enoColormapper *ecm, int whichChain, 
-  int maxBrightVal) : enoLightmapper(numLights, enoColormapper *ecm, whichChain, maxBrightVal) {
+  int maxBrightVal) : enoLightmapper(numLights, ecm, whichChain, maxBrightVal) {
 
   printf("enoStrLight mapper :: constructor called\n");
 }

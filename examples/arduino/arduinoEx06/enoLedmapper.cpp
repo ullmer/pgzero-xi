@@ -35,7 +35,7 @@ void enoLedmapper::initLeds() {
 void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor, 
    int lightBrightness) {
 
-  int color = ecm->getColorByKey();
+  int color = ecm->getColorByKey(lightColor);
   int r, g, b;
 
   r = ecm->getR(color);
