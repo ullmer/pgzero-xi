@@ -16,8 +16,27 @@ char serial_command_buffer[32];
 Stream *SerialProxy = new Stream();
 SerialCommands serCmds(SerialProxy, serial_command_buffer, sizeof(serial_command_buffer), "\r\n", " ");
 
-void lightBlue(SerialCommands *sender) {printf("blue\n");}
-void lightRed( SerialCommands *sender) {printf("red\n");}
+int cursorIdx = 2;
+enoStrLightmapper *ecsl;
+
+void lightBlue(SerialCommands *sender) {
+  printf("blue\n");
+  ecsl->setLightByIdx(cursorIdx, 'b', 20);
+
+  char *ecslHelp = ecsl->getLightSummaryStr();
+  printf("%s", ecslHelp); free(ecslHelp); 
+  cursorIdx++;
+}
+
+void lightRed( SerialCommands *sender) {
+  printf("red\n");
+  ecsl->setLightByIdx(cursorIdx, 'r', 20);
+
+  char *ecslHelp = ecsl->getLightSummaryStr();
+  printf("%s", ecslHelp); free(ecslHelp); 
+  cursorIdx++;
+}
+
 void lightOff( SerialCommands *sender) {printf("off\n");}
 void unrecognized(SerialCommands* sender, const char* cmd) {lightOff(sender);}
 
@@ -27,8 +46,9 @@ SerialCommand cmd_off( "-", lightOff,  true);
 
 ////////////////// main /////////////////////
 
+
 int main() {
-  enoStrLightmapper ecsl = enoStrLightmapper(5);
+  ecsl = new enoStrLightmapper(5);
   enoColormapper ecm = enoColormapper();
 
   serCmds.SetDefaultHandler(unrecognized);
@@ -40,18 +60,23 @@ int main() {
   printf(  "----------------\n");
   printf("%s", ecmHelp);
 
-  ecsl.setLightByIdx(0, 'r', 10);
-  ecsl.showLight();
+  ecsl->setLightByIdx(0, 'r', 10);
+  ecsl->showLight();
 
   printf("\nlightmap summary\n");
   printf(  "----------------\n");
-  char *ecslHelp = ecsl.getLightSummaryStr();
+  char *ecslHelp = ecsl->getLightSummaryStr();
   printf("%s", ecslHelp);
-  //free(ecslHelp); //curious; when done, next call segfaults
+  free(ecslHelp);
 
-  ecsl.setLightByIdx(1, 'b', 20);
-  ecslHelp = ecsl.getLightSummaryStr();
-  printf("%s", ecslHelp);
+  ecslHelp = ecsl->getLightSummaryStrCompact();
+  printf(">>%s", ecslHelp);
+  free(ecslHelp); 
+
+  ecsl->setLightByIdx(1, 'b', 20);
+  ecslHelp = ecsl->getLightSummaryStrCompact();
+  printf(">>%s", ecslHelp);
+  free(ecslHelp); 
 
   while (1) {
     serCmds.ReadSerial();
