@@ -4,7 +4,7 @@
 // Begun 2023-04
 // LLGPL3
 
-#include <Adafruit_NeoPixel.h>
+//#include <Adafruit_NeoPixel.h>
 #include "enoLightmapper.h"
 #include "enoLedmapper.h"
 
@@ -18,6 +18,7 @@ enoLedmapper::enoLedmapper(int numLights, enoColormapper *ecm, int whichChain, i
 ///////////////////////////// initiate leds /////////////////////////////
   
 void enoLedmapper::initLeds() {
+ /*
   #if defined(NEOPIXEL_POWER)
   // If this board has a power control pin, we must set it to output and high
   // in order to enable the NeoPixels. We put this in an #if defined so it can
@@ -28,6 +29,9 @@ void enoLedmapper::initLeds() {
   
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
   pixels.setBrightness(7); // not so bright
+ */
+  fastleds = new CRGB[numLights];
+  FastLED.addLeds<WS2812, LED_PIN, GRB>(fastleds, NUM_LEDS);
 }
 
 ///////////////////////////// set light by idx /////////////////////////////
@@ -42,16 +46,19 @@ void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor,
   g = ecm->getG(color);
   b = ecm->getB(color);
 
-  pixels.setPixelColor(lightIdx,
-    pgm_read_byte(&gamma8[r]),
-    pgm_read_byte(&gamma8[g]),
-    pgm_read_byte(&gamma8[b]));
+  fastleds[lightIdx] = CRGB(r,g,b);
+
+  //pixels.setPixelColor(lightIdx,
+  //  pgm_read_byte(&gamma8[r]),
+  //  pgm_read_byte(&gamma8[g]),
+  //  pgm_read_byte(&gamma8[b]));
 }
 
 ///////////////////////////// show light /////////////////////////////
 
 void enoLedmapper::showLight() {
-  pixels.show();
+  //pixels.show();
+  FastLED.show();
 }
 
 /// end ///

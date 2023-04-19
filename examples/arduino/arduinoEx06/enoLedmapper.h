@@ -7,7 +7,12 @@
 #ifndef enoLedmapper_h
 #define enoLedmapper_h
 
-#include <Adafruit_NeoPixel.h>
+//#include <Adafruit_NeoPixel.h>
+#include <FastLED.h>
+//#define LED_PIN     7
+#define LED_PIN     13
+#define NUM_LEDS    22
+
 #include "enoColormapper.h"
 #include "enoLightmapper.h"
 
@@ -22,7 +27,8 @@ class enoLedmapper : public enoLightmapper {
     void showLight();
 
   private:
-    Adafruit_NeoPixel pixels;
+    //Adafruit_NeoPixel pixels;
+    CRGB *fastleds;
 };
 
 //LED gamma table from https://cdn-learn.adafruit.com/downloads/pdf/led-tricks-gamma-correction.pdf
