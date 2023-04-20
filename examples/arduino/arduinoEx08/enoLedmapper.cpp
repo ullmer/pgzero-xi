@@ -28,9 +28,11 @@ void enoLedmapper::initLeds() {
   #endif
   
   #ifdef USE_NEOPIXEL
-  Adafruit_NeoPixel pixels = new Adafruit_NeoPixel(numLights, LED_PIN, NEO_GRB + NEO_KHZ800);
+  pixels = new Adafruit_NeoPixel(numLights, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+  Serial.begin(9600);
   pixels->begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  pixels->setBrightness(7); // not so bright
+  pixels->setBrightness(LED_BRIGHTNESS); // not so bright
   #endif
 
   #ifdef USE_FASTLED
@@ -51,12 +53,15 @@ void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor,
   g = ecm->getG(color);
   b = ecm->getB(color);
 
+  #ifdef USE_FASTLED
   fastleds[lightIdx] = CRGB(r,g,b);
-
-  //pixels.setPixelColor(lightIdx,
-  //  pgm_read_byte(&gamma8[r]),
-  //  pgm_read_byte(&gamma8[g]),
-  //  pgm_read_byte(&gamma8[b]));
+  #endif
+  #ifdef USE_NEOPIXEL
+  pixels.setPixelColor(lightIdx,
+    pgm_read_byte(&gamma8[r]),
+    pgm_read_byte(&gamma8[g]),
+    pgm_read_byte(&gamma8[b]));
+  #endif
 }
 
 ///////////////////////////// show light /////////////////////////////

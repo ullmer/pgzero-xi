@@ -25,6 +25,8 @@
 #include "enoColormapper.h"
 #include "enoLightmapper.h"
 
+#define LED_BRIGHTNESS 7
+
 ///////////////////////////// Enodia Light Mapper /////////////////////////////
 
 class enoLedmapper : public enoLightmapper {
