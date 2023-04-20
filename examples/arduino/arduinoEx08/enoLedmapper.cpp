@@ -57,7 +57,7 @@ void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor,
   fastleds[lightIdx] = CRGB(r,g,b);
   #endif
   #ifdef USE_NEOPIXEL
-  pixels.setPixelColor(lightIdx,
+  pixels->setPixelColor(lightIdx,
     pgm_read_byte(&gamma8[r]),
     pgm_read_byte(&gamma8[g]),
     pgm_read_byte(&gamma8[b]));
@@ -68,7 +68,7 @@ void enoLedmapper::setLightByIdx(int  lightIdx, char lightColor,
 
 void enoLedmapper::showLight() {
   #ifdef USE_NEOPIXEL
-  pixels.show();
+  pixels->show();
   #endif
   #ifdef USE_FASTLED
   FastLED.show();
