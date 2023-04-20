@@ -18,7 +18,7 @@ enoLedmapper::enoLedmapper(int numLights, enoColormapper *ecm, int whichChain, i
 ///////////////////////////// initiate leds /////////////////////////////
   
 void enoLedmapper::initLeds() {
-  #ifdef NEOPIXEL
+
   //#if defined(NEOPIXEL_POWER)
   // If this board has a power control pin, we must set it to output and high
   // in order to enable the NeoPixels. We put this in an #if defined so it can
@@ -27,10 +27,11 @@ void enoLedmapper::initLeds() {
   //digitalWrite(NEOPIXEL_POWER, HIGH);
   //#endif
   
-  
-  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  pixels.setBrightness(7); // not so bright
- */
+  #ifdef NEOPIXEL
+  Adafruit_NeoPixel pixels = new Adafruit_NeoPixel(numLights, LED_PIN, NEO_GRB + NEO_KHZ800);
+  pixels->begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  pixels->setBrightness(7); // not so bright
+  #endif
 
   #ifdef FASTLED
   fastleds = new CRGB[numLights];
