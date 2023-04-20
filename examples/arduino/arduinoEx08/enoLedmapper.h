@@ -10,16 +10,15 @@
 #define NEOPIXEL
 //#define FASTLED
 
-
-#ifdef FASTLED
-#include <FastLED.h>
-#define NUM_LEDS    22
-#define LED_PIN     7
-#endif
+//#ifdef FASTLED
+//#include <FastLED.h>
+//#define NUM_LEDS    22
+//#define LED_PIN     7
+//#endif
 
 #ifdef NEOPIXEL
-//#include <Adafruit_NeoPixel.h>
-#include <Adafruit_NeoPixel_ZeroDMA.h>
+#include <Adafruit_NeoPixel.h>
+//#include <Adafruit_NeoPixel_ZeroDMA.h>
 #define LED_PIN     11
 #endif
 
@@ -39,7 +38,8 @@ class enoLedmapper : public enoLightmapper {
   private:
     #ifdef NEOPIXEL
     Adafruit_NeoPixel *pixels;
-    #elifdef FASTLED
+    #endif
+    #ifdef FASTLED
     CRGB *fastleds;
     #endif
 };
