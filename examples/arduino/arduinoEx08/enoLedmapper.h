@@ -37,8 +37,11 @@ class enoLedmapper : public enoLightmapper {
     void showLight();
 
   private:
-    //Adafruit_NeoPixel pixels;
+    #ifdef NEOPIXEL
+    Adafruit_NeoPixel *pixels;
+    #elifdef FASTLED
     CRGB *fastleds;
+    #endif
 };
 
 //LED gamma table from https://cdn-learn.adafruit.com/downloads/pdf/led-tricks-gamma-correction.pdf

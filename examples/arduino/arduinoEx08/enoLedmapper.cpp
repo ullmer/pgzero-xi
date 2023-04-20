@@ -18,20 +18,24 @@ enoLedmapper::enoLedmapper(int numLights, enoColormapper *ecm, int whichChain, i
 ///////////////////////////// initiate leds /////////////////////////////
   
 void enoLedmapper::initLeds() {
- /*
-  #if defined(NEOPIXEL_POWER)
+  #ifdef NEOPIXEL
+  //#if defined(NEOPIXEL_POWER)
   // If this board has a power control pin, we must set it to output and high
   // in order to enable the NeoPixels. We put this in an #if defined so it can
   // be reused for other boards without compilation errors
-  pinMode(NEOPIXEL_POWER, OUTPUT);
-  digitalWrite(NEOPIXEL_POWER, HIGH);
-  #endif
+  //pinMode(NEOPIXEL_POWER, OUTPUT);
+  //digitalWrite(NEOPIXEL_POWER, HIGH);
+  //#endif
+  
   
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
   pixels.setBrightness(7); // not so bright
  */
+
+  #ifdef FASTLED
   fastleds = new CRGB[numLights];
   FastLED.addLeds<WS2812, LED_PIN, GRB>(fastleds, NUM_LEDS);
+  #endif
 }
 
 ///////////////////////////// set light by idx /////////////////////////////
