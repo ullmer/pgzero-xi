@@ -3,14 +3,22 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
-#define SS_PIN 1
-//#define RST_PIN 0
+#define SS_PIN  27
 #define RST_PIN 6
+#define NFC_CS  26
+//#define SS_PIN 1
+//#define RST_PIN 0
 
 MFRC522 rfid(SS_PIN, RST_PIN);
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("start")
+
+  pinMode(NFC_CS, OUTPUT); //chip select, to selectably enable 
+                            //one of multiple NFC (or sister SPI devices) 
+  digitalWrite(NFC_CS, LOW));
+
   SPI.begin(); // init SPI bus
   rfid.PCD_Init(); // init MFRC522
 
